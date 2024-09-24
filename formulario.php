@@ -17,7 +17,7 @@
     <h2>Formulario de Informe o Queja</h2>
 
     <?php
-    $fechaInforme = $nombreAprendiz = $documentoAprendiz = $programaFormacion = $idGrupo = $descripcionQueja = $testigosPruebas = $correoQuejoso = $nombreQuejoso = "";
+    $fechaInforme = $nombreAprendiz = $documentoAprendiz = $programaFormacion = $idGrupo = $descripcionQueja = $testigosPruebas = $correoQuejoso = $nombreQuejoso = $correoDocente = $nombreDocente ="";
     $errores = [];
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -73,6 +73,19 @@
             $errores['nombreQuejoso'] = "El nombre del quejoso es obligatorio.";
         } else {
             $nombreQuejoso = test_input($_POST["nombre_quejoso"]);
+        }
+        if (empty($_POST["correo_docente"])) {
+            $errores['correoDocente'] = "El correo electrónico es obligatorio.";
+        } elseif (!filter_var($_POST["correo_docente"], FILTER_VALIDATE_EMAIL)) {
+            $errores['correoDocente'] = "Formato de correo inválido.";
+        } else {
+            $correoDocente = test_input($_POST["correo_docente"]);
+        }
+
+        if (empty($_POST["nombre_docente"])) {
+            $errores['nombreDocente'] = "El nombre del docente es obligatorio.";
+        } else {
+            $nombreDocente = test_input($_POST["nombre_docente"]);
         }
     }
 
@@ -160,6 +173,22 @@
             <input type="text" class="form-control <?php echo isset($errores['nombreQuejoso']) ? 'is-invalid' : ''; ?>" id="nombre_quejoso" name="nombre_quejoso" value="<?php echo $nombreQuejoso; ?>" required>
             <div class="invalid-feedback">
                 <?php echo $errores['nombreQuejoso'] ?? ''; ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="correo_docente">Correo electrónico del Docente</label>
+            <input type="email" class="form-control <?php echo isset($errores['correoDocente']) ? 'is-invalid' : ''; ?>" id="correo_quejoso" name="correo_quejoso" value="<?php echo $correoQuejoso; ?>" required>
+            <div class="invalid-feedback">
+                <?php echo $errores['correoDocente'] ?? ''; ?>
+            </div>
+        </div>
+
+        <!-- 6. Nombre del quejoso -->
+        <div class="form-group">
+            <label for="nombre_docente">Nombre del docente</label>
+            <input type="text" class="form-control <?php echo isset($errores['nombreDocente']) ? 'is-invalid' : ''; ?>" id="nombre_quejoso" name="nombre_quejoso" value="<?php echo $nombreQuejoso; ?>" required>
+            <div class="invalid-feedback">
+                <?php echo $errores['nombreDocente'] ?? ''; ?>
             </div>
         </div>
 

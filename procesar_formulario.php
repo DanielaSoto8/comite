@@ -40,19 +40,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $mail = new PHPMailer(true);
 
                 try {
-                    // Configuración del servidor SMTP
+                    // Configuración del servidor SMTP/ ayuda al envio del correo
                     $mail->isSMTP();
-                    $mail->Host = 'smtp.ejemplo.com';  // Especifica el servidor SMTP (ej: smtp.gmail.com)
+                    $mail->Host = 'smtp.gmail.com';  // Especifica el servidor SMTP (ej: smtp.gmail.com)
                     $mail->SMTPAuth = true;
-                    $mail->Username = 'tu-correo@ejemplo.com';  // Tu correo
-                    $mail->Password = 'tu-contraseña';  // Tu contraseña de correo
+                    $mail->Username = 'educomitpro@gmail.com';  // Tu correo
+                    $mail->Password = 'pznn nraf izxa bybd';  // Tu contraseña de correo/aplicaciones externas usen contraseña personal
                     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                     $mail->Port = 587;  // Puerto SMTP (587 para TLS o 465 para SSL)
 
                     // Destinatario
-                    $mail->setFrom('tu-correo@ejemplo.com', 'Sistema de Quejas');
-                    $mail->addAddress('destinatario@ejemplo.com', 'Destinatario');
-
+                    $mail->setFrom('educomitpro@gmail.com', 'Sistema de Quejas');
+                    $mail->addAddress($correoQuejoso, $nombreQuejoso);
+                    $mail->addAddress($correoDocente, $nombreDocente);
                     // Asunto del correo
                     $mail->Subject = 'Nuevo Informe o Queja';
 
