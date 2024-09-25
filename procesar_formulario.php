@@ -23,18 +23,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar que no hay errores antes de guardar
     if (empty($errores)) {
         // Preparar la consulta SQL para insertar los datos
-        $sql = "INSERT INTO informes (fechaInforme, nombreAprendiz, documentoAprendiz, programaFormacion, idGrupo, descripcionQueja, testigosPruebas, correoQuejoso, nombreQuejoso)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO informes (fechaInforme, nombreAprendiz, documentoAprendiz, programaFormacion, idGrupo, descripcionQueja, testigosPruebas, correoQuejoso, nombreQuejoso, correoDocente, nombreDocente)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         // Preparar la declaración
         $stmt = $conn->prepare($sql);
         if ($stmt) {
             // Enlazar los parámetros con los valores del formulario
-            $stmt->bind_param("sssssssss", $fechaInforme, $nombreAprendiz, $documentoAprendiz, $programaFormacion, $idGrupo, $descripcionQueja, $testigosPruebas, $correoQuejoso, $nombreQuejoso);
+            $stmt->bind_param("sssssssssss", $fechaInforme, $nombreAprendiz, $documentoAprendiz, $programaFormacion, $idGrupo, $descripcionQueja, $testigosPruebas, $correoQuejoso, $nombreQuejoso, $correoDocente, $nombreDocente);
 
             // Ejecutar la declaración y verificar si fue exitosa
             if ($stmt->execute()) {
-                echo "Informe guardado correctamente.";
+                echo "<script>alert('Informe enviado correctamente.');</script>";
 
                 // Enviar el correo electrónico con PHPMailer
                 $mail = new PHPMailer(true);
@@ -53,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $mail->setFrom('educomitpro@gmail.com', 'Sistema de Quejas');
                     $mail->addAddress($correoQuejoso, $nombreQuejoso);
                     $mail->addAddress($correoDocente, $nombreDocente);
+                    
                     // Asunto del correo
                     $mail->Subject = 'Nuevo Informe o Queja';
 
@@ -69,12 +70,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <p><strong>Testigos o Pruebas:</strong> $testigosPruebas</p>
                     <p><strong>Correo del Quejoso:</strong> $correoQuejoso</p>
                     <p><strong>Nombre del Quejoso:</strong> $nombreQuejoso</p>
+                    <p><strong>Correo del Docente:</strong> $correoDocente</p>
+                    <p><strong>Nombre del Docente:</strong> $nombreDocente</p>
                     ";
                     $mail->Body = $mailContent;
 
                     // Enviar el correo
                     $mail->send();
-                    echo 'El informe ha sido enviado correctamente por correo.';
+                    echo "<script>alert('El informe ha sido enviado correctamente por correo.');</script>";
                 } catch (Exception $e) {
                     echo "Error al enviar el informe por correo: {$mail->ErrorInfo}";
                 }
@@ -94,4 +97,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+
 

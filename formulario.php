@@ -11,15 +11,18 @@
 </head>
 <body>
 
-
-
 <div class="container mt-5">
     <h2>Formulario de Informe o Queja</h2>
 
     <?php
-    $fechaInforme = $nombreAprendiz = $documentoAprendiz = $programaFormacion = $idGrupo = $descripcionQueja = $testigosPruebas = $correoQuejoso = $nombreQuejoso = $correoDocente = $nombreDocente ="";
+
+      // Incluimos el archivo de procesamiento
+
+    // Definir las variables con valores vacíos
+    $fechaInforme = $nombreAprendiz = $documentoAprendiz = $programaFormacion = $idGrupo = $descripcionQueja = $testigosPruebas = $correoQuejoso = $nombreQuejoso = $correoDocente = $nombreDocente = "";
     $errores = [];
 
+    // Procesar el formulario
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["fecha_informe"])) {
             $errores['fechaInforme'] = "La fecha del informe es obligatoria.";
@@ -74,8 +77,9 @@
         } else {
             $nombreQuejoso = test_input($_POST["nombre_quejoso"]);
         }
+
         if (empty($_POST["correo_docente"])) {
-            $errores['correoDocente'] = "El correo electrónico es obligatorio.";
+            $errores['correoDocente'] = "El correo electrónico del docente es obligatorio.";
         } elseif (!filter_var($_POST["correo_docente"], FILTER_VALIDATE_EMAIL)) {
             $errores['correoDocente'] = "Formato de correo inválido.";
         } else {
@@ -90,16 +94,13 @@
     }
 
     function test_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
+        return htmlspecialchars(stripslashes(trim($data)));
     }
     ?>
 
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="needs-validation" novalidate>
 
-        <!-- 1. Fecha del informe o queja -->
+        <!-- Fecha del informe o queja -->
         <div class="form-group">
             <label for="fecha_informe">Fecha del informe o queja</label>
             <input type="date" class="form-control <?php echo isset($errores['fechaInforme']) ? 'is-invalid' : ''; ?>" id="fecha_informe" name="fecha_informe" value="<?php echo $fechaInforme; ?>" required>
@@ -108,7 +109,7 @@
             </div>
         </div>
 
-        <!-- 2. Información general -->
+        <!-- Información general -->
         <h4>Información General</h4>
         
         <div class="form-group">
@@ -143,7 +144,7 @@
             </div>
         </div>
 
-        <!-- 3. Relación sucinta del informe o de la queja presentada -->
+        <!-- Relación sucinta del informe o queja presentada -->
         <div class="form-group">
             <label for="descripcion_queja">Relación sucinta del informe o de la queja presentada</label>
             <textarea class="form-control <?php echo isset($errores['descripcionQueja']) ? 'is-invalid' : ''; ?>" id="descripcion_queja" name="descripcion_queja" rows="5" required><?php echo $descripcionQueja; ?></textarea>
@@ -152,13 +153,13 @@
             </div>
         </div>
 
-        <!-- 4. Testigos y/o pruebas -->
+        <!-- Testigos y/o pruebas -->
         <div class="form-group">
             <label for="testigos_pruebas">Testigos y/o pruebas que aporta (opcional)</label>
             <textarea class="form-control" id="testigos_pruebas" name="testigos_pruebas" rows="4"><?php echo $testigosPruebas; ?></textarea>
         </div>
 
-        <!-- 5. Correo electrónico del informante o quejoso -->
+        <!-- Correo electrónico del informante o quejoso -->
         <div class="form-group">
             <label for="correo_quejoso">Correo electrónico del informante o quejoso</label>
             <input type="email" class="form-control <?php echo isset($errores['correoQuejoso']) ? 'is-invalid' : ''; ?>" id="correo_quejoso" name="correo_quejoso" value="<?php echo $correoQuejoso; ?>" required>
@@ -167,40 +168,43 @@
             </div>
         </div>
 
-        <!-- 6. Nombre del quejoso -->
         <div class="form-group">
-            <label for="nombre_quejoso">Nombre del quejoso</label>
+            <label for="nombre_quejoso">Nombre del informante o quejoso</label>
             <input type="text" class="form-control <?php echo isset($errores['nombreQuejoso']) ? 'is-invalid' : ''; ?>" id="nombre_quejoso" name="nombre_quejoso" value="<?php echo $nombreQuejoso; ?>" required>
             <div class="invalid-feedback">
                 <?php echo $errores['nombreQuejoso'] ?? ''; ?>
             </div>
         </div>
+
+        <!-- Correo electrónico del docente -->
         <div class="form-group">
-            <label for="correo_docente">Correo electrónico del Docente</label>
-            <input type="email" class="form-control <?php echo isset($errores['correoDocente']) ? 'is-invalid' : ''; ?>" id="correo_quejoso" name="correo_quejoso" value="<?php echo $correoQuejoso; ?>" required>
+            <label for="correo_docente">Correo electrónico del docente</label>
+            <input type="email" class="form-control <?php echo isset($errores['correoDocente']) ? 'is-invalid' : ''; ?>" id="correo_docente" name="correo_docente" value="<?php echo $correoDocente; ?>" required>
             <div class="invalid-feedback">
                 <?php echo $errores['correoDocente'] ?? ''; ?>
             </div>
         </div>
 
-        <!-- 6. Nombre del quejoso -->
         <div class="form-group">
             <label for="nombre_docente">Nombre del docente</label>
-            <input type="text" class="form-control <?php echo isset($errores['nombreDocente']) ? 'is-invalid' : ''; ?>" id="nombre_quejoso" name="nombre_quejoso" value="<?php echo $nombreQuejoso; ?>" required>
+            <input type="text" class="form-control <?php echo isset($errores['nombreDocente']) ? 'is-invalid' : ''; ?>" id="nombre_docente" name="nombre_docente" value="<?php echo $nombreDocente; ?>" required>
             <div class="invalid-feedback">
                 <?php echo $errores['nombreDocente'] ?? ''; ?>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Enviar Informe</button>
+        <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
-    <?php 
+
+    <?php
     include("procesar_formulario.php");
     ?>
 </div>
 
-<!-- Enlace a Bootstrap JS y jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Enlace a Bootstrap JS y dependencias -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="js/ruang-admin.min.js"></script>
 </body>
 </html>
