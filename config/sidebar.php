@@ -3,7 +3,7 @@
         <div class="sidebar-brand-icon">
             <img src="img/logo/sena.png">
         </div>
-        <div class="sidebar-brand-text mx-3">EduComitPro</div>
+        
     </a>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"

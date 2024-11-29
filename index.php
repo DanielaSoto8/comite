@@ -56,14 +56,13 @@ if (!isset($_SESSION['id'])) {
             <div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
               <div class="card mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-success">Notificaciones</h6>
+                  <h6 class="m-0 font-weight-bold text-success">Registro y Notificación Aprendices</h6>
                 </div>
                 <img  class="img"src="img/notificaciones.png" alt="">
                 <div class="card-body">
-                    <p>Se notifica al estudiante el reporte por parte del profesor que la competencia
-                        no ha sido aprobada
+                    <p>Se registra y notifica  al aprendiz que por su desempeño tanto academico o disciplinario no es aprobado
                     </p>
-                    <button type="button" class="btn btn-success mb-1"><a href="formulario.php">Notificaciones</a></button>
+                    <button type="button" class="btn btn-success mb-1"><a href="registro.php">Ingresar</a></button>
                    
                     <!-- <button type="button" class="btn btn-secondary mb-1">Secondary</button>
                     <button type="button" class="btn btn-success mb-1">Success</button>
