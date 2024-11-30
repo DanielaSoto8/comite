@@ -56,6 +56,29 @@ if (!isset($_SESSION['id'])) {
             <div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
               <div class="card mb-4">
                 <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-success">Base de datos aprendices e Instructores</h6>
+                </div>
+                <img  class="img"src="img/notificaciones.png" alt="">
+                <div class="card-body">
+                    <p>Se registra y notifica  al aprendiz que por su desempeño tanto academico o disciplinario no es aprobado
+                    </p>
+                    <button type="button" class="btn btn-success mb-1"><a href="base.php">Ingresar</a></button>
+                   
+                    <!-- <button type="button" class="btn btn-secondary mb-1">Secondary</button>
+                    <button type="button" class="btn btn-success mb-1">Success</button>
+                    <button type="button" class="btn btn-danger mb-1">Danger</button>
+                    <button type="button" class="btn btn-warning mb-1">Warning</button>
+                    <button type="button" class="btn btn-info mb-1">Info</button>
+                    <button type="button" class="btn btn-light mb-1">Light</button>
+                    <button type="button" class="btn btn-dark mb-1">Dark</button>
+                    <button type="button" class="btn btn-link">Link</button> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+              <div class="card mb-4">
+                <div class="card-header py-3">
                   <h6 class="m-0 font-weight-bold text-success">Registro y Notificación Aprendices</h6>
                 </div>
                 <img  class="img"src="img/notificaciones.png" alt="">
