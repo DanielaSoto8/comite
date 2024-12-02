@@ -16,7 +16,9 @@
                 <h6 class="collapse-header">Inicio</h6>
                 <ul>
                     <li><a href="perfil.php">Administrar Perfiles</a></li>
-                    <li><a href="usuario.php">Administrar Usuarios</a></li>
+
+                    
+                    <li><a href="../usuario/usuario.php">Administrar Usuarios</a></li>
                     <li><a href="mi_perfil.php">Ver mi perfil</a></li>
                 </ul>
 

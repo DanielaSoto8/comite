@@ -1,5 +1,5 @@
 <?php
-require_once('config.php');
+require_once(__DIR__ . '/config/config.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $usuario = $_POST['usuario'];
@@ -22,9 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['usuario'] = $row['usuario'];
             $_SESSION['nombres'] = $row['nombres'];
             $_SESSION['apellidos'] = $row['apellidos'];
-            $_SESSION['perfil'] = $row['id_perfil'];
+            $_SESSION['id_perfil'] = $row['id_perfil'];
             $_SESSION['estado'] = $row['estado'];
-            $_SESSION['permisos'] = $row['permisos'];
 
             // Redireccionar al usuario a la página de inicio
             header('Location: index.php');

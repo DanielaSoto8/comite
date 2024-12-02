@@ -18,19 +18,22 @@ if ($conn->connect_error) {
 
 // Procesar el formulario cuando se envíe (método POST)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = $_POST['Nombres'] ?? null;
-    $apellidos = $_POST['Apellidos'] ?? null;
-    $documento = $_POST['Documento'] ?? null;
-    $correoElectronico = $_POST['correoElectronico'] ?? null;
-    $jornada = $_POST['Jornada'] ?? null;
+    $nombres = $_POST['nombres'] ?? null;
+    $apellidos = $_POST['apellidos'] ?? null;
+    $celular = $_POST['celular'] ?? null;
+    $documento = $_POST['documento'] ?? null;
+    $correo_electronico = $_POST['correo_electronico'] ?? null;
+    $id_grupo = $_POST['id_grupo'] ?? null;
+    $jornada = $_POST['jornada'] ?? null;
+    $estado = $_POST['estado'] ?? null;
 
     // Verificar si todos los campos están completos
-    if ($nombre && $apellidos && $documento && $correoElectronico && $jornada) {
+    if ($nombres && $apellidos && $celular && $documento && $correo_electronico && $id_grupo && $jornada&& $estado) {
         $conexion = new mysqli('localhost', 'root', '', 'comite');
 
         // Preparar la consulta para insertar los datos en la base de datos
-        $stmt = $conexion->prepare("INSERT INTO aprendices (Nombres, Apellidos, Documento, correoElectronico, Jornada) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $nombre, $apellidos, $documento, $correoElectronico, $jornada);
+        $stmt = $conexion->prepare("INSERT INTO aprendiz (nombres, apellidos,celular, documento, correo_electronico, id_grupo, jornada, estado) VALUES (?, ?, ?, ?, ?,?,?,?)");
+        $stmt->bind_param("sssss", $nombres, $apellidos, $documento, $celular, $correo_electronico, $id_grupo, $jornada, $estado);
 
         // Ejecutar la consulta e informar el resultado
         if ($stmt->execute()) {

@@ -62,8 +62,10 @@ if (!isset($_SESSION['id'])) {
                 <div class="card-body">
                     <p>Se registra y notifica  al aprendiz que por su desempeño tanto academico o disciplinario no es aprobado
                     </p>
-                    <button type="button" class="btn btn-success mb-1"><a href="base.php">Ingresar</a></button>
-                   
+                    <button type="button" class="btn btn-success mb-1"><a href="/aprendiz/base.php"> <button type="button" class="btn btn-success mb-1">Aprendices</button>
+</a>
+</button>
+
                     <!-- <button type="button" class="btn btn-secondary mb-1">Secondary</button>
                     <button type="button" class="btn btn-success mb-1">Success</button>
                     <button type="button" class="btn btn-danger mb-1">Danger</button>
