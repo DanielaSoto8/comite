@@ -79,6 +79,11 @@ $conn->close();
     <div class="container mt-5">
         <h2>Editar Registro del Instructor</h2>
         <form action="editar.php?documento=<?php echo $documento; ?>" method="POST">
+        <div class="form-group">
+                <label for="documento">Nombre</label>
+                <input type="text" class="form-control" id="documento" name="documento"
+                    value="<?php echo $row['documento']; ?>" required>
+            </div>
             <div class="form-group">
                 <label for="nombres">Nombre</label>
                 <input type="text" class="form-control" id="nombres" name="nombres"
@@ -98,19 +103,6 @@ $conn->close();
                 <label for="correo_electronico">Correo Electrónico</label>
                 <input type="email" class="form-control" id="correo_electronico" name="correo_electronico"
                     value="<?php echo $row['correo_electronico']; ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="id_grupo">ID Grupo</label>
-                <input type="text" class="form-control" id="id_grupo" name="id_grupo"
-                    value="<?php echo $row['id_grupo']; ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="jornada">Jornada</label>
-                <select class="form-control" id="jornada" name="jornada" required>
-                    <option value="Mañana" <?php echo ($row['jornada'] == 'Mañana') ? 'selected' : ''; ?>>Mañana</option>
-                    <option value="Tarde" <?php echo ($row['jornada'] == 'Tarde') ? 'selected' : ''; ?>>Tarde</option>
-                    <option value="Noche" <?php echo ($row['jornada'] == 'Noche') ? 'selected' : ''; ?>>Noche</option>
-                </select>
             </div>
             <div class="form-group">
                 <label for="estado">Estado</label>

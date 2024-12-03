@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 // Consulta para obtener los registros (ajusta esto si es necesario)
-$sql = "SELECT * FROM USUARIO";
+$sql = "SELECT * FROM usuario";
 $result = $conn->query($sql);
 
 // Mostrar los resultados en una tabla
@@ -23,16 +23,25 @@ if ($result->num_rows > 0) {
         echo "<tr>";
         echo "<td>" . $row['id'] . "</td>";
         echo "<td>" . $row['usuario'] . "</td>";
-        echo "<td>" . $row['contraseña'] . "</td>"; 
+        echo "<td>" . $row['contrasenia'] . "</td>"; 
         echo "<td>" . $row['nombres'] . "</td>";
         echo "<td>" . $row['apellidos'] . "</td>";
         echo "<td>" . $row['id_perfil'] . "</td>";
         echo "<td>" . $row['estado'] . "</td>";
-        
-        
         echo "<td>";
-        echo "<a href='editar.php?documento=" . $row['id'] . "' class='btn btn-warning btn-sm' title='Editar'><i class='fas fa-edit'></i></a> ";
-        echo "<a href='eliminar.php?documento=" . $row['id'] . "' class='btn btn-danger btn-sm' title='Eliminar' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este registro?\");'><i class='fas fa-trash-alt'></i></a>";
+        echo "<button class='btn btn-warning btn-sm btn-editar' data-toggle='modal' data-target='#modalUsuario' 
+                        data-id='{$row['id']}' 
+                        data-usuario='{$row['usuario']}' 
+                        data-contrasenia='{$row['contrasenia']}' 
+                        data-nombres='{$row['nombres']}' 
+                        data-apellidos='{$row['apellidos']}' 
+                        data-perfil='{$row['id_perfil']}' 
+                        data-estado='{$row['estado']}'>
+                    Editar
+                </button> ";
+        echo "<button class='btn btn-danger btn-sm' onclick='abrirModalEliminar({$row['id']}, \"{$row['nombres']}\")'>
+                Eliminar
+            </button>";
         echo "</td>";
         echo "</tr>";
     }

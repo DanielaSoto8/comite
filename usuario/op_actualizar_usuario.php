@@ -10,10 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nombres = $_POST['nombres'];
     $apellidos = $_POST['apellidos'];
     $perfil = $_POST['perfil'];
-    $estado = isset($_POST['estado']) ? 1 : 0; // Si el checkbox está marcado, estado es 1 (activo)
+    $estado = $_POST['estado'];
+     
 
     // Validación de los datos (esto es opcional, puedes agregar más validaciones si lo deseas)
-    if (empty($usuario) || empty($nombres) || empty($apellidos) || empty($perfil)) {
+    if (empty($id) || empty($usuario) || empty($nombres) || empty($apellidos) || empty($perfil)) {
         echo "Todos los campos son obligatorios.";
         exit;
     }
@@ -34,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     } catch (PDOException $e) {
         echo "Error al actualizar el usuario: " . $e->getMessage();
+        header("Location: index.php");
     }
 }
 ?>

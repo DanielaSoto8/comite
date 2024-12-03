@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contrasenia = $_POST['contrasenia'];
     $nombres = $_POST['nombres'];
     $apellidos = $_POST['apellidos'];
-    $id_perfil = $_POST['id_perfil'];
+    $id_perfil = $_POST['perfil'];
     $estado = $_POST['estado']; // Si el estado es un campo textual, puede ser 'activo' o 'inactivo'
 
     // Encriptar la contraseña para mayor seguridad
