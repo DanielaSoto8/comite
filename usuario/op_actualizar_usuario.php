@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['mensaje'] = 'Usuario actualizado con éxito';
 
         // Redirigir al usuario a la página de inicio o cualquier página que desees
-        header("Location: ../index.php"); // Cambia esta URL por la que desees
+        header("Location: usuario.php"); // Cambia esta URL por la que desees
         exit;
 
     } catch (PDOException $e) {

@@ -39,85 +39,178 @@ $consulta_usuarios = $pdo->query("SELECT * FROM usuario");
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Usuarios</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-green-50 min-h-screen flex flex-col items-center p-4">
-    <h2 class="text-3xl font-bold text-green-700 mb-6">Administrar Usuarios</h2>
-    <table class="border-collapse border border-green-600 w-full max-w-4xl text-left">
-        <thead>
-            <tr class="bg-green-200 text-green-800">
-                <th class="border border-green-600 px-4 py-2">ID</th>
-                <th class="border border-green-600 px-4 py-2">Usuario</th>
-                <th class="border border-green-600 px-4 py-2">Nombres</th>
-                <th class="border border-green-600 px-4 py-2">Apellidos</th>
-                <th class="border border-green-600 px-4 py-2">Perfil</th>
-                <th class="border border-green-600 px-4 py-2">Estado</th>
-                <th class="border border-green-600 px-4 py-2">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php while ($row = $consulta_usuarios->fetch(PDO::FETCH_ASSOC)) { ?>
-                <tr class="odd:bg-green-50 even:bg-green-100 text-green-900">
-                    <td class="border border-green-600 px-4 py-2"><?php echo $row['id']; ?></td>
-                    <td class="border border-green-600 px-4 py-2"><?php echo $row['usuario']; ?></td>
-                    <td class="border border-green-600 px-4 py-2"><?php echo $row['nombres']; ?></td>
-                    <td class="border border-green-600 px-4 py-2"><?php echo $row['apellidos']; ?></td>
-                    <td class="border border-green-600 px-4 py-2">
-                        <?php
-                        $consulta_perfil_usuario = $pdo->prepare("SELECT perfil FROM perfil WHERE id = ?");
-                        $consulta_perfil_usuario->execute([$row['id_perfil']]);
-                        $perfil_usuario = $consulta_perfil_usuario->fetch(PDO::FETCH_ASSOC);
-                        echo $perfil_usuario['perfil'];
-                        ?>
-                    </td>
-                    <td class="border border-green-600 px-4 py-2"><?php echo $row['estado'] == 1 ? 'Activo' : 'Inactivo'; ?></td>
-                    <td class="border border-green-600 px-4 py-2">
-                        <a href="f_actualizar_usuario.php?id=<?php echo $row['id']; ?>" class="text-green-500 hover:underline">Actualizar</a>
-                        <a href="javascript:void(0);" onclick="mostrarModal(<?php echo $row['id']; ?>)" class="text-red-500 hover:underline ml-2">Eliminar</a>
-                    </td>
-                </tr>
-            <?php } ?>
-        </tbody>
-    </table>
-    <a href="f_crear_usuario.php" class="mt-6 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Crear usuario</a>
-    <!-- Modal de Confirmación -->
-    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
-    <div class="bg-white rounded-lg p-6 w-96">
-        <h2 class="text-xl font-bold mb-4 text-center">¿Estás seguro de que deseas eliminar este usuario?</h2>
-        <div class="flex justify-center gap-4">
-            <!-- Enlace para confirmar la eliminación -->
-            <a id="confirmarEliminar" href="javascript:void(0);" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
-                Eliminar
-            </a>
-            <button onclick="cerrarModal()" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">
-                Cancelar
-            </button>
+
+<body class="bg-green-50">
+
+    <!-- Contenedor principal -->
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Encabezado principal -->
+                <div class="card shadow mb-4 bg-green-100">
+                    <div class="card-header py-3 bg-green-600 text-white">
+                        <h4 class="m-0 font-weight-bold">Administrar Usuarios</h4>
+                    </div>
+                </div>
+
+                <!-- Formulario de búsqueda -->
+                <div class="mb-4">
+                    <h4 class="text-green-700">Buscar Registros</h4>
+                    <form action="buscar.php" method="GET" class="form-inline">
+                        <div class="form-group mb-2">
+                            <label for="buscar" class="sr-only">Ingrese su búsqueda</label>
+                            <input type="text" id="buscar" name="buscar" class="form-control"
+                                placeholder="Buscar por nombre" required>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <button type="submit" class="btn bg-green-500 hover:bg-green-600 text-white">
+                                <i class="fas fa-search"></i> Buscar
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Botón para abrir el modal -->
+                    <button type="button" class="btn bg-green-600 hover:bg-green-700 text-white" data-toggle="modal"
+                        data-target="#modalIngresarUsuario">
+                        <i class="fas fa-plus-circle"></i> Ingresar Usuario
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalIngresarUsuario" tabindex="-1"
+                        aria-labelledby="modalIngresarUsuarioLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-green-600 text-white">
+                                    <h5 class="modal-title" id="modalIngresarUsuarioLabel">Ingresar Aprendiz</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body bg-green-50">
+                                    <form action="procesar_formularioAprendices.php" method="POST">
+                                        <div class="form-group">
+                                            <label for="nombres">Nombre</label>
+                                            <input type="text" class="form-control" id="nombres" name="nombres"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="apellidos">Apellidos</label>
+                                            <input type="text" class="form-control" id="apellidos" name="apellidos"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="celular">Celular</label>
+                                            <input type="text" class="form-control" id="celular" name="celular"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="documento">Documento</label>
+                                            <input type="text" class="form-control" id="documento" name="documento"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="correo_electronico">Correo Electrónico</label>
+                                            <input type="email" class="form-control" id="correo_electronico"
+                                                name="correo_electronico" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_grupo">ID Grupo</label>
+                                            <input type="text" class="form-control" id="id_grupo" name="id_grupo"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="jornada">Jornada</label>
+                                            <select class="form-control" id="jornada" name="jornada" required>
+                                                <option value="Mañana">Mañana</option>
+                                                <option value="Tarde">Tarde</option>
+                                                <option value="Noche">Noche</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="estado">Estado</label>
+                                            <input type="text" class="form-control" id="estado" name="estado" required>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Cerrar</button>
+                                            <button type="submit"
+                                                class="btn bg-green-600 hover:bg-green-700 text-white">Guardar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de registros -->
+                <div class="card bg-green-100">
+                    <div class="card-header bg-green-600 text-white">
+                        <h4 class="m-0 font-weight-bold">Registros Almacenados</h4>
+                    </div>
+                    <div class="card-body bg-green-50">
+                        <table id="usuario" class="table table-bordered table-striped table-hover text-gray-800">
+                            <thead class="bg-green-500 text-white">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Usuario</th>
+                                    <th>Nombres</th>
+                                    <th>Apellidos</th>
+                                    <th>Perfil</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                // Incluye el archivo PHP donde se consulta la base de datos y se muestran los registros
+                                include 'usuarios_datos.php';
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</body>
-<script>
-        // Mostrar el modal
-        function mostrarModal(id) {
-            document.getElementById('modal').style.display = 'flex'; // Muestra el modal
-            // Puedes almacenar el ID del usuario a eliminar en un atributo de data si lo necesitas
-            document.getElementById('confirmarEliminar').setAttribute('href', 'op_eliminar_usuario.php?id=' + id);
-        }
 
-        // Cerrar el modal sin realizar ninguna acción
+    <!-- Enlaces a los scripts de Bootstrap, jQuery, Ruang Admin y DataTables -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../js/ruang-admin.min.js"></script>
+    <!-- Script de DataTables -->
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Inicializa DataTables con opciones de búsqueda y ordenamiento
+            $('#usuario').DataTable({
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es_es.json"
+                },
+                "order": [[1, 'asc']]  // Orden por nombre del usuario (segunda columna)
+            });
+
+            // Asegúrate de que el modal esté oculto al inicio (esto lo hace Bootstrap por defecto, pero es una verificación extra)
+            $('#modalIngresarUsuario').modal('hide');
+        });
+
         function cerrarModal() {
-            document.getElementById('modal').style.display = 'none'; // Ocultar el modal
-        }
-
-        // Eliminar usuario
-        function eliminarUsuario(id) {
-            // Aquí redirigirías a la página de eliminación con el ID del usuario
-            window.location.href = 'op_eliminar_usuario.php?id=' + id; // Redirige a op_eliminar.php con el ID del usuario
+            window.location.href = 'usuario.php'; // Ocultar el modal
+            // Ocultar el modal
         }
     </script>
+
+</body>
 
 </html>

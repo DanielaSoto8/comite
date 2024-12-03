@@ -19,11 +19,16 @@ $buscar = isset($_GET['buscar']) ? $conn->real_escape_string($_GET['buscar']) : 
 // Solo ejecutar la consulta si hay un valor de búsqueda
 if (!empty($buscar)) {
     // Consulta para buscar registros
-    $sql = "SELECT * FROM informes 
-            WHERE nombreAprendiz LIKE '%$buscar%' 
-            OR documentoAprendiz LIKE '%$buscar%' 
-            OR nombreDocente LIKE '%$buscar%' 
-            OR idGrupo LIKE '%$buscar%'";
+    $sql = "SELECT * FROM aprendiz 
+            WHERE nombres LIKE '%$buscar%' 
+            OR apellidos LIKE '%$buscar%' 
+            OR celular LIKE '%$buscar%' 
+            OR documento LIKE '%$buscar%'
+            OR correo_electronico LIKE '%$buscar%' 
+            OR id_grupo  LIKE'%$buscar%' 
+            OR jornada LIKE '%$buscar%'
+            OR estado LIKE '%$buscar%'";
+
 
     
     $result = $conn->query($sql);
@@ -33,17 +38,14 @@ if (!empty($buscar)) {
     echo "<table border='1'>
             <thead>
                 <tr>
-                    <th>Fecha del Informe</th>
-                    <th>Nombre del Aprendiz</th>
-                    <th>Documento del Aprendiz</th>
-                    <th>Programa de Formación</th>
-                    <th>ID del Grupo</th>
-                    <th>Descripción de la Queja</th>
-                    <th>Testigos/Pruebas</th>
-                    <th>Correo del Quejoso</th>
-                    <th>Nombre del Quejoso</th>
-                    <th>Correo del Docente</th>
-                    <th>Nombre del Docente</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Celular</th>
+                    <th>Documento</th>
+                    <th>Correo electrónico</th>
+                    <th>Id Grupo</th>
+                    <th>Jornada</th>
+                    <th>Estado</th>
                 </tr>
             </thead>
             <tbody>";
@@ -52,17 +54,14 @@ if (!empty($buscar)) {
         // Mostrar cada registro encontrado
         while ($row = $result->fetch_assoc()) {
             echo "<tr>
-                    <td>{$row['fechaInforme']}</td>
-                    <td>{$row['nombreAprendiz']}</td>
-                    <td>{$row['documentoAprendiz']}</td>
-                    <td>{$row['programaFormacion']}</td>
-                    <td>{$row['idGrupo']}</td>
-                    <td>{$row['descripcionQueja']}</td>
-                    <td>{$row['testigosPruebas']}</td>
-                    <td>{$row['correoQuejoso']}</td>
-                    <td>{$row['nombreQuejoso']}</td>
-                    <td>{$row['correoDocente']}</td>
-                    <td>{$row['nombreDocente']}</td>
+                    <td>{$row['nombres']}</td>
+                    <td>{$row['apellidos']}</td>
+                    <td>{$row['celular']}</td>
+                    <td>{$row['documento']}</td>
+                    <td>{$row['correo_electronico']}</td>
+                    <td>{$row['id_grupo']}</td>
+                    <td>{$row['jornada']}</td>
+                    <td>{$row['estado']}</td>
                 </tr>";
         }
     } else {

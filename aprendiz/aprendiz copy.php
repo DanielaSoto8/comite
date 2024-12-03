@@ -31,7 +31,7 @@ if (isset($_SESSION['mensaje'])) {
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <!-- Agregar Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
+    
 </head>
 
 <body class="bg-green-50">
@@ -57,8 +57,7 @@ if (isset($_SESSION['mensaje'])) {
                     <form action="buscar.php" method="GET" class="form-inline">
                         <div class="form-group mb-2">
                             <label for="buscar" class="sr-only">Ingrese su búsqueda</label>
-                            <input type="text" id="buscar" name="buscar" class="form-control"
-                                placeholder="Buscar por nombre" required>
+                            <input type="text" id="buscar" name="buscar" class="form-control" placeholder="Buscar por nombre" required>
                         </div>
                         <div class="d-flex align-items-center gap-2">
                             <button type="submit" class="btn bg-green-500 hover:bg-green-600 text-white">
@@ -68,14 +67,12 @@ if (isset($_SESSION['mensaje'])) {
                     </form>
 
                     <!-- Botón para abrir el modal -->
-                    <button type="button" class="btn bg-green-600 hover:bg-green-700 text-white" data-toggle="modal"
-                        data-target="#modalIngresarAprendiz">
+                    <button type="button" class="btn bg-green-600 hover:bg-green-700 text-white" data-toggle="modal" data-target="#modalIngresarAprendiz">
                         <i class="fas fa-plus-circle"></i> Ingresar Aprendiz
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="modalIngresarAprendiz" tabindex="-1"
-                        aria-labelledby="modalIngresarAprendizLabel" aria-hidden="true">
+                    <div class="modal fade" id="modalIngresarAprendiz" tabindex="-1" aria-labelledby="modalIngresarAprendizLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header bg-green-600 text-white">
@@ -85,58 +82,50 @@ if (isset($_SESSION['mensaje'])) {
                                     </button>
                                 </div>
                                 <div class="modal-body bg-green-50">
-                                    <form action="procesar_formularioAprendices.php" method="POST">
-                                        <div class="form-group">
-                                            <label for="nombres">Nombre</label>
-                                            <input type="text" class="form-control" id="nombres" name="nombres"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="apellidos">Apellidos</label>
-                                            <input type="text" class="form-control" id="apellidos" name="apellidos"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="celular">Celular</label>
-                                            <input type="text" class="form-control" id="celular" name="celular"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="documento">Documento</label>
-                                            <input type="text" class="form-control" id="documento" name="documento"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="correo_electronico">Correo Electrónico</label>
-                                            <input type="email" class="form-control" id="correo_electronico"
-                                                name="correo_electronico" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="id_grupo">ID Grupo</label>
-                                            <input type="text" class="form-control" id="id_grupo" name="id_grupo"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="jornada">Jornada</label>
-                                            <select class="form-control" id="jornada" name="jornada" required>
-                                                <option value="Mañana">Mañana</option>
-                                                <option value="Tarde">Tarde</option>
-                                                <option value="Noche">Noche</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="estado">Estado</label>
-                                            <input type="text" class="form-control" id="estado" name="estado" required>
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Cerrar</button>
-                                            <button type="submit"
-                                                class="btn bg-green-600 hover:bg-green-700 text-white">Guardar</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                <form action="procesar_formularioAprendices.php" method="POST">
+    <div class="form-group">
+        <label for="nombres">Nombre</label>
+        <input type="text" class="form-control" id="nombres" name="nombres" required>
+    </div>
+    <div class="form-group">
+        <label for="apellidos">Apellidos</label>
+        <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+    </div>
+    <div class="form-group">
+        <label for="celular">Celular</label>
+        <input type="text" class="form-control" id="celular" name="celular" required>
+    </div>
+    <div class="form-group">
+        <label for="documento">Documento</label>
+        <input type="text" class="form-control" id="documento" name="documento" required>
+    </div>
+    <div class="form-group">
+        <label for="correo_electronico">Correo Electrónico</label>
+        <input type="email" class="form-control" id="correo_electronico" name="correo_electronico" required>
+    </div>
+    <div class="form-group">
+        <label for="id_grupo">ID Grupo</label>
+        <input type="text" class="form-control" id="id_grupo" name="id_grupo" required>
+    </div>
+    <div class="form-group">
+        <label for="jornada">Jornada</label>
+        <select class="form-control" id="jornada" name="jornada" required>
+            <option value="Mañana">Mañana</option>
+            <option value="Tarde">Tarde</option>
+            <option value="Noche">Noche</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="estado">Estado</label>
+        <input type="text" class="form-control" id="estado" name="estado" required>
+    </div>
+    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn bg-green-600 hover:bg-green-700 text-white">Guardar</button>
+    </div>
+</form>
+                           </div>
                             </div>
                         </div>
                     </div>
@@ -181,8 +170,7 @@ if (isset($_SESSION['mensaje'])) {
     <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="../js/ruang-admin.min.js"></script>
     <!-- Script de DataTables -->
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
     <script>
         $(document).ready(function () {

@@ -14,20 +14,18 @@ if ($conn->connect_error) {
 }
 
 // Consulta para obtener los registros (ajusta esto si es necesario)
-$sql = "SELECT * FROM aprendiz";
+$sql = "SELECT * FROM instructor";
 $result = $conn->query($sql);
 
 // Mostrar los resultados en una tabla
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
+        echo "<td>" . $row['documento'] . "</td>";
         echo "<td>" . $row['nombres'] . "</td>";
         echo "<td>" . $row['apellidos'] . "</td>";
-        echo "<td>" . $row['celular'] . "</td>";
-        echo "<td>" . $row['documento'] . "</td>";
+        echo "<td>" . $row['celular'] . "</td>"; 
         echo "<td>" . $row['correo_electronico'] . "</td>";
-        echo "<td>" . $row['id_grupo'] . "</td>";
-        echo "<td>" . $row['jornada'] . "</td>";
         echo "<td>" . $row['estado'] . "</td>";
         
         

@@ -3,7 +3,7 @@
         <div class="sidebar-brand-icon">
             <img src="img/logo/sena.png">
         </div>
-        
+
     </a>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
@@ -15,11 +15,10 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Inicio</h6>
                 <ul>
-                    <li><a href="perfil.php">Administrar Perfiles</a></li>
-
-                    
                     <li><a href="../usuario/usuario.php">Administrar Usuarios</a></li>
-                    <li><a href="mi_perfil.php">Ver mi perfil</a></li>
+                    <li><a href="../Aprendiz/aprendiz.php">Administrar Aprendices</a></li>
+                    <li><a href="../instructor/instructor.php">Administrar Instructores</a></li>
+
                 </ul>
 
             </div>

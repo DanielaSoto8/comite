@@ -6,7 +6,7 @@ session_start();
 
 // Verificar si el usuario tiene permisos para acceder a esta página
 if (!isset($_SESSION['id_perfil']) || $_SESSION['id_perfil'] != 3) {
-    header("Location: ../index.php");
+    header("Location: usuario.php");
     exit;
 }
 

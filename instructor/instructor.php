@@ -43,11 +43,10 @@ if (isset($_SESSION['mensaje'])) {
                 <!-- Encabezado principal -->
                 <div class="card shadow mb-4 bg-green-100">
                     <div class="card-header py-3 bg-green-600 text-white">
-                        <h4 class="m-0 font-weight-bold">Reporte Aprendiz</h4>
+                        <h4 class="m-0 font-weight-bold">Reporte Instructor</h4>
                     </div>
                     <div class="card-body text-gray-800">
-                        <p>A continuación podrás evidenciar los aprendices reportados a Comité Estudiantil y adicional
-                            tendrás la opción para realizar un nuevo registro</p>
+
                     </div>
                 </div>
 
@@ -69,23 +68,28 @@ if (isset($_SESSION['mensaje'])) {
 
                     <!-- Botón para abrir el modal -->
                     <button type="button" class="btn bg-green-600 hover:bg-green-700 text-white" data-toggle="modal"
-                        data-target="#modalIngresarAprendiz">
-                        <i class="fas fa-plus-circle"></i> Ingresar Aprendiz
+                        data-target="#modalIngresarInstructor">
+                        <i class="fas fa-plus-circle"></i> Ingresar Instructor
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="modalIngresarAprendiz" tabindex="-1"
-                        aria-labelledby="modalIngresarAprendizLabel" aria-hidden="true">
+                    <div class="modal fade" id="modalIngresarInstructor" tabindex="-1"
+                        aria-labelledby="modalIngresarInstructorLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header bg-green-600 text-white">
-                                    <h5 class="modal-title" id="modalIngresarAprendizLabel">Ingresar Aprendiz</h5>
+                                    <h5 class="modal-title" id="modalIngresarInstructorLabel">Ingresar Instructor</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body bg-green-50">
-                                    <form action="procesar_formularioAprendices.php" method="POST">
+                                    <form action="procesar_formulario_instructor.php" method="POST">
+                                        <div class="form-group">
+                                            <label for="documento">Documento</label>
+                                            <input type="text" class="form-control" id="documento" name="documento"
+                                                required>
+                                        </div>
                                         <div class="form-group">
                                             <label for="nombres">Nombre</label>
                                             <input type="text" class="form-control" id="nombres" name="nombres"
@@ -101,32 +105,18 @@ if (isset($_SESSION['mensaje'])) {
                                             <input type="text" class="form-control" id="celular" name="celular"
                                                 required>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="documento">Documento</label>
-                                            <input type="text" class="form-control" id="documento" name="documento"
-                                                required>
-                                        </div>
+
                                         <div class="form-group">
                                             <label for="correo_electronico">Correo Electrónico</label>
                                             <input type="email" class="form-control" id="correo_electronico"
                                                 name="correo_electronico" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="id_grupo">ID Grupo</label>
-                                            <input type="text" class="form-control" id="id_grupo" name="id_grupo"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="jornada">Jornada</label>
-                                            <select class="form-control" id="jornada" name="jornada" required>
-                                                <option value="Mañana">Mañana</option>
-                                                <option value="Tarde">Tarde</option>
-                                                <option value="Noche">Noche</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
                                             <label for="estado">Estado</label>
-                                            <input type="text" class="form-control" id="estado" name="estado" required>
+                                            <select class="form-control" id="estado" name="estado" required>
+                                                <option value="Activo">Activo</option>
+                                                <option value="Inactivo">Inactivo</option>
+                                            </select>
                                         </div>
 
                                         <div class="modal-footer">
@@ -148,16 +138,14 @@ if (isset($_SESSION['mensaje'])) {
                         <h4 class="m-0 font-weight-bold">Registros Almacenados</h4>
                     </div>
                     <div class="card-body bg-green-50">
-                        <table id="aprendiz" class="table table-bordered table-striped table-hover text-gray-800">
+                        <table id="instructor" class="table table-bordered table-striped table-hover text-gray-800">
                             <thead class="bg-green-500 text-white">
                                 <tr>
+                                    <th>Documento</th>
                                     <th>Nombre</th>
                                     <th>Apellidos</th>
                                     <th>Celular</th>
-                                    <th>Documento</th>
                                     <th>Correo electrónico</th>
-                                    <th>Id Grupo</th>
-                                    <th>Jornada</th>
                                     <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -165,7 +153,7 @@ if (isset($_SESSION['mensaje'])) {
                             <tbody>
                                 <?php
                                 // Incluye el archivo PHP donde se consulta la base de datos y se muestran los registros
-                                include 'aprendices_datos.php';
+                                include 'instructor_datos.php';
                                 ?>
                             </tbody>
                         </table>
@@ -187,19 +175,19 @@ if (isset($_SESSION['mensaje'])) {
     <script>
         $(document).ready(function () {
             // Inicializa DataTables con opciones de búsqueda y ordenamiento
-            $('#aprendiz').DataTable({
+            $('#instructor').DataTable({
                 "language": {
                     "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es_es.json"
                 },
-                "order": [[1, 'asc']]  // Orden por nombre del aprendiz (segunda columna)
+                "order": [[1, 'asc']]  // Orden por nombre del instructor (segunda columna)
             });
 
             // Asegúrate de que el modal esté oculto al inicio (esto lo hace Bootstrap por defecto, pero es una verificación extra)
-            $('#modalIngresarAprendiz').modal('hide');
+            $('#modalIngresarInstructor').modal('hide');
         });
 
         function cerrarModal() {
-            window.location.href = 'aprendiz.php'; // Ocultar el modal
+            window.location.href = 'instructor.php'; // Ocultar el modal
             // Ocultar el modal
         }
     </script>
