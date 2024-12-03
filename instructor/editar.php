@@ -34,17 +34,19 @@ if (isset($_GET['documento'])) {
     // Si se envió el formulario de edición
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Recibir los datos del formulario
-        $documento = $_POST['documento'] ?? null;
         $nombres = $_POST['nombres'] ?? null;
         $apellidos = $_POST['apellidos'] ?? null;
         $celular = $_POST['celular'] ?? null;
         $correo_electronico = $_POST['correo_electronico'] ?? null;
         $estado = $_POST['estado'] ?? null;
+        $nuevo_documento = $_POST['documento'] ?? $documento;
 
         // Actualizar los datos en la base de datos
-        $update_sql = "UPDATE instructor SET docuemnto = ?, nombres = ?, apellidos = ?, celular = ?, correo_electronico = ?,  estado = ? WHERE documento = ?";
+        $update_sql = "UPDATE instructor SET documento = ?, nombres = ?, apellidos = ?, celular = ?, correo_electronico = ?, estado = ? WHERE documento = ?";
         $update_stmt = $conn->prepare($update_sql);
-        $update_stmt->bind_param("ssssssss", $documento, $nombres, $apellidos, $celular, $correo_electronico, $estado, );
+
+        // Asegúrate de pasar todos los parámetros en el orden correcto
+        $update_stmt->bind_param("issssss", $nuevo_documento, $nombres, $apellidos, $celular, $correo_electronico, $estado, $documento);
 
         if ($update_stmt->execute()) {
             // Mensaje de éxito
@@ -99,19 +101,7 @@ $conn->close();
                 <input type="email" class="form-control" id="correo_electronico" name="correo_electronico"
                     value="<?php echo $row['correo_electronico']; ?>" required>
             </div>
-            <div class="form-group">
-                <label for="id_grupo">ID Grupo</label>
-                <input type="text" class="form-control" id="id_grupo" name="id_grupo"
-                    value="<?php echo $row['id_grupo']; ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="jornada">Jornada</label>
-                <select class="form-control" id="jornada" name="jornada" required>
-                    <option value="Mañana" <?php echo ($row['jornada'] == 'Mañana') ? 'selected' : ''; ?>>Mañana</option>
-                    <option value="Tarde" <?php echo ($row['jornada'] == 'Tarde') ? 'selected' : ''; ?>>Tarde</option>
-                    <option value="Noche" <?php echo ($row['jornada'] == 'Noche') ? 'selected' : ''; ?>>Noche</option>
-                </select>
-            </div>
+        
             <div class="form-group">
                 <label for="estado">Estado</label>
                 <select class="form-control" id="estado" name="estado" required>
