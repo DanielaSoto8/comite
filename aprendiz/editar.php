@@ -109,6 +109,10 @@ $conn->close();
                 </select>
             </div>
             <div class="form-group">
+                <label for="programa_formacion">Programa de Formacion</label>
+                <input type="text" class="form-control" id="programa_formacion" name="programa_formacion" value="<?php echo $row['programa_formacion']; ?>" required>
+            </div>
+            <div class="form-group">
                 <label for="estado">Estado</label>
                 <select class="form-control" id="estado" name="estado" required>
                     <option value="Activo" <?php echo ($row['estado'] == 'Activo') ? 'selected' : ''; ?>>Activo</option>

@@ -1927,5 +1927,11 @@ body.sidebar-toggled footer.sticky-footer {
   width: 800px;
 }
 
+#sugerencias {
+  @apply p-2 max-h-48 overflow-auto hidden absolute;
+}
+#sugerencias li {
+  @apply p-2 cursor-pointer hover:bg-gray-100;
+}
 
 

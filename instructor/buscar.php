@@ -18,17 +18,15 @@ $buscar = isset($_GET['buscar']) ? $conn->real_escape_string($_GET['buscar']) : 
 
 // Solo ejecutar la consulta si hay un valor de búsqueda
 if (!empty($buscar)) {
-    // Consulta para buscar registros
-    $sql = "SELECT * FROM instructor 
-            WHERE documento LIKE '%$buscar%'
-            OR nombres LIKE '%$buscar%'
+    // Consulta para buscar registros (ajustada para los campos solicitados)
+    $sql = "SELECT documento, nombres, apellidos, celular, correo_electronico, estado FROM instructor 
+            WHERE documento LIKE '%$buscar%' 
+            OR nombres LIKE '%$buscar%' 
             OR apellidos LIKE '%$buscar%' 
-            OR celular LIKE '%$buscar%'         
+            OR celular LIKE '%$buscar%' 
             OR correo_electronico LIKE '%$buscar%' 
             OR estado LIKE '%$buscar%'";
 
-
-    
     $result = $conn->query($sql);
 
     // Mostrar los resultados
@@ -36,13 +34,11 @@ if (!empty($buscar)) {
     echo "<table border='1'>
             <thead>
                 <tr>
+                    <th>Documento</th>
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Celular</th>
-                    <th>Documento</th>
                     <th>Correo electrónico</th>
-                    <th>Id Grupo</th>
-                    <th>Jornada</th>
                     <th>Estado</th>
                 </tr>
             </thead>
@@ -52,18 +48,16 @@ if (!empty($buscar)) {
         // Mostrar cada registro encontrado
         while ($row = $result->fetch_assoc()) {
             echo "<tr>
+                    <td>{$row['documento']}</td>
                     <td>{$row['nombres']}</td>
                     <td>{$row['apellidos']}</td>
                     <td>{$row['celular']}</td>
-                    <td>{$row['documento']}</td>
                     <td>{$row['correo_electronico']}</td>
-                    <td>{$row['id_grupo']}</td>
-                    <td>{$row['jornada']}</td>
                     <td>{$row['estado']}</td>
                 </tr>";
         }
     } else {
-        echo "<tr><td colspan='11'>No se encontraron resultados</td></tr>";
+        echo "<tr><td colspan='6'>No se encontraron resultados</td></tr>";
     }
 
     echo "</tbody></table>";

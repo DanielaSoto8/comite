@@ -63,7 +63,7 @@ if (!isset($_SESSION['id'])) {
                     <p>Se registra y notifica al aprendiz que por su desempeño tanto academico o disciplinario no es
                       aprobado
                     </p>
-                    <button type="button" class="btn btn-success mb-1"><a href="registro.php">Ingresar</a></button>
+                    <button type="button" class="btn btn-success mb-1"><a href="./informe/informe.php">Notificaciones</a></button>
 
                     <!-- <button type="button" class="btn btn-secondary mb-1">Secondary</button>
                     <button type="button" class="btn btn-success mb-1">Success</button>
@@ -86,7 +86,7 @@ if (!isset($_SESSION['id'])) {
                     <p>En este espacio encontraras las actas de comite efectuadas a los aprendices que por su bajo
                       rendimiento academico o disciplinario deben de efectuar un plan de mejoramiento para su
                       mejoramiento continuo</p>
-                    <button type="button" class="btn btn-success mb-1"><a href="comite.php"></a>Ver Comites</button>
+                      <button type="button" class="btn btn-success mb-1"><a href="./comite/comite.php">Comites</a></button>
 
                     <!-- <button type="button" class="btn btn-secondary mb-1">Secondary</button>
                     <button type="button" class="btn btn-success mb-1">Success</button>
@@ -102,14 +102,14 @@ if (!isset($_SESSION['id'])) {
               <div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
                 <div class="card mb-4">
                   <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-success">Plan de Mejoramiento</h6>
+                    <h6 class="m-0 font-weight-bold text-success">Informe</h6>
                   </div>
                   <img class="img" src="img/plan.png" alt="">
                   <div class="card-body">
                     <p> se immplementa plan de mejoramiento fijando objetivos, actividades y temas vistos en el
                       trimestre,llevando a cabo el método de trabajo,
                       cumpliendo los indicadores propuestos por el instructor</p>
-                    <button type="button" class="btn btn-success mb-1"><a href="plan_de_mejoramiento.php">Ver plan de
+                    <button type="button" class="btn btn-success mb-1"><a href="./informe/informe.php">Ver plan de
                         mejoramiento</a></button>
 
                     <!-- <button type="button" class="btn btn-secondary mb-1">Secondary</button>

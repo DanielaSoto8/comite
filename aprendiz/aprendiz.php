@@ -133,6 +133,10 @@ if (isset($_SESSION['mensaje'])) {
                                             </select>
                                         </div>
                                         <div class="form-group">
+                                            <label for="programa_formacion">Programa de formacion</label>
+                                            <input type="text" class="form-control" id="programa_formacion" name="programa_formacion" required>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="estado">Estado</label>
                                             <input type="text" class="form-control" id="estado" name="estado" required>
                                         </div>

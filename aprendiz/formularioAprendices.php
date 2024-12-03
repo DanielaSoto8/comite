@@ -64,6 +64,11 @@
         } else {
             $Jornada = test_input($_POST["jornada"]);
         }
+        if (empty($_POST["programa_formacion"])) {
+            $errores['programa_formacion'] = "La descripción del informe o queja es obligatoria.";
+        } else {
+            $Jornada = test_input($_POST["programa_formacion"]);
+        }
         if (empty($_POST["estado"])) {
             $errores['estado'] = "La descripción del informe o queja es obligatoria.";
         } else {
@@ -136,6 +141,13 @@
             <input type="text" class="form-control <?php echo isset($errores['jornada']) ? 'is-invalid' : ''; ?>" id="Jornada" name="Jornada" value="<?php echo $Jornada; ?>" required>
             <div class="invalid-feedback">
                 <?php echo $errores['jornada'] ?? ''; ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="programa_formacion">Programa formacion</label>
+            <input type="text" class="form-control <?php echo isset($errores['programa_formacion']) ? 'is-invalid' : ''; ?>" id="programa_formacion" name="programa_formacion" value="<?php echo $programa_formacion; ?>" required>
+            <div class="invalid-feedback">
+                <?php echo $errores['programa_formacion'] ?? ''; ?>
             </div>
         </div>
         <div class="form-group">

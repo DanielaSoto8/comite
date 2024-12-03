@@ -27,10 +27,11 @@ if (!empty($buscar)) {
             OR correo_electronico LIKE '%$buscar%' 
             OR id_grupo  LIKE'%$buscar%' 
             OR jornada LIKE '%$buscar%'
+            OR programa_formacion LIKE '%$buscar%'
             OR estado LIKE '%$buscar%'";
 
 
-    
+
     $result = $conn->query($sql);
 
     // Mostrar los resultados
@@ -45,6 +46,7 @@ if (!empty($buscar)) {
                     <th>Correo electrónico</th>
                     <th>Id Grupo</th>
                     <th>Jornada</th>
+                          <th>Programa de Formacion</th>
                     <th>Estado</th>
                 </tr>
             </thead>
@@ -61,6 +63,7 @@ if (!empty($buscar)) {
                     <td>{$row['correo_electronico']}</td>
                     <td>{$row['id_grupo']}</td>
                     <td>{$row['jornada']}</td>
+                    <td>{$row['programa_formacion']}</td>
                     <td>{$row['estado']}</td>
                 </tr>";
         }

@@ -28,12 +28,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo_electronico = $_POST['correo_electronico'] ?? null;
     $id_grupo = $_POST['id_grupo'] ?? null;
     $jornada = $_POST['jornada'] ?? null;
+    $programa_formacion = $_POST['programa_formacion'] ?? null;
     $estado = $_POST['estado'] ?? null;
 
     // Verificar si todos los campos están completos
-    if ($nombres && $apellidos && $celular && $documento && $correo_electronico && $id_grupo && $jornada && $estado) {
+    if ($nombres && $apellidos && $celular && $documento && $correo_electronico && $id_grupo && $jornada &&$programa_formacion  && $estado) {
         // Preparar la consulta para insertar los datos en la base de datos
-        $stmt = $conn->prepare("INSERT INTO aprendiz (nombres, apellidos, celular, documento, correo_electronico, id_grupo, jornada, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO aprendiz (nombres, apellidos, celular, documento, correo_electronico, id_grupo, jornada,programa_formacion estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         
         // Vincular los parámetros correctamente (todos como strings, excepto celular que puede ser numérico)
         $stmt->bind_param("ssssssss", $nombres, $apellidos, $celular, $documento, $correo_electronico, $id_grupo, $jornada, $estado);

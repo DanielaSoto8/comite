@@ -1,9 +1,18 @@
 <?php
 // Datos de conexión a la base de datos
-$host = 'localhost'; // El servidor de la base de datos
-$usuario_db = 'root'; // Tu nombre de usuario de MySQL
-$contrasenia_db = ''; // Tu contraseña de MySQL
-$nombre_db = 'comite'; // El nombre de tu base de datos
+// config.php
+$host = 'localhost';       // El servidor de base de datos (usualmente 'localhost')
+$nombre_db = 'comite';     // El nombre de tu base de datos
+$usuario_db = 'root';      // Tu nombre de usuario de MySQL
+$contrasenia_db = '';      // Tu contraseña de MySQL (vacío si no tienes contraseña para 'root')
+
+// Crear la conexión
+$conn = new mysqli($host, $usuario_db, $contrasenia_db, $nombre_db);
+
+// Verificar la conexión
+if ($conn->connect_error) {
+    die("Error al conectar a la base de datos: " . $conn->connect_error);
+}
 
 try {
     // Intenta establecer la conexión a la base de datos utilizando PDO
