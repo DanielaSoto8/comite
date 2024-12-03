@@ -34,17 +34,19 @@ if (isset($_GET['documento'])) {
     // Si se envió el formulario de edición
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Recibir los datos del formulario
-        $documento = $_POST['documento'] ?? null;
         $nombres = $_POST['nombres'] ?? null;
         $apellidos = $_POST['apellidos'] ?? null;
         $celular = $_POST['celular'] ?? null;
         $correo_electronico = $_POST['correo_electronico'] ?? null;
         $estado = $_POST['estado'] ?? null;
+        $nuevo_documento = $_POST['documento'] ?? $documento;
 
         // Actualizar los datos en la base de datos
-        $update_sql = "UPDATE instructor SET docuemnto = ?, nombres = ?, apellidos = ?, celular = ?, correo_electronico = ?,  estado = ? WHERE documento = ?";
+        $update_sql = "UPDATE instructor SET documento = ?, nombres = ?, apellidos = ?, celular = ?, correo_electronico = ?, estado = ? WHERE documento = ?";
         $update_stmt = $conn->prepare($update_sql);
-        $update_stmt->bind_param("ssssssss", $documento, $nombres, $apellidos, $celular, $correo_electronico, $estado, );
+
+        // Asegúrate de pasar todos los parámetros en el orden correcto
+        $update_stmt->bind_param("issssss", $nuevo_documento, $nombres, $apellidos, $celular, $correo_electronico, $estado, $documento);
 
         if ($update_stmt->execute()) {
             // Mensaje de éxito

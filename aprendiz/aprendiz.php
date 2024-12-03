@@ -22,6 +22,14 @@ if (isset($_SESSION['mensaje'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Enlaces a los scripts de Bootstrap, jQuery, Ruang Admin y DataTables -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../js/ruang-admin.min.js"></script>
+    <!-- Script de DataTables -->
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <title>Página Principal</title>
     <!-- Enlace a los estilos de Font Awesome, Bootstrap y DataTables -->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -175,14 +183,7 @@ if (isset($_SESSION['mensaje'])) {
         </div>
     </div>
 
-    <!-- Enlaces a los scripts de Bootstrap, jQuery, Ruang Admin y DataTables -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="../js/ruang-admin.min.js"></script>
-    <!-- Script de DataTables -->
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    
 
     <script>
         $(document).ready(function () {
