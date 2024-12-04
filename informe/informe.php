@@ -47,23 +47,24 @@ if (isset($_SESSION['mensaje'])) {
 
                 <!-- Botón para abrir el modal -->
                 <button type="button" class="btn bg-green-600 hover:bg-green-700 text-white" data-toggle="modal"
-                    data-target="#modalCrearComite">
+                    data-target="#modalInforme">
                     <i class="fas fa-plus-circle"></i> Crear Notificaciones
                 </button>
 
                 <!-- Modal para crear comité -->
-                <div class="modal fade" id="modalCrearInforme" tabindex="-1" aria-labelledby="modalCrearInformeLabel"
+                <div class="modal fade" id="modalInforme" tabindex="-1" aria-labelledby="modalInformeLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header bg-green-600 text-white">
-                                <h5 class="modal-title" id="modalCrearInformeLabel">Crear Notificación</h5>
+                                <h5 class="modal-title" id="modalInformeLabel">Crear Notificación</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="crear_informe.php" method="POST">
+                                <form>
+                                    <input type="text" class="form-control" id="id" name="id" hidden>
                                     <!-- Fecha del Informe -->
                                     <div class="form-group">
                                         <label for="fecha_informe">Fecha del Informe</label>
@@ -81,15 +82,6 @@ if (isset($_SESSION['mensaje'])) {
                                         </ul>
                                         <div class="invalid-feedback">Campo obligatorio.</div>
                                     </div>
-
-
-
-
-
-
-
-
-
 
                                     <!-- Nombre del Aprendiz -->
                                     <div class="form-group">
@@ -154,7 +146,7 @@ if (isset($_SESSION['mensaje'])) {
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Cerrar</button>
                                         <button type="submit"
-                                            class="btn bg-green-600 hover:bg-green-700 text-white">Crear</button>
+                                            class="btn bg-green-600 hover:bg-green-700 text-white">Guardar</button>
                                     </div>
                                 </form>
 
@@ -172,6 +164,7 @@ if (isset($_SESSION['mensaje'])) {
                         <table id="informe" class="table table-bordered table-hover">
                             <thead class="bg-green-500 text-white">
                                 <tr>
+                                    <th>Id</th>
                                     <th>Fecha del Informe</th>
                                     <th>Documento del Aprendiz</th>
                                     <th>Nombre del Aprendiz</th>
@@ -254,7 +247,7 @@ if (isset($_SESSION['mensaje'])) {
                 li.textContent = `${aprendiz.documento} - ${aprendiz.nombres} ${aprendiz.apellidos}`;
                 li.addEventListener('click', function () {
                     document.getElementById('documento_aprendiz').value = aprendiz.documento;
-                    document.getElementById('nombre_aprendiz').value =  `${ aprendiz.nombres} ${aprendiz.apellidos}`;
+                    document.getElementById('nombre_aprendiz').value = `${aprendiz.nombres} ${aprendiz.apellidos}`;
                     document.getElementById('correo_aprendiz').value = aprendiz.correo_electronico;
                     document.getElementById('id_grupo').value = aprendiz.id_grupo;
                     document.getElementById('programa_formacion').value = aprendiz.programa_formacion;
@@ -287,13 +280,60 @@ if (isset($_SESSION['mensaje'])) {
                 li.textContent = `${instructor.documento} - ${instructor.nombres} ${instructor.apellidos}`;
                 li.addEventListener('click', function () {
                     document.getElementById('documento_instructor').value = instructor.documento;
-                    document.getElementById('nombre_instructor').value = `${ instructor.nombres} ${instructor.apellidos}`;
+                    document.getElementById('nombre_instructor').value = `${instructor.nombres} ${instructor.apellidos}`;
                     document.getElementById('correo_instructor').value = instructor.correo_electronico;
                     sugerenciasInstructor.classList.add('hidden');
                 });
                 sugerenciasInstructor.appendChild(li);
             });
         }
+    </script>
+    <script>
+        $('#modalInforme').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Botón que activó el modal
+            var modal = $(this);
+
+            if (button.hasClass('btn-editar')) {
+                // Si es un botón de editar, configuramos el modal para editar
+                modal.find('.modal-title').text('Editar Informe');
+                modal.find('form').attr('action', 'editar.php');
+
+                // Llenamos los campos con los datos del usuario
+                modal.find('#id').val(button.data('id'));
+                modal.find('#fecha_informe').val(button.data('fecha_informe'));
+                modal.find('#documento_aprendiz').val(button.data('documento_aprendiz'));
+                modal.find('#nombre_aprendiz').val(button.data('nombre_aprendiz'));
+                modal.find('#correo_aprendiz').val(button.data('correo_aprendiz'));
+                modal.find('#programa_formacion').val(button.data('programa_formacion'));
+                modal.find('#id_grupo').val(button.data('id_grupo'));
+                modal.find('#reporte').val(button.data('reporte'));
+                modal.find('#documento_instructor').val(button.data('documento_instructor'));
+                modal.find('#nombre_instructor').val(button.data('nombre_instructor'));
+                modal.find('#correo_instructor').val(button.data('correo_instructor'));
+                modal.find('#estado').val(button.data('estado'));
+
+
+
+            } else {
+                // Si es un botón de crear, configuramos el modal para crear
+                modal.find('.modal-title').text('Ingresar Usuario');
+                modal.find('form').attr('action', 'crear_informe.php');
+
+                // Limpiamos los campos del formulario
+                modal.find('#id').val(button.data(''));
+                modal.find('#fecha_informe').val(button.data(''));
+                modal.find('#documento_aprendiz').val(button.data(''));
+                modal.find('#nombre_aprendiz').val(button.data(''));
+                modal.find('#correo_aprendiz').val(button.data(''));
+                modal.find('#programa_formacion').val(button.data(''));
+                modal.find('#id_grupo').val(button.data(''));
+                modal.find('#reporte').val(button.data(''));
+                modal.find('#documento_instructor').val(button.data(''));
+                modal.find('#nombre_instructor').val(button.data(''));
+                modal.find('#correo_instructor').val(button.data(''));
+                modal.find('#estado').val(button.data(''));
+            }
+        });
     </script>
 </body>
 
