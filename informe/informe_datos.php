@@ -16,11 +16,11 @@ if ($result) {
         echo "<td>" . $row['reporte'] . "</td>";
 
         // Verificar si las claves existen en el array antes de usarlas
-        echo "<td>" . (isset($row['documento_instrutor']) ? $row['documento_instrutor'] : 'N/A') . "</td>";
-        echo "<td>" . (isset($row['nombre_instrutor']) ? $row['nombre_instrutor'] : 'N/A') . "</td>";
-        echo "<td>" . (isset($row['correo_instrutor']) ? $row['correo_instrutor'] : 'N/A') . "</td>";
+        echo "<td>" . (isset($row['documento_instructor']) ? $row['documento_instructor'] : 'N/A') . "</td>";
+        echo "<td>" . (isset($row['nombre_instructor']) ? $row['nombre_instructor'] : 'N/A') . "</td>";
+        echo "<td>" . (isset($row['correo_instructor']) ? $row['correo_instructor'] : 'N/A') . "</td>";
 
-        echo "<td>" . $row['estado_comite'] . "</td>";
+        echo "<td>" . $row['estado'] . "</td>";
        
         echo "<td>";
         echo "<a href='editar.php?id=" . $row['id'] . "' class='btn btn-warning btn-sm' title='Editar'><i class='fas fa-edit'></i></a> ";

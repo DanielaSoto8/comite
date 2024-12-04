@@ -38,10 +38,10 @@ if (isset($_SESSION['mensaje'])) {
                 <!-- Encabezado -->
                 <div class="card shadow mb-4 bg-green-100">
                     <div class="card-header py-3 bg-green-600 text-white">
-                        <h4 class="m-0 font-weight-bold">Gestión de Notificaciones</h4>
+                        <h4 class="m-0 font-weight-bold">Gestión de informes</h4>
                     </div>
                     <div class="card-body">
-                        <p>Administra los comités existentes y envía notificaciones a los aprendices.</p>
+                        <p>Administra los informes existentes y envía notificaciones a los aprendices.</p>
                     </div>
                 </div>
 
@@ -52,12 +52,12 @@ if (isset($_SESSION['mensaje'])) {
                 </button>
 
                 <!-- Modal para crear comité -->
-                <div class="modal fade" id="modalCrearComite" tabindex="-1" aria-labelledby="modalCrearComiteLabel"
+                <div class="modal fade" id="modalCrearInforme" tabindex="-1" aria-labelledby="modalCrearInformeLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header bg-green-600 text-white">
-                                <h5 class="modal-title" id="modalCrearComiteLabel">Crear Notificación</h5>
+                                <h5 class="modal-title" id="modalCrearInformeLabel">Crear Notificación</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -143,8 +143,8 @@ if (isset($_SESSION['mensaje'])) {
                                     </div>
                                     <!-- Estado del Comité -->
                                     <div class="form-group">
-                                        <label for="estado_comite">Estado del Comité</label>
-                                        <select class="form-control" id="estado_comite" name="estado_comite" required>
+                                        <label for="estado">Estado</label>
+                                        <select class="form-control" id="estado_comite" name="estado" required>
                                             <option value="Programado">Programado</option>
                                             <option value="Pendiente">Pendiente</option>
                                             <option value="Completado">Completado</option>

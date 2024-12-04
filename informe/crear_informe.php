@@ -1,7 +1,9 @@
 <?php
-require_once('../config/config.php');
+require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+require_once('../config/config.php');
+
 
 session_start();
 // Verificar si se enviaron los datos del formulario
@@ -17,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $documento_instructor = $_POST['documento_instructor'];
     $nombre_instructor = $_POST['nombre_instructor'];
     $correo_instructor = $_POST['correo_instructor'];
-    $estado_comite = $_POST['estado_comite'];
+    $estado = $_POST['estado'];
 
     /*echo "fecha_informe".$fecha_informe;
     echo "documento_aprendiz".$documento_aprendiz;
@@ -29,19 +31,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "documento_instructor".$documento_instructor;
     echo "nombre_instructor".$nombre_instructor;
     echo "correo_instructor".$correo_instructor;
-    echo "estado_comite".$estado_comite;*/
+    echo "estado".$estado;*/
 
 
     // Validar que todos los campos estén completos
-    if (empty($fecha_informe) || empty($documento_aprendiz) || empty($nombre_aprendiz) || empty($correo_aprendiz) || empty($programa_formacion) || empty($id_grupo) || empty($reporte) || empty($documento_instructor) || empty($nombre_instructor) || empty($correo_instructor) || empty($estado_comite)) {
+    if (empty($fecha_informe) || empty($documento_aprendiz) || empty($nombre_aprendiz) || empty($correo_aprendiz) || empty($programa_formacion) || empty($id_grupo) || empty($reporte) || empty($documento_instructor) || empty($nombre_instructor) || empty($correo_instructor) || empty($estado)) {
         $_SESSION['mensaje'] = 'Todos los campos son obligatorios.';
         header('Location: informe.php');
         exit;
     }
 
     // Consulta para insertar los datos en la base de datos
-    $query = "INSERT INTO informe (fecha_informe, documento_aprendiz, nombre_aprendiz, correo_aprendiz, programa_formacion, id_grupo, reporte, documento_instructor, nombre_instructor, correo_instructor, estado_comite) 
-              VALUES ('$fecha_informe', '$documento_aprendiz', '$nombre_aprendiz', '$correo_aprendiz', '$programa_formacion', '$id_grupo', '$reporte', '$documento_instructor', '$nombre_instructor', '$correo_instructor', '$estado_comite')";
+    $query = "INSERT INTO informe (fecha_informe, documento_aprendiz, nombre_aprendiz, correo_aprendiz, programa_formacion, id_grupo, reporte, documento_instructor, nombre_instructor, correo_instructor, estado) 
+              VALUES ('$fecha_informe', '$documento_aprendiz', '$nombre_aprendiz', '$correo_aprendiz', '$programa_formacion', '$id_grupo', '$reporte', '$documento_instructor', '$nombre_instructor', '$correo_instructor', '$estado')";
 
     if (mysqli_query($conn, $query)) {
 
