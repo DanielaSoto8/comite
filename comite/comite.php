@@ -43,6 +43,31 @@ if (isset($_SESSION['mensaje'])) {
                 </div>
             </div>
 
+            <body class="bg-green-50">
+
+    <!-- Contenedor principal -->
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Encabezado principal -->
+                
+
+                <!-- Formulario de búsqueda -->
+                <div class="mb-4">
+                    <h4 class="text-green-700">Buscar Registros</h4>
+                    <form action="buscar_informe.php" method="GET" class="form-inline">
+                        <div class="form-group mb-2">
+                            <label for="buscar" class="sr-only">Ingrese su búsqueda</label>
+                            <input type="text" id="buscar" name="buscar" class="form-control"
+                                placeholder="Buscar por nombre" required>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <button type="submit" class="btn bg-green-500 hover:bg-green-600 text-white">
+                                <i class="fas fa-search"></i> Buscar
+                            </button>
+                        </div>
+                    </form>
+
             <!-- Botón para abrir el modal -->
             <button type="button" class="btn bg-green-600 hover:bg-green-700 text-white" data-toggle="modal" data-target="#modalCrearComite">
                 <i class="fas fa-plus-circle"></i> Crear Comité

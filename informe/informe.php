@@ -63,7 +63,7 @@ if (isset($_SESSION['mensaje'])) {
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="procesar_comite.php" method="POST">
+                                <form action="crear_informe.php" method="POST">
                                     <!-- Fecha del Informe -->
                                     <div class="form-group">
                                         <label for="fecha_informe">Fecha del Informe</label>
@@ -251,10 +251,10 @@ if (isset($_SESSION['mensaje'])) {
             data.forEach(aprendiz => {
                 const li = document.createElement('li');
                 li.classList.add('p-2', 'cursor-pointer', 'hover:bg-gray-100');
-                li.textContent = `${aprendiz.documento} - ${aprendiz.nombres}`;
+                li.textContent = `${aprendiz.documento} - ${aprendiz.nombres} ${aprendiz.apellidos}`;
                 li.addEventListener('click', function () {
                     document.getElementById('documento_aprendiz').value = aprendiz.documento;
-                    document.getElementById('nombre_aprendiz').value = aprendiz.nombres;
+                    document.getElementById('nombre_aprendiz').value =  `${ aprendiz.nombres} ${aprendiz.apellidos}`;
                     document.getElementById('correo_aprendiz').value = aprendiz.correo_electronico;
                     document.getElementById('id_grupo').value = aprendiz.id_grupo;
                     document.getElementById('programa_formacion').value = aprendiz.programa_formacion;
@@ -284,10 +284,10 @@ if (isset($_SESSION['mensaje'])) {
             data.forEach(instructor => {
                 const li = document.createElement('li');
                 li.classList.add('p-2', 'cursor-pointer', 'hover:bg-gray-100');
-                li.textContent = `${instructor.documento} - ${instructor.nombres}`;
+                li.textContent = `${instructor.documento} - ${instructor.nombres} ${instructor.apellidos}`;
                 li.addEventListener('click', function () {
                     document.getElementById('documento_instructor').value = instructor.documento;
-                    document.getElementById('nombre_instructor').value = instructor.nombres;
+                    document.getElementById('nombre_instructor').value = `${ instructor.nombres} ${instructor.apellidos}`;
                     document.getElementById('correo_instructor').value = instructor.correo_electronico;
                     sugerenciasInstructor.classList.add('hidden');
                 });

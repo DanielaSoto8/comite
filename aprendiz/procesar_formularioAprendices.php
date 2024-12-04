@@ -34,10 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar si todos los campos están completos
     if ($nombres && $apellidos && $celular && $documento && $correo_electronico && $id_grupo && $jornada &&$programa_formacion  && $estado) {
         // Preparar la consulta para insertar los datos en la base de datos
-        $stmt = $conn->prepare("INSERT INTO aprendiz (nombres, apellidos, celular, documento, correo_electronico, id_grupo, jornada,programa_formacion estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO aprendiz (nombres, apellidos, celular, documento, correo_electronico, id_grupo, jornada,programa_formacion, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         
         // Vincular los parámetros correctamente (todos como strings, excepto celular que puede ser numérico)
-        $stmt->bind_param("ssssssss", $nombres, $apellidos, $celular, $documento, $correo_electronico, $id_grupo, $jornada, $estado);
+        $stmt->bind_param( 'sssssssss',$nombres, $apellidos, $celular, $documento, $correo_electronico, $id_grupo, $jornada, $programa_formacion,$estado);
 
         // Ejecutar la consulta e informar el resultado
         if ($stmt->execute()) {

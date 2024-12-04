@@ -170,6 +170,7 @@ if (isset($_SESSION['mensaje'])) {
                                     <th>Correo electrónico</th>
                                     <th>Id Grupo</th>
                                     <th>Jornada</th>
+                                    <th>Programa formacion</th>
                                     <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
