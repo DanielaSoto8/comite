@@ -18,7 +18,7 @@ $buscar = isset($_GET['buscar']) ? $conn->real_escape_string($_GET['buscar']) : 
 
 // Solo ejecutar la consulta si hay un valor de búsqueda
 if (!empty($buscar)) {
-    // Consulta para buscar registros (ajustada para los campos solicitados)
+    // Consulta para buscar registros
     $sql = "SELECT documento, nombres, apellidos, celular, correo_electronico, estado FROM instructor 
             WHERE documento LIKE '%$buscar%' 
             OR nombres LIKE '%$buscar%' 
@@ -29,16 +29,51 @@ if (!empty($buscar)) {
 
     $result = $conn->query($sql);
 
-    // Mostrar los resultados
+    // Mostrar los resultados con estilo
+    echo "<style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            h2 {
+                color: green;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin-top: 20px;
+            }
+            th {
+                background-color: green;
+                color: white;
+                padding: 10px;
+                text-align: left;
+            }
+            td {
+                border: 1px solid green;
+                padding: 8px;
+                color: green;
+            }
+            tr:nth-child(even) {
+                background-color: #f2fff2;
+            }
+            tr:hover {
+                background-color: #e8fce8;
+            }
+            p {
+                color: green;
+                font-weight: bold;
+            }
+        </style>";
+
     echo "<h2>Resultados de la búsqueda</h2>";
-    echo "<table border='1'>
+    echo "<table>
             <thead>
                 <tr>
                     <th>Documento</th>
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Celular</th>
-                    <th>Correo electrónico</th>
+                    <th>Correo Electrónico</th>
                     <th>Estado</th>
                 </tr>
             </thead>

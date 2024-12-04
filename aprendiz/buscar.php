@@ -25,18 +25,46 @@ if (!empty($buscar)) {
             OR celular LIKE '%$buscar%' 
             OR documento LIKE '%$buscar%'
             OR correo_electronico LIKE '%$buscar%' 
-            OR id_grupo  LIKE'%$buscar%' 
+            OR id_grupo  LIKE '%$buscar%' 
             OR jornada LIKE '%$buscar%'
             OR programa_formacion LIKE '%$buscar%'
             OR estado LIKE '%$buscar%'";
 
-
-
     $result = $conn->query($sql);
 
-    // Mostrar los resultados
+    // Mostrar los resultados con estilo
+    echo "<style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            h2 {
+                color: green;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th {
+                background-color: green;
+                color: white;
+                padding: 8px;
+                text-align: left;
+            }
+            td {
+                border: 1px solid green;
+                padding: 8px;
+                color: green;
+            }
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            tr:hover {
+                background-color: #e2f7e2;
+            }
+        </style>";
+
     echo "<h2>Resultados de la búsqueda</h2>";
-    echo "<table border='1'>
+    echo "<table>
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -46,7 +74,7 @@ if (!empty($buscar)) {
                     <th>Correo electrónico</th>
                     <th>Id Grupo</th>
                     <th>Jornada</th>
-                          <th>Programa de Formacion</th>
+                    <th>Programa de Formación</th>
                     <th>Estado</th>
                 </tr>
             </thead>
@@ -68,7 +96,7 @@ if (!empty($buscar)) {
                 </tr>";
         }
     } else {
-        echo "<tr><td colspan='11'>No se encontraron resultados</td></tr>";
+        echo "<tr><td colspan='9'>No se encontraron resultados</td></tr>";
     }
 
     echo "</tbody></table>";
