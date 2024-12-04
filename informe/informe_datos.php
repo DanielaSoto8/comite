@@ -35,9 +35,7 @@ if ($result) {
                         data-estado='{$row['estado']}'>
                     Editar
                 </button> ";
-        echo "<button class='btn btn-danger btn-sm' onclick='abrirModalEliminar({$row['id']}, \"{$row['documento_aprendiz']}\")'>
-                Eliminar
-            </button>";
+       
         echo "</td>";
         echo "</tr>";
     }

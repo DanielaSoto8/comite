@@ -31,158 +31,164 @@ if (isset($_SESSION['mensaje'])) {
 </head>
 
 <body class="bg-green-50">
-
-    <div class="container-fluid mt-5">
-        <div class="row">
-            <div class="col-md-12">
-                <!-- Encabezado -->
-                <div class="card shadow mb-4 bg-green-100">
-                    <div class="card-header py-3 bg-green-600 text-white">
-                        <h4 class="m-0 font-weight-bold">Gestión de informes</h4>
+    <?php include('../config/sidebar.php'); ?>
+    <!-- Contenedor principal -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <?php include('../config/topbar.php'); ?>
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Encabezado -->
+                    <div class="card shadow mb-4 bg-green-100">
+                        <div class="card-header py-3 bg-green-600 text-white">
+                            <h4 class="m-0 font-weight-bold">Gestión de informes</h4>
+                        </div>
+                        <div class="card-body">
+                            <p>Administra los informes existentes y envía notificaciones a los aprendices.</p>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <p>Administra los informes existentes y envía notificaciones a los aprendices.</p>
-                    </div>
-                </div>
 
-                <!-- Botón para abrir el modal -->
-                <button type="button" class="btn bg-green-600 hover:bg-green-700 text-white" data-toggle="modal"
-                    data-target="#modalInforme">
-                    <i class="fas fa-plus-circle"></i> Crear Notificaciones
-                </button>
+                    <!-- Botón para abrir el modal -->
+                    <button type="button" class="btn bg-green-600 hover:bg-green-700 text-white" data-toggle="modal"
+                        data-target="#modalInforme">
+                        <i class="fas fa-plus-circle"></i> Crear Notificaciones
+                    </button>
 
-                <!-- Modal para crear comité -->
-                <div class="modal fade" id="modalInforme" tabindex="-1" aria-labelledby="modalInformeLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header bg-green-600 text-white">
-                                <h5 class="modal-title" id="modalInformeLabel">Crear Notificación</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <input type="text" class="form-control" id="id" name="id" hidden>
-                                    <!-- Fecha del Informe -->
-                                    <div class="form-group">
-                                        <label for="fecha_informe">Fecha del Informe</label>
-                                        <input type="datetime-local" class="form-control" id="fecha_informe"
-                                            name="fecha_informe" required>
-                                    </div>
+                    <!-- Modal para crear comité -->
+                    <div class="modal fade" id="modalInforme" tabindex="-1" aria-labelledby="modalInformeLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-green-600 text-white">
+                                    <h5 class="modal-title" id="modalInformeLabel">Crear Notificación</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST">
+                                        <input type="text" class="form-control" id="id" name="id" hidden>
+                                        <!-- Fecha del Informe -->
+                                        <div class="form-group">
+                                            <label for="fecha_informe">Fecha del Informe</label>
+                                            <input type="datetime-local" class="form-control" id="fecha_informe"
+                                                name="fecha_informe" required>
+                                        </div>
 
 
-                                    <div class="form-group">
-                                        <label for="documento_aprendiz">Documento aprendiz</label>
-                                        <input type="text" class="form-control" id="documento_aprendiz"
-                                            name="documento_aprendiz" required autocomplete="off">
-                                        <ul id="sugerencias"
-                                            class="bg-white border border-gray-300 rounded shadow-lg absolute z-10 hidden max-h-48 overflow-auto">
-                                        </ul>
-                                        <div class="invalid-feedback">Campo obligatorio.</div>
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="documento_aprendiz">Documento aprendiz</label>
+                                            <input type="text" class="form-control" id="documento_aprendiz"
+                                                name="documento_aprendiz" required autocomplete="off">
+                                            <ul id="sugerencias"
+                                                class="bg-white border border-gray-300 rounded shadow-lg absolute z-10 hidden max-h-48 overflow-auto">
+                                            </ul>
+                                            <div class="invalid-feedback">Campo obligatorio.</div>
+                                        </div>
 
-                                    <!-- Nombre del Aprendiz -->
-                                    <div class="form-group">
-                                        <label for="nombre_aprendiz">Nombre del Aprendiz</label>
-                                        <input type="text" class="form-control" id="nombre_aprendiz"
-                                            name="nombre_aprendiz" required>
-                                    </div>
-                                    <!-- Correo del Aprendiz -->
-                                    <div class="form-group">
-                                        <label for="correo_aprendiz">Correo del Aprendiz</label>
-                                        <input type="email" class="form-control" id="correo_aprendiz"
-                                            name="correo_aprendiz" required>
-                                    </div>
-                                    <!-- Programa de Formación -->
-                                    <div class="form-group">
-                                        <label for="programa_formacion">Programa de Formación</label>
-                                        <input type="text" class="form-control" id="programa_formacion"
-                                            name="programa_formacion" required>
-                                    </div>
-                                    <!-- ID del Grupo -->
-                                    <div class="form-group">
-                                        <label for="id_grupo">ID del Grupo</label>
-                                        <input type="text" class="form-control" id="id_grupo" name="id_grupo" required>
-                                    </div>
-                                    <!-- Descripción del Reporte -->
-                                    <div class="form-group">
-                                        <label for="reporte">Reporte</label>
-                                        <textarea class="form-control" id="reporte" name="reporte" required></textarea>
-                                    </div>
-                                    <!-- Documento del Instructor -->
-                                    <div class="form-group">
-                                        <label for="documento_instructor">Documento instructor</label>
-                                        <input type="text" class="form-control" id="documento_instructor"
-                                            name="documento_instructor" required autocomplete="off">
-                                        <ul id="sugerencias-instructor"
-                                            class="bg-white border border-gray-300 rounded shadow-lg absolute z-10 hidden max-h-48 overflow-auto">
-                                        </ul>
-                                        <div class="invalid-feedback">Campo obligatorio.</div>
-                                    </div>
-                                    <!-- Nombre del Instructor -->
-                                    <div class="form-group">
-                                        <label for="nombre_instructor">Nombre del Instructor</label>
-                                        <input type="text" class="form-control" id="nombre_instructor"
-                                            name="nombre_instructor" required>
-                                    </div>
-                                    <!-- Correo del Instructor -->
-                                    <div class="form-group">
-                                        <label for="correo_instructor">Correo del Instructor</label>
-                                        <input type="email" class="form-control" id="correo_instructor"
-                                            name="correo_instructor" required>
-                                    </div>
-                                    <!-- Estado del Comité -->
-                                    <div class="form-group">
-                                        <label for="estado">Estado</label>
-                                        <select class="form-control" id="estado_comite" name="estado" required>
-                                            <option value="Programado">Programado</option>
-                                            <option value="Pendiente">Pendiente</option>
-                                            <option value="Completado">Completado</option>
-                                        </select>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Cerrar</button>
-                                        <button type="submit"
-                                            class="btn bg-green-600 hover:bg-green-700 text-white">Guardar</button>
-                                    </div>
-                                </form>
+                                        <!-- Nombre del Aprendiz -->
+                                        <div class="form-group">
+                                            <label for="nombre_aprendiz">Nombre del Aprendiz</label>
+                                            <input type="text" class="form-control" id="nombre_aprendiz"
+                                                name="nombre_aprendiz" required>
+                                        </div>
+                                        <!-- Correo del Aprendiz -->
+                                        <div class="form-group">
+                                            <label for="correo_aprendiz">Correo del Aprendiz</label>
+                                            <input type="email" class="form-control" id="correo_aprendiz"
+                                                name="correo_aprendiz" required>
+                                        </div>
+                                        <!-- Programa de Formación -->
+                                        <div class="form-group">
+                                            <label for="programa_formacion">Programa de Formación</label>
+                                            <input type="text" class="form-control" id="programa_formacion"
+                                                name="programa_formacion" required>
+                                        </div>
+                                        <!-- ID del Grupo -->
+                                        <div class="form-group">
+                                            <label for="id_grupo">ID del Grupo</label>
+                                            <input type="text" class="form-control" id="id_grupo" name="id_grupo"
+                                                required>
+                                        </div>
+                                        <!-- Descripción del Reporte -->
+                                        <div class="form-group">
+                                            <label for="reporte">Reporte</label>
+                                            <textarea class="form-control" id="reporte" name="reporte"
+                                                required></textarea>
+                                        </div>
+                                        <!-- Documento del Instructor -->
+                                        <div class="form-group">
+                                            <label for="documento_instructor">Documento instructor</label>
+                                            <input type="text" class="form-control" id="documento_instructor"
+                                                name="documento_instructor" required autocomplete="off">
+                                            <ul id="sugerencias-instructor"
+                                                class="bg-white border border-gray-300 rounded shadow-lg absolute z-10 hidden max-h-48 overflow-auto">
+                                            </ul>
+                                            <div class="invalid-feedback">Campo obligatorio.</div>
+                                        </div>
+                                        <!-- Nombre del Instructor -->
+                                        <div class="form-group">
+                                            <label for="nombre_instructor">Nombre del Instructor</label>
+                                            <input type="text" class="form-control" id="nombre_instructor"
+                                                name="nombre_instructor" required>
+                                        </div>
+                                        <!-- Correo del Instructor -->
+                                        <div class="form-group">
+                                            <label for="correo_instructor">Correo del Instructor</label>
+                                            <input type="email" class="form-control" id="correo_instructor"
+                                                name="correo_instructor" required>
+                                        </div>
+                                        <!-- Estado del Comité -->
+                                        <div class="form-group">
+                                            <label for="estado">Estado</label>
+                                            <select class="form-control" id="estado" name="estado" required>
+                                                <option value="Programado">Programado</option>
+                                                <option value="Pendiente">Pendiente</option>
+                                                <option value="Completado">Completado</option>
+                                            </select>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Cerrar</button>
+                                            <button type="submit"
+                                                class="btn bg-green-600 hover:bg-green-700 text-white">Guardar</button>
+                                        </div>
+                                    </form>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Tabla -->
-                <div class="card mt-4 bg-green-100">
-                    <div class="card-header bg-green-600 text-white">
-                        <h4>Comités Actuales</h4>
-                    </div>
-                    <div class="card-body">
-                        <table id="informe" class="table table-bordered table-hover">
-                            <thead class="bg-green-500 text-white">
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Fecha del Informe</th>
-                                    <th>Documento del Aprendiz</th>
-                                    <th>Nombre del Aprendiz</th>
-                                    <th>Correo del Aprendiz</th>
-                                    <th>Programa de Formación</th>
-                                    <th>ID del Grupo</th>
-                                    <th>Reporte</th>
-                                    <th>Documento del Instructor</th>
-                                    <th>Nombre del Instructor</th>
-                                    <th>Correo del Instructor</th>
-                                    <th>Estado del Comité</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php include 'informe_datos.php'; ?>
-                            </tbody>
-                        </table>
+                    <!-- Tabla -->
+                    <div class="card mt-4 bg-green-100">
+                        <div class="card-header bg-green-600 text-white">
+                            <h4>Informes Actuales</h4>
+                        </div>
+                        <div class="card-body">
+                            <table id="informe" class="table table-bordered table-hover">
+                                <thead class="bg-green-500 text-white">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Fecha del Informe</th>
+                                        <th>Documento del Aprendiz</th>
+                                        <th>Nombre del Aprendiz</th>
+                                        <th>Correo del Aprendiz</th>
+                                        <th>Programa de Formación</th>
+                                        <th>ID del Grupo</th>
+                                        <th>Reporte</th>
+                                        <th>Documento del Instructor</th>
+                                        <th>Nombre del Instructor</th>
+                                        <th>Correo del Instructor</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php include 'informe_datos.php'; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -194,7 +200,7 @@ if (isset($_SESSION['mensaje'])) {
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#comites').DataTable({
+            $('#informe').DataTable({
                 "language": {
                     "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es_es.json"
                 }
@@ -335,6 +341,8 @@ if (isset($_SESSION['mensaje'])) {
             }
         });
     </script>
+    <script src="../js/utils.js"></script>
+
 </body>
 
 </html>

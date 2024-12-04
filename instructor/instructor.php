@@ -37,9 +37,11 @@ if (isset($_SESSION['mensaje'])) {
 </head>
 
 <body class="bg-green-50">
-
+    <?php include('../config/sidebar.php'); ?>
     <!-- Contenedor principal -->
-    <div class="container-fluid mt-5">
+    <div id="content-wrapper" class="d-flex flex-column">
+        <?php include('../config/topbar.php'); ?>
+        <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-md-12">
                 <!-- Encabezado principal -->
@@ -170,6 +172,9 @@ if (isset($_SESSION['mensaje'])) {
                 </div>
             </div>
         </div>
+    </div>
+    </div>
+    
 
         <!-- Scripts -->
         <script src="../vendor/jquery/jquery.min.js"></script>
@@ -194,6 +199,7 @@ if (isset($_SESSION['mensaje'])) {
                 window.location.href = 'instructor.php'; // Redireccionar después de cerrar el modal
             }
         </script>
+        <script src="../js/utils.js"></script>
 </body>
 
 </html>

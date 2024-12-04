@@ -44,39 +44,42 @@ if (isset($_SESSION['mensaje'])) {
 
 <body class="bg-green-50">
 
-<div class="card shadow mb-4 bg-green-100">
-                    <div class="card-header py-3 bg-green-600 text-white">
-                        <h4 class="m-0 font-weight-bold">Reporte Aprendiz</h4>
-                    </div>
-                </div>
-                <div class="card shadow mb-4 bg-green-100">
-                    <div class="card-header py-3 bg-green-600 text-white mb-4 ">
-                        <h4 class="m-0 font-weight-bold">Buscar registros</h4>
-                        <!-- Formulario de búsqueda -->
-                        <div class="mb-4">
-                            <form action="buscar.php" method="GET" class="d-flex align-items-center gap-3">
-                                <!-- Campo de texto para búsqueda -->
-                                <div class="form-group mb-0 flex-grow-1">
-                                    <label for="buscar" class="sr-only">Ingrese su búsqueda</label>
-                                    <input type="text" id="buscar" name="buscar" class="form-control"
-                                        placeholder="Buscar por nombre" required>
-                                </div>
-
-                                <!-- Botón de buscar -->
-                                <button type="submit"
-                                    class="btn bg-green-500 hover:bg-green-600 text-white d-flex align-items-center">
-                                    <i class="fas fa-search mr-1"></i> Buscar
-                                </button>
-
-                                <!-- Botón de ingresar instructor -->
-                                <button type="button"
-                                    class="btn bg-green-500 hover:bg-green-600 text-white d-flex align-items-center"
-                                    data-toggle="modal" data-target="#modalIngresarAprendiz">
-                                    <i class="fas fa-plus-circle"></i> Ingresar Aprendiz
-                                </button>
-                            </form>
+    <?php include('../config/sidebar.php'); ?>
+    <!-- Contenedor principal -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <?php include('../config/topbar.php'); ?>
+        <div class="card shadow mb-4 bg-green-100">
+            <div class="card-header py-3 bg-green-600 text-white">
+                <h4 class="m-0 font-weight-bold">Reporte Aprendiz</h4>
+            </div>
+        </div>
+        <div class="card shadow mb-4 bg-green-100">
+            <div class="card-header py-3 bg-green-600 text-white mb-4 ">
+                <h4 class="m-0 font-weight-bold">Buscar registros</h4>
+                <!-- Formulario de búsqueda -->
+                <div class="mb-4">
+                    <form action="buscar.php" method="GET" class="d-flex align-items-center gap-3">
+                        <!-- Campo de texto para búsqueda -->
+                        <div class="form-group mb-0 flex-grow-1">
+                            <label for="buscar" class="sr-only">Ingrese su búsqueda</label>
+                            <input type="text" id="buscar" name="buscar" class="form-control"
+                                placeholder="Buscar por nombre" required>
                         </div>
 
+                        <!-- Botón de buscar -->
+                        <button type="submit"
+                            class="btn bg-green-500 hover:bg-green-600 text-white d-flex align-items-center">
+                            <i class="fas fa-search mr-1"></i> Buscar
+                        </button>
+
+                        <!-- Botón de ingresar instructor -->
+                        <button type="button"
+                            class="btn bg-green-500 hover:bg-green-600 text-white d-flex align-items-center"
+                            data-toggle="modal" data-target="#modalIngresarAprendiz">
+                            <i class="fas fa-plus-circle"></i> Ingresar Aprendiz
+                        </button>
+                    </form>
+                </div>
 
 
 
@@ -88,116 +91,110 @@ if (isset($_SESSION['mensaje'])) {
 
 
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="modalIngresarAprendiz" tabindex="-1"
-                        aria-labelledby="modalIngresarAprendizLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header bg-green-600 text-black">
-                                    <h5 class="modal-title" id="modalIngresarAprendizLabel">Ingresar Aprendiz</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body bg-green-50 text-black">
-                                    <form action="procesar_formularioAprendices.php" method="POST">
-                                        <div class="form-group">
-                                            <label for="nombres">Nombre</label>
-                                            <input type="text" class="form-control" id="nombres" name="nombres"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="apellidos">Apellidos</label>
-                                            <input type="text" class="form-control" id="apellidos" name="apellidos"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="celular">Celular</label>
-                                            <input type="text" class="form-control" id="celular" name="celular"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="documento">Documento</label>
-                                            <input type="text" class="form-control" id="documento" name="documento"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="correo_electronico">Correo Electrónico</label>
-                                            <input type="email" class="form-control" id="correo_electronico"
-                                                name="correo_electronico" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="id_grupo">ID Grupo</label>
-                                            <input type="text" class="form-control" id="id_grupo" name="id_grupo"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="jornada">Jornada</label>
-                                            <select class="form-control" id="jornada" name="jornada" required>
-                                                <option value="Mañana">Mañana</option>
-                                                <option value="Tarde">Tarde</option>
-                                                <option value="Noche">Noche</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="programa_formacion">Programa de formacion</label>
-                                            <input type="text" class="form-control" id="programa_formacion"
-                                                name="programa_formacion" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="estado">Estado</label>
-                                            <input type="text" class="form-control" id="estado" name="estado" required>
-                                        </div>
 
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Cerrar</button>
-                                            <button type="submit"
-                                                class="btn bg-green-600 hover:bg-green-700 text-white">Guardar</button>
-                                        </div>
-                                    </form>
-                                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="modalIngresarAprendiz" tabindex="-1"
+                    aria-labelledby="modalIngresarAprendizLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-green-600 text-black">
+                                <h5 class="modal-title" id="modalIngresarAprendizLabel">Ingresar Aprendiz</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body bg-green-50 text-black">
+                                <form action="procesar_formularioAprendices.php" method="POST">
+                                    <div class="form-group">
+                                        <label for="nombres">Nombre</label>
+                                        <input type="text" class="form-control" id="nombres" name="nombres" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="apellidos">Apellidos</label>
+                                        <input type="text" class="form-control" id="apellidos" name="apellidos"
+                                            required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="celular">Celular</label>
+                                        <input type="text" class="form-control" id="celular" name="celular" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="documento">Documento</label>
+                                        <input type="text" class="form-control" id="documento" name="documento"
+                                            required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="correo_electronico">Correo Electrónico</label>
+                                        <input type="email" class="form-control" id="correo_electronico"
+                                            name="correo_electronico" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_grupo">ID Grupo</label>
+                                        <input type="text" class="form-control" id="id_grupo" name="id_grupo" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="jornada">Jornada</label>
+                                        <select class="form-control" id="jornada" name="jornada" required>
+                                            <option value="Mañana">Mañana</option>
+                                            <option value="Tarde">Tarde</option>
+                                            <option value="Noche">Noche</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="programa_formacion">Programa de formacion</label>
+                                        <input type="text" class="form-control" id="programa_formacion"
+                                            name="programa_formacion" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="estado">Estado</label>
+                                        <input type="text" class="form-control" id="estado" name="estado" required>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cerrar</button>
+                                        <button type="submit"
+                                            class="btn bg-green-600 hover:bg-green-700 text-white">Guardar</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Tabla de registros -->
-                <div class="card bg-green-100">
-                    <div class="card-header bg-green-600 text-white">
-                        <h4 class="m-0 font-weight-bold">Registros Almacenados</h4>
-                    </div>
-                    <div class="card-body bg-green-50">
-                        <table id="aprendiz" class="table table-bordered table-striped table-hover text-gray-800">
-                            <thead class="bg-green-500 text-white">
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Apellidos</th>
-                                    <th>Celular</th>
-                                    <th>Documento</th>
-                                    <th>Correo electrónico</th>
-                                    <th>Id Grupo</th>
-                                    <th>Jornada</th>
-                                    <th>Programa formacion</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                // Incluye el archivo PHP donde se consulta la base de datos y se muestran los registros
-                                include 'aprendices_datos.php';
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
+            <!-- Tabla de registros -->
+            <div class="card bg-green-100">
+                <div class="card-header bg-green-600 text-white">
+                    <h4 class="m-0 font-weight-bold">Registros Almacenados</h4>
+                </div>
+                <div class="card-body bg-green-50">
+                    <table id="aprendiz" class="table table-bordered table-striped table-hover text-gray-800">
+                        <thead class="bg-green-500 text-white">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Celular</th>
+                                <th>Documento</th>
+                                <th>Correo electrónico</th>
+                                <th>Id Grupo</th>
+                                <th>Jornada</th>
+                                <th>Programa formacion</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // Incluye el archivo PHP donde se consulta la base de datos y se muestran los registros
+                            include 'aprendices_datos.php';
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-
-
-
     <script>
         $(document).ready(function () {
             // Inicializa DataTables con opciones de búsqueda y ordenamiento
@@ -217,6 +214,7 @@ if (isset($_SESSION['mensaje'])) {
             // Ocultar el modal
         }
     </script>
+    <script src="../js/utils.js"></script>
 
 </body>
 
