@@ -38,6 +38,8 @@ $consulta_usuarios = $pdo->query("SELECT * FROM usuario");
     <title>Administrar Usuarios</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 </head>
 
 <body class="bg-green-50">
@@ -46,37 +48,41 @@ $consulta_usuarios = $pdo->query("SELECT * FROM usuario");
     <div id="content-wrapper" class="d-flex flex-column">
         <?php include('../config/topbar.php'); ?>
         <div class="container-fluid mt-5">
-
             <div class="row">
                 <div class="col-md-12">
                     <!-- Encabezado principal -->
                     <div class="card shadow mb-4 bg-green-100">
                         <div class="card-header py-3 bg-green-600 text-white">
-                            <h4 class="m-0 font-weight-bold">Administrar Usuarios</h4>
+                            <h4 class="m-0 font-weight-bold">Registro de Usuarios</h4>
                         </div>
                     </div>
+                    <div class="card shadow mb-4 bg-green-100">
+                        <div class="card-header py-3 bg-green-600 text-white mb-4 ">
+                            <h4 class="m-0 font-weight-bold">Buscar registros</h4>
+                            <!-- Formulario de búsqueda -->
+                            <div class="mb-4">
+                                <form action="buscar.php" method="GET" class="d-flex align-items-center gap-3">
+                                    <!-- Campo de texto para búsqueda -->
+                                    <div class="form-group mb-0 flex-grow-1">
+                                        <label for="buscar" class="sr-only">Ingrese su búsqueda</label>
+                                        <input type="text" id="buscar" name="buscar" class="form-control"
+                                            placeholder="Buscar por nombre" required>
+                                    </div>
 
-                    <!-- Formulario de búsqueda -->
-                    <div class="mb-4">
-                        <h4 class="text-green-700">Buscar Registros</h4>
-                        <form action="buscar.php" method="GET" class="form-inline">
-                            <div class="form-group mb-2">
-                                <label for="buscar" class="sr-only">Ingrese su búsqueda</label>
-                                <input type="text" id="buscar" name="buscar" class="form-control"
-                                    placeholder="Buscar por nombre" required>
-                            </div>
-                            <div class="d-flex align-items-center gap-2">
-                                <button type="submit" class="btn bg-green-500 hover:bg-green-600 text-white">
-                                    <i class="fas fa-search"></i> Buscar
-                                </button>
-                            </div>
-                        </form>
+                                    <!-- Botón de buscar -->
+                                    <button type="submit"
+                                        class="btn bg-green-500 hover:bg-green-600 text-white d-flex align-items-center">
+                                        <i class="fas fa-search mr-1"></i> Buscar
+                                    </button>
 
-                        <!-- Botón para abrir el modal -->
-                        <button type="button" class="btn bg-green-600 hover:bg-green-700 text-white" data-toggle="modal"
-                            data-target="#modalUsuario">
-                            <i class="fas fa-plus-circle"></i> Ingresar Usuario
-                        </button>
+                                    <!-- Botón de ingresar instructor -->
+                                    <button type="button"
+                                        class="btn bg-green-500 hover:bg-green-600 text-white d-flex align-items-center"
+                                        data-toggle="modal" data-target="#modalUsuario">
+                                        <i class="fas fa-plus-circle"></i> Ingresar Usuario
+                                    </button>
+                                </form>
+                            </div>
 
                         <!-- Modal -->
                         <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="modalUsuarioLabel"
@@ -214,25 +220,25 @@ $consulta_usuarios = $pdo->query("SELECT * FROM usuario");
             <script type="text/javascript" charset="utf8"
                 src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
-            <script>
-                $(document).ready(function () {
-                    // Inicializa DataTables con opciones de búsqueda y ordenamiento
-                    $('#table-usuario').DataTable({
-                        "language": {
-                            "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es_es.json"
-                        },
-                        "order": [[1, 'asc']]  // Orden por nombre del usuario (segunda columna)
-                    });
+                <script>
+    $(document).ready(function () {
+        // Inicializa DataTables con opciones de búsqueda desactivada y ordenamiento
+        $('#table-usuario').DataTable({
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es_es.json"
+            },
+            "order": [[1, 'asc']],  // Orden por nombre del usuario (segunda columna)
+            "searching": false      // Desactivar búsqueda
+        });
 
-                    // Asegúrate de que el modal esté oculto al inicio (esto lo hace Bootstrap por defecto, pero es una verificación extra)
-                    $('#modalUsuario').modal('hide');
-                });
+        // Asegúrate de que el modal esté oculto al inicio
+        $('#modalUsuario').modal('hide');
+    });
 
-                function cerrarModal() {
-                    window.location.href = 'usuario.php'; // Ocultar el modal
-                    // Ocultar el modal
-                }
-            </script>
+    function cerrarModal() {
+        window.location.href = 'usuario.php'; // Ocultar el modal
+    }
+</script>
 
             <script>
                 $('#modalUsuario').on('show.bs.modal', function (event) {

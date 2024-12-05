@@ -21,7 +21,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
-        echo "<td>" . $row['id'] . "</td>";
+        echo "<td>" . $row['id'] . "</td>";  // Aquí se muestra el 'id'
         echo "<td>" . $row['usuario'] . "</td>";
         echo "<td>" . $row['contrasenia'] . "</td>"; 
         echo "<td>" . $row['nombres'] . "</td>";
@@ -37,16 +37,16 @@ if ($result->num_rows > 0) {
                         data-apellidos='{$row['apellidos']}' 
                         data-perfil='{$row['id_perfil']}' 
                         data-estado='{$row['estado']}'>
-                    Editar
+                    <i class='fas fa-edit'></i>  <!-- Ícono de Editar -->
                 </button> ";
         echo "<button class='btn btn-danger btn-sm' onclick='abrirModalEliminar({$row['id']}, \"{$row['nombres']}\")'>
-                Eliminar
+                <i class='fas fa-trash-alt'></i>  <!-- Ícono de Eliminar -->
             </button>";
         echo "</td>";
         echo "</tr>";
     }
 } else {
-    echo "<tr><td colspan='11'>No se encontraron registros</td></tr>";
+    echo "<tr><td colspan='8'>No se encontraron registros</td></tr>";  // Ajusté el colspan a 8 para reflejar el número de columnas
 }
 
 // Cerrar la conexión

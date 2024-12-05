@@ -203,6 +203,7 @@ if (isset($_SESSION['mensaje'])) {
             $('#informe').DataTable({
                 "language": {
                     "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es_es.json"
+                    "searching": false   
                 }
             });
         });
@@ -341,7 +342,7 @@ if (isset($_SESSION['mensaje'])) {
             }
         });
     </script>
-    <script src="../js/utils.js"></script>
+    <script src="../js/"></script>
 
 </body>
 

@@ -35,6 +35,10 @@ if ($result) {
                         data-estado='{$row['estado']}'>
                     Editar
                 </button> ";
+                echo "<a href='descargar_pdf.php?id=" . $row['id'] . " title='Descargar PDF'>
+        <img src='../img/pdf.png' alt='Descargar PDF' style='width: 24px; height: 24px;'>
+      </a>";
+
        
         echo "</td>";
         echo "</tr>";
