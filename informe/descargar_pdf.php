@@ -10,6 +10,7 @@ if (isset($_GET['id'])) {
     $dbname = "comite";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn->set_charset("utf8mb4");
 
     // Verificar conexión
     if ($conn->connect_error) {
@@ -31,6 +32,12 @@ if (isset($_GET['id'])) {
         require_once('../tfpdf/tfpdf.php');
 
         $pdf = new tFPDF();
+
+        $pdf->AddFont('DejaVu','','DejaVuSans.ttf',true);
+        $pdf->SetFont('DejaVu','',12);
+
+
+    
         $pdf->AddPage();
         
         // Definir márgenes
@@ -41,11 +48,15 @@ if (isset($_GET['id'])) {
         $pdf->Rect(10, 10, 190, 277); // Rectángulo de 190x277mm (A4) con 10mm de margen
 
         // Logo
-        $pdf->Image('../img/sena.png', 30, 10, 15); // Ajusta la ruta y tamaño según tu logo
-        
+        $pdf->Image('../img/sena.png', 20, 15, 15); // Ajusta la ruta y tamaño según tu logo}
+
+        $pdf->SetFont('Arial', 'B', 14);
+        $pdf->Cell(0, 10, utf8_decode('SERVICIO NACIONAL DE APRENDIZAJE SENA '), 0, 1, 'C'); 
+        $pdf->Ln(5); // Salto de línea
+
         // Título con estilo
-        $pdf->SetFont('Arial', 'B', 16);
-        $pdf->Cell(0, 10, 'Informe de Gestión', 0, 1, 'C');
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(0, 10, utf8_decode('INFORME PARA COMITE DE EVALUACION Y SEGUIMIENTO'), 0, 1, 'C'); 
         $pdf->Ln(10); // Salto de línea
 
         // Datos del informe
@@ -67,9 +78,9 @@ if (isset($_GET['id'])) {
         // Sección Programa
         $pdf->Ln(5);
         $pdf->SetFillColor(230, 230, 230);
-        $pdf->Cell(0, 10, 'Información del Programa', 0, 1, 'C', true);
+        $pdf->Cell(0, 10, utf8_decode( 'Información del Programa'),0, 1, 'C', true);
         $pdf->Ln(3);
-        $pdf->Cell(50, 10, 'Programa Formación:', 1, 0, 'L'); // Borde
+        $pdf->Cell(50, 10, utf8_decode('Programa Formación:'), 1, 0, 'L'); // Borde
         $pdf->Cell(0, 10, $row['programa_formacion'], 1, 1, 'L'); // Borde
         $pdf->Cell(50, 10, 'ID Grupo:', 1, 0, 'L'); // Borde
         $pdf->Cell(0, 10, $row['id_grupo'], 1, 1, 'L'); // Borde
@@ -93,8 +104,13 @@ if (isset($_GET['id'])) {
         $pdf->Ln(3);
         $pdf->MultiCell(0, 10, $row['reporte'], 1, 'L'); // Borde
 
-        // Descargar el PDF
-        $pdf->Output('D', 'informe_' . $id . '.pdf');
+        // Sanitizar nombre y documento para evitar problemas con caracteres especiales en el nombre del archivo
+$nombre_aprendiz_limpio = preg_replace('/[^a-zA-Z0-9_]/', '_', $row['nombre_aprendiz']);
+$documento_aprendiz_limpio = preg_replace('/[^a-zA-Z0-9_]/', '_', $row['documento_aprendiz']);
+
+// Descargar el PDF con el nombre personalizado
+$pdf->Output('D', 'REPORTE_' . $id . '_' . $nombre_aprendiz_limpio . '_' . $documento_aprendiz_limpio . '.pdf');
+
     } else {
         echo "No se encontró el informe.";
     }

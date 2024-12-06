@@ -4,7 +4,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require_once('../config/config.php');
 
-
 session_start();
 // Verificar si se enviaron los datos del formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -19,23 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $documento_instructor = $_POST['documento_instructor'];
     $nombre_instructor = $_POST['nombre_instructor'];
     $correo_instructor = $_POST['correo_instructor'];
-    $estado = $_POST['estado'];
-
-    /*echo "fecha_informe".$fecha_informe;
-    echo "documento_aprendiz".$documento_aprendiz;
-    echo "nombre_aprendiz".$nombre_aprendiz;
-    echo "correo_aprendiz".$correo_aprendiz;
-    echo "programa_formacion".$programa_formacion;
-    echo "id_grupo".$id_grupo;
-    echo "reporte".$reporte;
-    echo "documento_instructor".$documento_instructor;
-    echo "nombre_instructor".$nombre_instructor;
-    echo "correo_instructor".$correo_instructor;
-    echo "estado".$estado;*/
-
+    $estado = 'Pendiente'; // Estado por defecto es "Pendiente"
 
     // Validar que todos los campos estén completos
-    if (empty($fecha_informe) || empty($documento_aprendiz) || empty($nombre_aprendiz) || empty($correo_aprendiz) || empty($programa_formacion) || empty($id_grupo) || empty($reporte) || empty($documento_instructor) || empty($nombre_instructor) || empty($correo_instructor) || empty($estado)) {
+    if (empty($fecha_informe) || empty($documento_aprendiz) || empty($nombre_aprendiz) || empty($correo_aprendiz) || empty($programa_formacion) || empty($id_grupo) || empty($reporte) || empty($documento_instructor) || empty($nombre_instructor) || empty($correo_instructor)) {
         $_SESSION['mensaje'] = 'Todos los campos son obligatorios.';
         header('Location: informe.php');
         exit;
@@ -48,18 +34,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (mysqli_query($conn, $query)) {
 
         $mail = new PHPMailer(true);
-
         try {
-            // Configuración del servidor SMTP/ ayuda al envio del correo
+            // Configuración del servidor SMTP
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';  // Especifica el servidor SMTP (ej: smtp.gmail.com)
+            $mail->Host = 'smtp.gmail.com';  // Especifica el servidor SMTP
             $mail->SMTPAuth = true;
             $mail->Username = 'educomitpro@gmail.com';  // Tu correo
-            $mail->Password = 'pznn nraf izxa bybd';  // Tu contraseña de correo/aplicaciones externas usen contraseña personal
+            $mail->Password = 'pznn nraf izxa bybd';  // Tu contraseña de correo
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587;  // Puerto SMTP (587 para TLS o 465 para SSL)
+            $mail->Port = 587;  // Puerto SMTP (587 para TLS)
 
-            // Destinatario
+            // Destinatarios
             $mail->setFrom('educomitpro@gmail.com', 'Sistema de Quejas');
             $mail->addAddress($correo_aprendiz, $nombre_aprendiz);
             $mail->addAddress($correo_instructor, $nombre_instructor);
@@ -67,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Asunto del correo
             $mail->Subject = 'Nuevo Informe o Queja';
 
-            // Contenido del correo en formato HTML
+            // Contenido del correo
             $mail->isHTML(true);
             $mailContent = "
             <h2>Nuevo Informe o Queja</h2>
@@ -85,15 +70,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Enviar el correo
             $mail->send();
-            echo "<script>alert('El informe ha sido enviado correctamente por correo.');</script>";
+
+            // Si el correo se envió correctamente, actualizar el estado en la base de datos
+            $estado = 'Notificado';  // El estado se cambia a 'Notificado'
+            $updateQuery = "UPDATE informe SET estado = '$estado' WHERE documento_aprendiz = '$documento_aprendiz' AND fecha_informe = '$fecha_informe'";
+            mysqli_query($conn, $updateQuery);
+
+            $_SESSION['mensaje'] = 'El informe ha sido enviado correctamente por correo.';
         } catch (Exception $e) {
-            echo "Error al enviar el informe por correo: {$mail->ErrorInfo}";
+            // Si ocurre un error al enviar el correo, el estado se mantiene como 'Pendiente'
+            $_SESSION['mensaje'] = 'Error al enviar el informe por correo: ' . $mail->ErrorInfo;
         }
 
-
-
-
-        $_SESSION['mensaje'] = 'Notificación creada exitosamente.';
     } else {
         $_SESSION['mensaje'] = 'Error al crear la notificación: ' . mysqli_error($conn);
     }

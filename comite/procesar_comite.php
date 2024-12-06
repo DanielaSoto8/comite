@@ -6,7 +6,7 @@ $password = "";
 $dbname = "comite";  
 
 // Crear la conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+$mysqli = new mysqli($servername, $username, $password, $dbname);
 
 // Verificar si la conexión fue exitosa
 if ($conn->connect_error) {
@@ -40,13 +40,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 
+if (isset($_POST['aprendices'])) {
+    $aprendices_seleccionados = $_POST['aprendices']; // IDs de los aprendices seleccionados
+    // Realiza la lógica para notificar a los aprendices o hacer lo que necesites
+    foreach ($aprendices_seleccionados as $aprendiz_id) {
+        // Procesa cada aprendiz (enviar notificación, etc.)
+    }
+}
+
+
 /**
  * Función para notificar a los usuarios de informes en espera
  */
 function notificarInformes($comite_id, $lugar, $fecha_inicio, $fecha_fin) {
     global $conn;
 
-    $query = "SELECT nombre_comite, correo_aprendiz FROM informe WHERE estado = 'en_espera'";
+    $query = "SELECT id, correo_aprendiz FROM informe WHERE estado = 'pendiente'";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
@@ -69,7 +78,7 @@ function notificarInformes($comite_id, $lugar, $fecha_inicio, $fecha_fin) {
  * Función para enviar correos electrónicos
  */
 function enviarCorreo($destinatario, $asunto, $mensaje) {
-    $headers = "From: comite@example.com\r\n";
+    $headers = "From: educomitpro@gmail.com\r\n";
     $headers .= "Reply-To: comite@example.com\r\n";
     $headers .= "X-Mailer: PHP/" . phpversion();
 

@@ -62,7 +62,7 @@ if (!isset($_SESSION['id'])) {
 
     <!-- Tarjeta 2 - Agendamiento -->
     <div class="w-60 h-72 bg-green-100 shadow-xl rounded-lg flex flex-col items-center p-4 transition transform hover:scale-105 hover:shadow-2xl cursor-pointer"
-        onclick="window.location.href='pagina2.html'">
+        onclick="window.location.href='../comite/comite.php'">
         <img src="../img/agenda.png" alt="Agendamiento" class="w-32 h-32 mb-4">
         <p class="text-green-700 font-bold">Agendamiento</p>
     </div>

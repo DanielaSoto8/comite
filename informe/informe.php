@@ -139,14 +139,8 @@ if (isset($_SESSION['mensaje'])) {
                                                 name="correo_instructor" required>
                                         </div>
                                         <!-- Estado del Comité -->
-                                        <div class="form-group">
-                                            <label for="estado">Estado</label>
-                                            <select class="form-control" id="estado" name="estado" required>
-                                                <option value="Programado">Programado</option>
-                                                <option value="Pendiente">Pendiente</option>
-                                                <option value="Completado">Completado</option>
-                                            </select>
-                                        </div>
+                                        <input type="hidden" name="estado" id="estado" value="Pendiente">
+
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Cerrar</button>
