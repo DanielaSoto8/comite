@@ -1,91 +1,38 @@
 <?php
-// Datos de conexión
-$servername = "localhost";
-$username = "root";  
-$password = "";  
-$dbname = "comite";  
+require_once('../config/config.php');
 
-// Crear la conexión
-$mysqli = new mysqli($servername, $username, $password, $dbname);
+// Recoger los datos del formulario
+$grupo_id = $_POST['grupo_id'];
+$selected_aprendices = $_POST['selected_aprendices'];
+$fecha_inicio = $_POST['fecha_inicio'];
+$fecha_fin = $_POST['fecha_fin'];
+$lugar = $_POST['lugar'];
+$observacion = $_POST['observacion'];
+$estado = $_POST['estado'];
 
-// Verificar si la conexión fue exitosa
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+// Enviar los correos a los aprendices seleccionados
+foreach ($selected_aprendices as $documento_aprendiz) {
+    // Obtener el correo del aprendiz
+    $query = "SELECT correo_aprendiz FROM informe WHERE documento_aprendiz = '$documento_aprendiz'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $correo_aprendiz = $row['correo_aprendiz'];
+
+    // Enviar el correo
+    $asunto = "Notificación de Comité";
+    $mensaje = "Estimado aprendiz,\n\nSe ha creado un nuevo comité con la siguiente información:\n\n";
+    $mensaje .= "Fecha de inicio: $fecha_inicio\n";
+    $mensaje .= "Fecha de fin: $fecha_fin\n";
+    $mensaje .= "Lugar: $lugar\n";
+    $mensaje .= "Observación: $observacion\n";
+    $mensaje .= "Estado: $estado\n\n";
+    $mensaje .= "Saludos,\n\nEquipo de Gestión de Comités";
+    $headers = "From: admin@tusistema.com";
+
+    mail($correo_aprendiz, $asunto, $mensaje, $headers);
 }
 
-// Procesar el formulario de creación de comité
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $fecha_inicio = $_POST['fecha_inicio'];
-    $fecha_fin = $_POST['fecha_fin'];
-    $lugar = $_POST['lugar'];
-    $observacion = $_POST['observacion'];
-    $estado = $_POST['estado'];
-
-    // Inserción del comité
-    $stmt = $conn->prepare("INSERT INTO comite (fecha_inicio, fecha_fin, lugar, observacion, estado) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $fecha_inicio, $fecha_fin, $lugar, $observacion, $estado);
-    
-    if ($stmt->execute()) {
-        $comite_id = $stmt->insert_id;
-        echo "Comité creado con éxito. ID: " . $comite_id;
-
-        // Notificar a los informes en lista de espera
-        notificarInformes($comite_id, $lugar, $fecha_inicio, $fecha_fin);
-    } else {
-        echo "Error: " . $stmt->error;
-    }
-
-    $stmt->close();
-}
-
-$conn->close();
-
-if (isset($_POST['aprendices'])) {
-    $aprendices_seleccionados = $_POST['aprendices']; // IDs de los aprendices seleccionados
-    // Realiza la lógica para notificar a los aprendices o hacer lo que necesites
-    foreach ($aprendices_seleccionados as $aprendiz_id) {
-        // Procesa cada aprendiz (enviar notificación, etc.)
-    }
-}
-
-
-/**
- * Función para notificar a los usuarios de informes en espera
- */
-function notificarInformes($comite_id, $lugar, $fecha_inicio, $fecha_fin) {
-    global $conn;
-
-    $query = "SELECT id, correo_aprendiz FROM informe WHERE estado = 'pendiente'";
-    $result = $conn->query($query);
-
-    if ($result->num_rows > 0) {
-        while ($informe = $result->fetch_assoc()) {
-            $mensaje = "Estimado/a " . $informe['nombre_comite'] . ",\n\n"
-                     . "Se le informa que ha sido citado al comité con los siguientes detalles:\n"
-                     . "Fecha de inicio: " . date("d-m-Y H:i", strtotime($fecha_inicio)) . "\n"
-                     . "Fecha de fin: " . date("d-m-Y H:i", strtotime($fecha_fin)) . "\n"
-                     . "Lugar: " . $lugar . "\n\n"
-                     . "Por favor, confirme su asistencia respondiendo a este correo.\n";
-
-            enviarCorreo($informe['correo_aprendiz'], "Notificación de Comité", $mensaje);
-        }
-    } else {
-        echo "No hay informes en espera para notificar.\n";
-    }
-}
-
-/**
- * Función para enviar correos electrónicos
- */
-function enviarCorreo($destinatario, $asunto, $mensaje) {
-    $headers = "From: educomitpro@gmail.com\r\n";
-    $headers .= "Reply-To: comite@example.com\r\n";
-    $headers .= "X-Mailer: PHP/" . phpversion();
-
-    if (mail($destinatario, $asunto, $mensaje, $headers)) {
-        echo "Correo enviado a $destinatario.\n";
-    } else {
-        echo "Error al enviar el correo a $destinatario.\n";
-    }
-}
+// Redirigir al usuario a una página de éxito
+header("Location: comite.php");
+exit;
 ?>
