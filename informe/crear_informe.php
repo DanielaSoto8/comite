@@ -29,9 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Consulta para insertar los datos en la base de datos
     $query = "INSERT INTO informe (fecha_informe, documento_aprendiz, nombre_aprendiz, correo_aprendiz, programa_formacion, id_grupo, reporte, documento_instructor, nombre_instructor, correo_instructor, estado) 
-              VALUES ('$fecha_informe', '$documento_aprendiz', '$nombre_aprendiz', '$correo_aprendiz', '$programa_formacion', '$id_grupo', '$reporte', '$documento_instructor', '$nombre_instructor', '$correo_instructor', '$estado')";
-
-    if (mysqli_query($conn, $query)) {
+              VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+   $stmt = mysqli_prepare($conn, $query);
+   mysqli_stmt_bind_param($stmt, 'sssssssssss', $fecha_informe, $documento_aprendiz, $nombre_aprendiz, $correo_aprendiz, $programa_formacion, $id_grupo, $reporte, $documento_instructor, $nombre_instructor, $correo_instructor, $estado);
+   if (mysqli_stmt_execute($stmt)) {
+       $id_informe = mysqli_insert_id($conn);
 
         $mail = new PHPMailer(true);
         try {
@@ -48,25 +50,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->setFrom('educomitpro@gmail.com', 'Sistema de Quejas');
             $mail->addAddress($correo_aprendiz, $nombre_aprendiz);
             $mail->addAddress($correo_instructor, $nombre_instructor);
-            
+
             // Asunto del correo
             $mail->Subject = 'Nuevo Informe o Queja';
 
             // Contenido del correo
             $mail->isHTML(true);
+            // Asegúrate de que las variables tienen valores asignados antes de usarlas
             $mailContent = "
-            <h2>Nuevo Informe o Queja</h2>
-            <p><strong>Fecha del Informe:</strong> $fecha_informe</p>
-            <p><strong>Nombre del Aprendiz:</strong> $nombre_aprendiz</p>
-            <p><strong>Documento de Identidad:</strong> $documento_aprendiz</p>
-            <p><strong>Programa de Formación:</strong> $programa_formacion</p>
-            <p><strong>ID del Grupo:</strong> $id_grupo</p>
-            <p><strong>Descripción de la Queja:</strong> $reporte</p>
-            <p><strong>Correo del Quejoso:</strong> $documento_instructor</p>
-            <p><strong>Nombre del Quejoso:</strong> $nombre_instructor</p>
-            <p><strong>Correo del Docente:</strong> $correo_instructor</p>
+            <h2>Notificación de Informe: <strong>#{$id_informe}</strong> </h2>
+            <p>Estimado(a) <strong>{$nombre_aprendiz}</strong>, Con número de cédula <strong>{$documento_aprendiz}</strong>, del grupo <strong>{$id_grupo}</strong> y programa de formación <strong>{$programa_formacion}</strong>, usted ha sido notificado por <strong>{$reporte}</strong> por el instructor <strong>{$nombre_instructor}</strong>. Por favor, esté atento al agendamiento del comité.</p>
             ";
+
+            // Asignar el contenido al cuerpo del correo
             $mail->Body = $mailContent;
+
+            // Configurar el formato del correo como HTML
 
             // Enviar el correo
             $mail->send();

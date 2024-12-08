@@ -53,25 +53,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $mail->setFrom('educomitpro@gmail.com', 'Sistema de Quejas');
                     $mail->addAddress($correoQuejoso, $nombreQuejoso);
                     $mail->addAddress($correoDocente, $nombreDocente);
-                    
+
                     // Asunto del correo
                     $mail->Subject = 'Nuevo Informe o Queja';
 
                     // Contenido del correo en formato HTML
                     $mail->isHTML(true);
                     $mailContent = "
-                    <h2>Nuevo Informe o Queja</h2>
-                    <p><strong>Fecha del Informe:</strong> $fechaInforme</p>
-                    <p><strong>Nombre del Aprendiz:</strong> $nombreAprendiz</p>
-                    <p><strong>Documento de Identidad:</strong> $documentoAprendiz</p>
-                    <p><strong>Programa de Formación:</strong> $programaFormacion</p>
-                    <p><strong>ID del Grupo:</strong> $idGrupo</p>
-                    <p><strong>Descripción de la Queja:</strong> $descripcionQueja</p>
-                    <p><strong>Testigos o Pruebas:</strong> $testigosPruebas</p>
-                    <p><strong>Correo del Quejoso:</strong> $correoQuejoso</p>
-                    <p><strong>Nombre del Quejoso:</strong> $nombreQuejoso</p>
-                    <p><strong>Correo del Docente:</strong> $correoDocente</p>
-                    <p><strong>Nombre del Docente:</strong> $nombreDocente</p>
+                    <h2>Notificación Comité</h2>
+                    <p>Estimado(a) <strong><?php echo $nombreAprendiz; ?></strong>,</p>
+                    <p>Con número de cédula <strong><?php echo $documentoAprendiz; ?></strong>, del grupo <strong><?php echo $idGrupo; ?></strong> y programa de formación <strong><?php echo $programaFormacion; ?></strong>, usted ha sido notificado por <strong><?php echo $descripcionQueja; ?></strong> por el instructor <strong><?php echo $nombreDocente; ?></strong>. Por favor, esté atento al agendamiento del comité.</p>
+
                     ";
                     $mail->Body = $mailContent;
 
@@ -97,5 +89,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
-
-
