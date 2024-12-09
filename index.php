@@ -35,6 +35,8 @@ if (!isset($_SESSION['id'])) {
 
 <head>
     <?php include('config/head.php'); ?>
+
+    
 </head>
 
 <body id="page-top">
@@ -53,26 +55,39 @@ if (!isset($_SESSION['id'])) {
                     <?php include('config/ruta.php'); ?>
 
                     <div class="flex justify-center gap-8 mt-10">
-    <!-- Tarjeta 1 - Notificación -->
+                            <!-- Tarjeta 1 - Instructores -->
+
+                    <div class="w-60 h-72 bg-green-100 shadow-xl rounded-lg flex flex-col items-center p-4 transition transform hover:scale-105 hover:shadow-2xl cursor-pointer"
+        onclick="window.location.href='../instructor/instructor.php'">
+        <img src="../img/instructor.png" alt="Actas" class="w-32 h-32 mb-4">
+        <p class="text-green-700 font-bold">Instructores</p>
+    </div>
+
+
+     <!-- Tarjeta 2 - Aprendices -->
+     <div class="w-60 h-72 bg-green-100 shadow-xl rounded-lg flex flex-col items-center p-4 transition transform hover:scale-105 hover:shadow-2xl cursor-pointer"
+        onclick="window.location.href='../aprendiz/aprendiz.php'">
+        <img src="../img/aprendiz.png" alt="Actas" class="w-32 h-32 mb-4">
+        <p class="text-green-700 font-bold">Aprendices</p>
+    </div>
+
+    <!-- Tarjeta 3 - Notificación -->
     <div class="w-60 h-72 bg-green-100 shadow-xl rounded-lg flex flex-col items-center p-4 transition transform hover:scale-105 hover:shadow-2xl cursor-pointer"
         onclick="window.location.href='../informe/informe.php'">
-        <img src="../img/notificacion.png" alt="Notificación" class="w-32 h-32 mb-4">
+        <img src="../img/notificacion1.png" alt="Notificación" class="w-32 h-32 mb-4">
         <p class="text-green-700 font-bold">Notificación</p>
     </div>
 
-    <!-- Tarjeta 2 - Agendamiento -->
+    <!-- Tarjeta 4 - Agendamiento -->
     <div class="w-60 h-72 bg-green-100 shadow-xl rounded-lg flex flex-col items-center p-4 transition transform hover:scale-105 hover:shadow-2xl cursor-pointer"
         onclick="window.location.href='../comite/comite.php'">
         <img src="../img/agenda.png" alt="Agendamiento" class="w-32 h-32 mb-4">
-        <p class="text-green-700 font-bold">Agendamiento</p>
+        <p class="text-green-700 font-bold">Agendamiento Comite</p>
     </div>
 
-    <!-- Tarjeta 3 - Actas -->
-    <div class="w-60 h-72 bg-green-100 shadow-xl rounded-lg flex flex-col items-center p-4 transition transform hover:scale-105 hover:shadow-2xl cursor-pointer"
-        onclick="window.location.href='../acta/acta.php'">
-        <img src="../img/actas.png" alt="Actas" class="w-32 h-32 mb-4">
-        <p class="text-green-700 font-bold">Actas</p>
-    </div>
+   
+
+   
 </div>
 
                     </div>

@@ -1,21 +1,9 @@
 <?php
 require_once('../config/config.php');
 
-session_start();
+//session_start();
 
-if (isset($_SESSION['mensaje'])) {
-    $mensaje = $_SESSION['mensaje'];
-    unset($_SESSION['mensaje']);
-    $tipo = (strpos($mensaje, 'Error') !== false) ? 'error' : 'success'; // Determina si el mensaje es de éxito o error
-    echo "
-    <div id='modal' class='fixed inset-0 bg-opacity-50 flex justify-center items-center z-50'>
-        <div class='bg-white rounded-lg p-6 w-96'>
-            <h3 class='text-lg font-bold text-$tipo-700'>$mensaje</h3>
-            <button onclick='cerrarModal()' class='mt-4 px-4 py-2 bg-green-600 text-white rounded'>Cerrar</button>
-        </div>
-    </div>";
-}
-
+include('../config/modal.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">

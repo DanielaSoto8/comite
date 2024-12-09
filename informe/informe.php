@@ -1,20 +1,8 @@
 <?php
 require_once('../config/config.php');
-session_start();
 
 // Mostrar mensajes
-if (isset($_SESSION['mensaje'])) {
-    $mensaje = $_SESSION['mensaje'];
-    unset($_SESSION['mensaje']);
-    $tipo = (strpos($mensaje, 'Error') !== false) ? 'error' : 'success';
-    echo "
-    <div id='modal' class='fixed inset-0 bg-opacity-50 flex justify-center items-center z-50'>
-        <div class='bg-white rounded-lg p-6 w-96'>
-            <h3 class='text-lg font-bold text-" . ($tipo === 'error' ? 'red' : 'green') . "-700'>$mensaje</h3>
-            <button onclick='cerrarModal()' class='mt-4 px-4 py-2 bg-green-600 text-white rounded'>Cerrar</button>
-        </div>
-    </div>";
-}
+include('../config/modal.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">

@@ -4,15 +4,13 @@
     <a href="" class="text-xl font-semibold text-center text-white"></a><img src="../img/logo/sena.png" alt="">
     <ul class="space-y-2 mt-4">
 
-        <li><a href="../index.php" class="text-white hover:bg-green-600 p-2 rounded">Inicio</a>
+        <li><a href="../index.php" class="text-white hover:bg-green-600 p-2 rounded">Inicio</a></li>
+        <li><a href="../usuario/usuario.php" class="text-white hover:bg-green-600 p-2 rounded">Administrar Usuarios</a></li>
+        <li><a href="../instructor/instructor.php" class="text-white hover:bg-green-600 p-2 rounded">Administrar Instructores</a></li>
+        <li><a href="../Aprendiz/aprendiz.php" class="text-white hover:bg-green-600 p-2 rounded">Administrar Aprendices</a></li>
+        <li><a href="../informe/informe.php" class="text-white hover:bg-green-600 p-2 rounded">Notificaciones</a></li>
+        <li><a href="../comite/comite.php" class="text-white hover:bg-green-600 p-2 rounded">Agendamiento Comite</a>
         </li>
-
-        <li><a href="../usuario/usuario.php" class="text-white hover:bg-green-600 p-2 rounded">Administrar Usuarios</a>
-        </li>
-        <li><a href="../Aprendiz/aprendiz.php" class="text-white hover:bg-green-600 p-2 rounded">Administrar
-                Aprendices</a></li>
-        <li><a href="../instructor/instructor.php" class="text-white hover:bg-green-600 p-2 rounded">Administrar
-                Instructores</a></li>
     </ul>
 </div>
 

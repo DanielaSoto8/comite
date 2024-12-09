@@ -30,11 +30,19 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row['jornada'] . "</td>";
         echo "<td>" . $row['programa_formacion'] . "</td>";
         echo "<td>" . $row['estado'] . "</td>";
-        
-        
         echo "<td>";
-        echo "<a href='editar.php?documento=" . $row['documento'] . "' class='btn btn-warning btn-sm' title='Editar'><i class='fas fa-edit'></i></a> ";
-        echo "<a href='eliminar.php?documento=" . $row['documento'] . "' class='btn btn-danger btn-sm' title='Eliminar' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este registro?\");'><i class='fas fa-trash-alt'></i></a>";
+        echo "<button class='btn btn-warning btn-sm btn-editar' data-toggle='modal' data-target='#modalAprendiz' 
+                        data-nombres='{$row['nombres']}' 
+                        data-apellidos='{$row['apellidos']}' 
+                        data-celular='{$row['celular']}' 
+                        data-documento='{$row['documento']}' 
+                        data-correo_electronico='{$row['correo_electronico']}' 
+                        data-id_grupo='{$row['id_grupo']}' 
+                        data-programa_formacion='{$row['programa_formacion']}'
+                        data-jornada='{$row['jornada']}'
+                        data-estado='{$row['estado']}'>
+                    <i class='fas fa-edit'></i>  <!-- Ícono de Editar -->
+                </button> ";
         echo "</td>";
         echo "</tr>";
     }

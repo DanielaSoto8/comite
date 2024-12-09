@@ -1,6 +1,8 @@
 <?php
 require_once('../config/config.php');
 
+include('../config/modal.php');
+
 // Consulta SQL para obtener solo los aprendices con estado 'Notificado'
 $query = "SELECT id, documento_aprendiz, nombre_aprendiz, correo_aprendiz, id_grupo, programa_formacion,nombre_instructor, correo_instructor FROM informe WHERE estado = 'Notificado'";
 
@@ -11,6 +13,8 @@ $result = mysqli_query($conn, $query);
 if (!$result) {
     die("Error en la consulta: " . mysqli_error($mysqli));
 }
+
+
 ?>
 
 <!DOCTYPE html>

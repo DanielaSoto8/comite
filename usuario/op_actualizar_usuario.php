@@ -15,7 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Validación de los datos (esto es opcional, puedes agregar más validaciones si lo deseas)
     if (empty($id) || empty($usuario) || empty($nombres) || empty($apellidos) || empty($perfil)) {
-        echo "Todos los campos son obligatorios.";
+        $_SESSION['mensaje'] = "Todos los campos son obligatorios.";
+        header("Location: usuario.php");
         exit;
     }
 
