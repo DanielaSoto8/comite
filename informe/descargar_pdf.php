@@ -54,6 +54,10 @@ if (isset($_GET['id'])) {
         $pdf->Cell(0, 10, utf8_decode('SERVICIO NACIONAL DE APRENDIZAJE SENA '), 0, 1, 'C'); 
         $pdf->Ln(5); // Salto de línea
 
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(0, 10, utf8_decode('CENTRO DE PROCESOS INDUSTRIALES Y DE LA CONSTRUCCIÓN'), 0, 1, 'C'); 
+        $pdf->Ln(10); // Salto de línea
+
         // Título con estilo
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(0, 10, utf8_decode('INFORME PARA COMITE DE EVALUACION Y SEGUIMIENTO'), 0, 1, 'C'); 

@@ -185,7 +185,8 @@ include('../config/modal.php');
             $('#informe').DataTable({
                 "language": {
                     "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es_es.json",
-                    "searching": false   
+                    "searching": false,      // Deshabilita el campo de búsqueda
+                 
                 }
             });
         });

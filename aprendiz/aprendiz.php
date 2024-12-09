@@ -64,6 +64,15 @@ include('../config/modal.php');
                                         class="btn bg-green-500 hover:bg-green-600 text-white d-flex align-items-center">
                                         <i class="fas fa-search mr-1"></i> Buscar
                                     </button>
+                                    <form action="procesar_excel.php" method="POST" enctype="multipart/form-data"
+                                        class="mt-3">
+                                        <label for="archivo_excel" class="form-label">Seleccionar archivo Excel:</label>
+                                        <input type="file" name="archivo_excel" id="archivo_excel" accept=".xlsx, .xls"
+                                            class="form-control mb-2" required>
+                                        <button type="submit" class="btn bg-green-500 hover:bg-green-600 text-white">
+                                            <i class="fas fa-upload"></i> Cargar Datos
+                                        </button>
+                                    </form>
 
                                     <!-- Botón de ingresar instructor -->
                                     <button type="button"
@@ -120,7 +129,7 @@ include('../config/modal.php');
                                                 <div class="form-group">
                                                     <label for="jornada">Jornada</label>
                                                     <select class="form-control" id="jornada" name="jornada" required>
-                                                        <option value="" disabled selected>Seleccionar J</option>
+                                                        <option value="" disabled selected>Seleccionar Jornada</option>
                                                         <option value="Mañana">Mañana</option>
                                                         <option value="Tarde">Tarde</option>
                                                         <option value="Noche">Noche</option>

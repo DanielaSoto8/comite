@@ -90,9 +90,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $mail->Body = $mailContent;
 
                     if (!$mail->send()) {
-                        echo "Error al enviar correo<br>";
+                        $_SESSION["mensaje"] =
+                         "Error al enviar correo<br>";
                     } else {
-                        echo "Correo enviado correctamente <br>";
+                        $_SESSION["mensaje"] = "Correo enviado correctamente <br>";
                     }
 
                     $mail->clearAddresses();
@@ -102,19 +103,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
 
                     // Confirmación de éxito
-                    echo "El comité se ha creado correctamente y las notificaciones han sido enviadas.";
+                    $_SESSION["mensaje"] = "El comité se ha creado correctamente y las notificaciones han sido enviadas.";
                 } catch (Exception $e) {
-                    echo "Error al enviar las notificaciones: {$mail->ErrorInfo}";
+                    $_SESSION["mensaje"] = "Error al enviar las notificaciones: {$mail->ErrorInfo}";
                 }
             }
 
             // Configurar PHPMailer para enviar notificaciones
 
         } else {
-            echo "Error al crear el comité: " . mysqli_error($conn);
+            $_SESSION["mensaje"] = "Error al crear el comité: " . mysqli_error($conn);
         }
     } else {
-        echo "Error en la preparación de la consulta: " . mysqli_error($conn);
+        $_SESSION["mensaje"] = "Error en la preparación de la consulta: " . mysqli_error($conn);
     }
 }
+
+header("Location: comite.php");
+exit();
 ?>

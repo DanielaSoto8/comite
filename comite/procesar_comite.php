@@ -7,9 +7,9 @@ require 'vendor/autoload.php';
 
 // Datos del formulario
 $id_grupo = $_POST['id_grupo'];
-$fecha_inicio = $_POST['fecha_inicio'];
-$fecha_fin = $_POST['fecha_fin'];
-$lugar = $_POST['lugar'];
+$fecha_inicio =htmlspecialchars ($_POST['fecha_inicio'], ENT_QUOTES, 'UTF-8');
+$fecha_fin = htmlspecialchars ($_POST['fecha_fin'], ENT_QUOTES, 'UTF-8');
+$lugar = htmlspecialchars ($_POST['lugar'], ENT_QUOTES, 'UTF-8');
 
 // Crear la conexión a la base de datos
 $conn = new mysqli("localhost", "root", "", "comite");
@@ -39,11 +39,12 @@ try {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
     $mail->setFrom('educomitpro@gmail.com', 'Sistema de Comités');
+    $mail->CharSet = 'UTF-8';
 
     // Enviar correo a cada aprendiz
     foreach ($selected_aprendices as $aprendiz) {
-        $to = $aprendiz['correo_aprendiz'];
-        $name = $aprendiz['nombre_aprendiz'];
+        $to = htmlspecialchars ($aprendiz['correo_aprendiz'], ENT_QUOTES, 'UTF-8');
+        $name =htmlspecialchars($aprendiz['nombre_aprendiz'], ENT_QUOTES, 'UTF-8');
 
         $mail->addAddress($to);
 
@@ -52,7 +53,7 @@ try {
             <h2>Notificación de Comité</h2>
             <p>Estimado(a) $name,</p>
             <p>Se le informa que tiene un comité programado:</p>
-            <p><strong>Fecha:</strong> $fecha_inicio a $fecha_fin</p>
+            <p><strong>Fecha y hora:</strong> $fecha_inicio a $fecha_fin</p>
             <p><strong>Lugar:</strong> $lugar</p>
             <p>Atentamente,</p>
             <p>La coordinación</p>
@@ -61,17 +62,24 @@ try {
         $mail->Body = $mailContent;
 
         if (!$mail->send()) {
-            echo "Error al enviar correo a $to<br>";
+            $_SESSION['mensaje'] = "Error al enviar correo a $to<br>";
+        
         } else {
-            echo "Correo enviado correctamente a $to<br>";
+            $_SESSION['mensaje'] = "Correo enviado correctamente a $to<br>";
+        
         }
 
         // Limpia los destinatarios
         $mail->clearAddresses();
     }
 } catch (Exception $e) {
-    echo "Error al enviar el correo: {$mail->ErrorInfo}";
-}
+    $_SESSION['mensaje'] = "Error al enviar el correo: {$mail->ErrorInfo}";
+
+
 
 $conn->close();
+    // Redirigir al usuario de vuelta a la página principal
+    header('Location: comite.php');
+    exit;
+}
 ?>

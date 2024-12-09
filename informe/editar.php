@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
              $update->execute( [$fecha_informe, $documento_aprendiz, $nombre_aprendiz, $correo_aprendiz, 
             $programa_formacion, $id_grupo, $reporte, $documento_instructor, $nombre_instructor, $correo_instructor, $estado, $id]);
 
-            $_SESSION['mensaje'] = 'Usuario actualizado con éxito';
+            $_SESSION['mensaje'] = 'Informe actualizado con éxito';
 
             // Redirigir al usuario a la página de inicio o cualquier página que desees
             header("Location: informe.php"); // Cambia esta URL por la que desees

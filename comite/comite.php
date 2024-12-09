@@ -98,10 +98,11 @@ if (!$result) {
                     </div>
 
                     <!-- Botón para abrir el modal -->
-                    <button type="button" class="btn bg-green-600 hover:bg-green-700 text-white" data-toggle="modal"
-                        data-target="#modalCrearComite">
-                        <i class="fas fa-plus-circle"></i> Crear Comité
-                    </button>
+                    <button type="button"
+                                        class="btn bg-green-500 hover:bg-green-600 text-white d-flex align-items-center"
+                                        data-toggle="modal" data-target="#modalCrearComite">
+                                        <i class="fas fa-plus-circle"></i> Crear comité
+                                    </button>
 
                     <!-- Modal para crear comité -->
                     <div class="modal fade" id="modalCrearComite" tabindex="-1" aria-labelledby="modalCrearComiteLabel"
@@ -226,6 +227,9 @@ if (!$result) {
                 checkbox.checked = selectAll.checked;
             });
         }
+        function cerrarModal() {
+                window.location.href = 'comite.php'; // Redireccionar después de cerrar el modal
+            }
     </script>
      <script src="../js/utils.js"></script>
 

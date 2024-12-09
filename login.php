@@ -89,9 +89,6 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="font-weight-bold small" href="registrar.php">Crear cuenta nueva</a>
-                                    </div>
-                                    <div class="text-center">
                                         <a class="font-weight-bold small" href="recuperar_contrasenia.php">¿Olvidaste tu contraseña?</a>
                                     </div>
                                     
