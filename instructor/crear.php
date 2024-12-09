@@ -45,15 +45,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //$mensaje = "Registro guardado con éxito.";
             //$mensajeTipo = "success";  // Color verde para éxito
         } else {
-            $mensaje = "Error al guardar el registro: " . $stmt->error;
-            $mensajeTipo = "error";    // Color rojo para error
+            $_SESSION["mensaje"] = "Error al guardar el registro: " . $stmt->error;
+        
         }
 
         // Cerrar la sentencia
         $stmt->close();
     } else {
-        $mensaje = "Por favor, completa todos los campos.";
-        $mensajeTipo = "error"; // Color rojo para error
+        $_SESSION["mensaje"] = "Por favor, completa todos los campos.";
+
+       
     }
 }
 
@@ -61,12 +62,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $conn->close();
 ?>
 
-<!-- Mostrar mensaje de éxito o error con Tailwind CSS -->
-<?php if ($mensaje): ?>
-    <div class="max-w-xl mx-auto my-4 p-4 rounded-md 
-        <?php echo $mensajeTipo == 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'; ?> 
-        border border-solid border-<?php echo $mensajeTipo == 'success' ? 'green' : 'red'; ?>-400">
-        <strong><?php echo $mensaje; ?></strong>
-    </div>
-<?php endif; ?>
+
 

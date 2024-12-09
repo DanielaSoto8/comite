@@ -60,7 +60,7 @@ include('../config/modal.php');
                                 <!-- Botón de ingresar instructor -->
                                 <button type="button"
                                     class="btn bg-green-500 hover:bg-green-600 text-white d-flex align-items-center"
-                                    data-toggle="modal" data-target="#modalIngresarInstructor">
+                                    data-toggle="modal" data-target="#modalInstructor">
                                     <i class="fas fa-plus-circle"></i> Ingresar Instructor
                                 </button>
                             </form>
@@ -69,19 +69,19 @@ include('../config/modal.php');
 
 
 
-                        <div class="modal fade" id="modalIngresarInstructor" tabindex="-1"
-                            aria-labelledby="modalIngresarInstructorLabel" aria-hidden="true">
+                        <div class="modal fade" id="modalInstructor" tabindex="-1"
+                            aria-labelledby="modalInstructor" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header bg-green-600 text-black">
-                                        <h5 class="modal-title" id="modalIngresarInstructorLabel">Ingresar Instructor
+                                        <h5 class="modal-title" id="modalInstructor">Ingresar Instructor
                                         </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body bg-green-50 text-black ">
-                                        <form action="procesar_formulario_instructor.php" method="POST">
+                                        <form method="POST">
                                             <div class="form-group">
                                                 <label for="documento">Documento</label>
                                                 <input type="text" class="form-control" id="documento" name="documento"
@@ -187,6 +187,40 @@ include('../config/modal.php');
                 window.location.href = 'instructor.php'; // Redireccionar después de cerrar el modal
             }
         </script>
+         <script>
+        $('#modalInstructor').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Botón que activó el modal
+            var modal = $(this);
+
+            if (button.hasClass('btn-editar')) {
+                // Si es un botón de editar, configuramos el modal para editar
+                modal.find('.modal-title').text('Editar Instructor');
+                modal.find('form').attr('action', 'editar.php');
+
+                // Llenamos los campos con los datos del usuario
+                modal.find('#documento').val(button.data('documento'));
+                modal.find('#nombres').val(button.data('nombres'));
+                modal.find('#apellidos').val(button.data('apellidos'));
+                modal.find('#celular').val(button.data('celular'));
+                modal.find('#correo_electronico').val(button.data('correo_electronico'));
+                modal.find('#estado').val(button.data('estado'));
+     
+
+            } else {
+                // Si es un botón de crear, configuramos el modal para crear
+                modal.find('.modal-title').text('Ingresar Instructor');
+                modal.find('form').attr('action', 'crear.php');
+
+                // Limpiamos los campos del formulario
+                modal.find('#documento').val('');
+                modal.find('#nombres').val('');
+                modal.find('#apellidos').val('');
+                modal.find('#celular').val('');
+                modal.find('#correo_electronico').val('');
+                modal.find('#estado').val('');
+            }
+        });
+    </script>
         <script src="../js/utils.js"></script>
 </body>
 

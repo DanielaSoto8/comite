@@ -27,13 +27,20 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row['celular'] . "</td>"; 
         echo "<td>" . $row['correo_electronico'] . "</td>";
         echo "<td>" . $row['estado'] . "</td>";
-        
-        
         echo "<td>";
-        echo "<a href='editar.php?documento=" . $row['documento'] . "' class='btn btn-warning btn-sm' title='Editar'><i class='fas fa-edit'></i></a> ";
-        echo "<a href='eliminar.php?documento=" . $row['documento'] . "' class='btn btn-danger btn-sm' title='Eliminar' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este registro?\");'><i class='fas fa-trash-alt'></i></a>";
-        echo "</td>";
-        echo "</tr>";
+        
+        
+        echo "<button class='btn btn-warning btn-sm btn-editar' data-toggle='modal' data-target='#modalInstructor' 
+        data-documento='{$row['documento']}' 
+        data-nombres='{$row['nombres']}' 
+        data-apellidos='{$row['apellidos']}' 
+        data-celular='{$row['celular']}' 
+        data-correo_electronico='{$row['correo_electronico']}' 
+        data-estado='{$row['estado']}'>
+    <i class='fas fa-edit'></i>  <!-- Ícono de Editar -->
+</button> ";
+echo "</td>";
+echo "</tr>";
     }
 } else {
     echo "<tr><td colspan='11'>No se encontraron registros</td></tr>";
