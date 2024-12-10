@@ -45,69 +45,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Asignar los aprendices al comité
            
             $mail = new PHPMailer(true);
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'educomitpro@gmail.com';
-            $mail->Password = 'pznn nraf izxa bybd'; // Usa tu contraseña de aplicación
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587;
-            $mail->setFrom('educomitpro@gmail.com', 'Sistema de Comités');
+$mail->isSMTP();
+$mail->Host = 'smtp.gmail.com';
+$mail->SMTPAuth = true;
+$mail->Username = 'educomitpro@gmail.com';
+$mail->Password = 'pznn nraf izxa bybd'; // Usa tu contraseña de aplicación
+$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+$mail->Port = 587;
+$mail->setFrom('educomitpro@gmail.com', 'Sistema de Comités');
 
-            foreach ($informe_aprendices as $aprendiz) {
-                $aprendiz = json_decode($aprendiz, true);
-                $id_informe = $aprendiz['id'];
+// Establecer codificación UTF-8
+$mail->CharSet = 'UTF-8';
+$mail->ContentType = 'text/html; charset=UTF-8';
 
-                $query_asignar = "INSERT INTO comite_informe (id_comite, id_informe) VALUES (?, ?)";
-                $stmt_asignar = mysqli_prepare($conn, $query_asignar);
-                mysqli_stmt_bind_param($stmt_asignar, 'is', $id_comite, $id_informe);
-                mysqli_stmt_execute($stmt_asignar);
+foreach ($informe_aprendices as $aprendiz) {
+    $aprendiz = json_decode($aprendiz, true);
+    $id_informe = $aprendiz['id'];
 
-               
-                try {
-                   
-                    $correo_aprendiz = $aprendiz['correo_aprendiz'];
-                    $nombre_aprendiz = $aprendiz['nombre_aprendiz'];
-                    $correo_instructor = $aprendiz['correo_instructor'];
-                    $nombre_instructor = $aprendiz['nombre_instructor'];
-                    $id_informe = $aprendiz['id'];
+    $query_asignar = "INSERT INTO comite_informe (id_comite, id_informe) VALUES (?, ?)";
+    $stmt_asignar = mysqli_prepare($conn, $query_asignar);
+    mysqli_stmt_bind_param($stmt_asignar, 'is', $id_comite, $id_informe);
+    mysqli_stmt_execute($stmt_asignar);
 
-                    $mail->addAddress($correo_aprendiz, $nombre_aprendiz);
-                    $mail->addAddress($correo_instructor, $nombre_instructor);
+    try {
+        $correo_aprendiz = $aprendiz['correo_aprendiz'];
+        $nombre_aprendiz = $aprendiz['nombre_aprendiz'];
+        $correo_instructor = $aprendiz['correo_instructor'];
+        $nombre_instructor = $aprendiz['nombre_instructor'];
+        $id_informe = $aprendiz['id'];
 
-                    $mail->Subject = 'Notificación de Comité';
-                    $mailContent = "
-                            <h2>Notificación de Comité</h2>
-                            <p>Estimado(a) $nombre_aprendiz,</p>
-                            <p>Se le informa que tiene un comité programado dado el reporte # </strong> $id_informe el cual ya habia sido notificado. </p> 
-                            <p><strong>Programación comité:
-                            <p><strong>Fecha:</strong>$fecha_inicio a $fecha_fin
-                            <strong>Lugar:</strong> $lugar</p>
-                            <p>Atentamente,</p>
-                            <p>La coordinación</p>
-                        ";
-                    $mail->isHTML(true);
-                    $mail->Body = $mailContent;
+        $mail->addAddress($correo_aprendiz, $nombre_aprendiz);
+        $mail->addAddress($correo_instructor, $nombre_instructor);
 
-                    if (!$mail->send()) {
-                        $_SESSION["mensaje"] =
-                         "Error al enviar correo<br>";
-                    } else {
-                        $_SESSION["mensaje"] = "Correo enviado correctamente <br>";
-                    }
+        $mail->Subject = 'Notificación de Comité';
+        $mailContent = "
+            <h2>Notificación de Comité</h2>
+            <p>Estimado(a) $nombre_aprendiz,</p>
+            <p>Se le informa que tiene un comité programado dado el reporte # <strong>$id_informe</strong> el cual ya había sido notificado.</p>
+            <p><strong>Programación comité:</strong></p>
+            <p><strong>Fecha:</strong> $fecha_inicio a $fecha_fin</p>
+            <p><strong>Lugar:</strong> $lugar</p>
+            <p>Atentamente,</p>
+            <p>La coordinación</p>
+        ";
 
-                    $mail->clearAddresses();
-                   
-                    $updateQuery = "UPDATE informe SET estado = 'Agendado' WHERE id = '$id_informe' ";
-                    mysqli_query($conn, $updateQuery);
-        
+        $mail->isHTML(true);
+        $mail->Body = $mailContent;  // No necesitas utf8_encode
 
-                    // Confirmación de éxito
-                    $_SESSION["mensaje"] = "El comité se ha creado correctamente y las notificaciones han sido enviadas.";
-                } catch (Exception $e) {
-                    $_SESSION["mensaje"] = "Error al enviar las notificaciones: {$mail->ErrorInfo}";
-                }
-            }
+        if (!$mail->send()) {
+            $_SESSION["mensaje"] = "Error al enviar correo<br>";
+        } else {
+            $_SESSION["mensaje"] = "Correo enviado correctamente <br>";
+        }
+
+        $mail->clearAddresses();
+
+        $updateQuery = "UPDATE informe SET estado = 'Agendado' WHERE id = '$id_informe' ";
+        mysqli_query($conn, $updateQuery);
+
+        // Confirmación de éxito
+        $_SESSION["mensaje"] = "El comité se ha creado correctamente y las notificaciones han sido enviadas.";
+    } catch (Exception $e) {
+        $_SESSION["mensaje"] = "Error al enviar las notificaciones: {$mail->ErrorInfo}";
+    }
+}
+
 
             // Configurar PHPMailer para enviar notificaciones
 

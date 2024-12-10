@@ -181,15 +181,14 @@ include('../config/modal.php');
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#informe').DataTable({
-                "language": {
-                    "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es_es.json",
-                    "searching": false,      // Deshabilita el campo de búsqueda
-                 
-                }
-            });
-        });
+  $(document).ready(function () {
+    $('#informe').DataTable({
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es_es.json"
+        },
+        "searching": false  // Esto deshabilita la barra de búsqueda
+    });
+});
 
         function cerrarModal() {
             window.location.href = 'informe.php';

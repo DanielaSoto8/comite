@@ -59,7 +59,7 @@ try {
             <p>La coordinación</p>
         ";
         $mail->isHTML(true);
-        $mail->Body = $mailContent;
+        $mail->Body = utf8_encode($mailContent);
 
         if (!$mail->send()) {
             $_SESSION['mensaje'] = "Error al enviar correo a $to<br>";

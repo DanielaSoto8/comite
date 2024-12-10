@@ -39,34 +39,31 @@ if (isset($_FILES['archivo_excel']) && $_FILES['archivo_excel']['error'] == UPLO
         // Procesar cada fila (omitir la cabecera)
         for ($i = 1; $i < count($datos); $i++) {
             $fila = $datos[$i];
-            $nombres = $fila[0];
-            $apellidos = $fila[1];
-            $celular = $fila[2];
-            $documento = $fila[3];
-            $correo = $fila[4];
-            $id_grupo = $fila[5];
-            $jornada = $fila[6];
-            $programa = $fila[7];
-            $estado = $fila[8];
+            $documento = $fila[0];
+            $nombres = $fila[1];
+            $apellidos = $fila[2];
+            $celular = $fila[3];
+            $correo_electronico = $fila[4];
+            $estado = $fila[5];
 
             // Insertar en la base de datos
-            $stmt = $conn->prepare("INSERT INTO aprendiz (nombres, apellidos, celular, documento, correo_electronico, id_grupo, jornada, programa_formacion, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssssssss", $nombres, $apellidos, $celular, $documento, $correo, $id_grupo, $jornada, $programa, $estado);
+            $stmt = $conn->prepare("INSERT INTO aprendi (documento, nombres, apellidos, celular, correo_electronico, estado) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssss", $documento, $nombres, $apellidos, $celular, $correo_electronico, $estado);
 
             // Ejecutar la consulta
             if (!$stmt->execute()) {
                 $_SESSION["mensaje"] = "Error al insertar el registro: " . $stmt->error;
-                header('Location: aprendiz.php');
+                header('Location: instructor.php');
                 exit();
             }
         }
 
         $_SESSION["mensaje"] = "Datos importados con éxito.";
-        header('Location: aprendiz.php');
+        header('Location: instructor.php');
         exit();
     } catch (Exception $e) {
         $_SESSION["mensaje"] = "Error al procesar el archivo: " . $e->getMessage();
-        header('Location: aprendiz.php');
+        header('Location: instructor.php');
         exit();
     }
 } else {

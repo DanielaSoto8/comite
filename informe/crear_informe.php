@@ -45,11 +45,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->Password = 'pznn nraf izxa bybd';  // Tu contraseña de correo
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;  // Puerto SMTP (587 para TLS)
+    
 
             // Destinatarios
             $mail->setFrom('educomitpro@gmail.com', 'Sistema de Quejas');
             $mail->addAddress($correo_aprendiz, $nombre_aprendiz);
             $mail->addAddress($correo_instructor, $nombre_instructor);
+            
 
             // Asunto del correo
             $mail->Subject = 'Nuevo Informe o Queja';
