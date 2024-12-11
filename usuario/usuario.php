@@ -242,7 +242,7 @@ $consulta_usuarios = $pdo->query("SELECT * FROM usuario");
                     "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/es_es.json"
                 },
                 "order": [[1, 'asc']],  // Orden por nombre del aprendiz (segunda columna)
-                "searching": false      // Deshabilita el campo de búsqueda
+                "searching": true,      // Deshabilita el campo de búsqueda
             });
 
             // Asegúrate de que el modal esté oculto al inicio
@@ -287,6 +287,7 @@ $consulta_usuarios = $pdo->query("SELECT * FROM usuario");
                 modal.find('#contrasenia').val(button.data(''));
                 modal.find('#nombres').val(button.data(''));
                 modal.find('#apellidos').val(button.data(''));
+                modal.find('#correo_electronico').val(button.data('correo_electronico'));
                 modal.find('#id_perfil').val(button.data(''));
                 modal.find('#estado').val(button.data(''));
             }

@@ -107,7 +107,7 @@ if (isset($_GET['id'])) {
         $pdf->SetFillColor(230, 230, 230);
         $pdf->Cell(0, 10, 'Reporte', 0, 1, 'C', true);
         $pdf->Ln(3);
-        $pdf->MultiCell(0, 10, $row['reporte'], 1, 'L'); // Borde
+        $pdf->MultiCell(0, 10, utf8_decode($row['reporte']), 1, 'L'); // Borde
 
         // Sanitizar nombre y documento para evitar problemas con caracteres especiales en el nombre del archivo
 $nombre_aprendiz_limpio = preg_replace('/[^a-zA-Z0-9_]/', '_', $row['nombre_aprendiz']);
