@@ -88,7 +88,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : null;
                                         </div>
                                         <!-- Centrado de reCAPTCHA -->
                                         <div class="form-group recaptcha-center">
-                                            <div class="g-recaptcha" data-sitekey="6LdiH3IqAAAAAFRFc8l3U6WPKozYgEB1Mb6onLHb"></div>
+                                            <div class="g-recaptcha" data-sitekey="6Le9RZgqAAAAAHekhP8vfo8a_BJ29i6JS_3nm8u1"></div>
                                         </div>
                                         <div class="form-group">
                                             <input type="submit" class="btn btn-success btn-block" value="Iniciar Sesión">
