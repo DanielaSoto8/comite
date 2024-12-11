@@ -1,6 +1,15 @@
 <?php
 require_once('../config/config.php');
 
+session_start();
+
+// Verifica si el usuario está autenticado
+if (!isset($_SESSION['id'])) {
+    // Si no está autenticado, redirige a la página de inicio de sesión
+    header('Location: ../login.php');
+    exit();
+}
+
 //session_start();
 
 include('../config/modal.php');
@@ -98,37 +107,46 @@ include('../config/modal.php');
                                         <div class="modal-body bg-green-50 text-black">
                                             <form method="POST">
                                                 <div class="form-group">
-                                                    <label for="nombres">Nombre</label>
+                                                    <label for="nombres"  class="block text-green-700 text-sm font-bold mb-2">Nombre</label>
                                                     <input type="text" class="form-control" id="nombres" name="nombres"
                                                         required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="apellidos">Apellidos</label>
+                                                    <label for="apellidos"  class="block text-green-700 text-sm font-bold mb-2">Apellidos</label>
                                                     <input type="text" class="form-control" id="apellidos"
                                                         name="apellidos" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="celular">Celular</label>
+                                                    <label for="celular"  class="block text-green-700 text-sm font-bold mb-2">Celular</label>
                                                     <input type="text" class="form-control" id="celular" name="celular"
                                                         required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="documento">Documento</label>
+                                                    <label for="tipo_documento"  class="block text-green-700 text-sm font-bold mb-2">Tipo de documento</label>
+                                                    <select class="form-control" id="tipo_documento" name="tipo_documento" required>
+                                                        <option value="" disabled selected>Seleccionar Tipo Documentos</option>
+                                                        <option value="CC">CC:Cedula de Ciudadania</option>
+                                                        <option value="TI">TI:Tarjeta de identidad</option>
+                                                        <option value="PEP">PEP:Permiso Especial de Permanencia</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="documento"  class="block text-green-700 text-sm font-bold mb-2">Documento</label>
                                                     <input type="text" class="form-control" id="documento"
                                                         name="documento" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="correo_electronico">Correo Electrónico</label>
+                                                    <label for="correo_electronico"  class="block text-green-700 text-sm font-bold mb-2">Correo Electrónico</label>
                                                     <input type="email" class="form-control" id="correo_electronico"
                                                         name="correo_electronico" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="id_grupo">ID Grupo</label>
+                                                    <label for="id_grupo"  class="block text-green-700 text-sm font-bold mb-2">ID Grupo</label>
                                                     <input type="text" class="form-control" id="id_grupo"
                                                         name="id_grupo" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="jornada">Jornada</label>
+                                                    <label for="jornada"  class="block text-green-700 text-sm font-bold mb-2">Jornada</label>
                                                     <select class="form-control" id="jornada" name="jornada" required>
                                                         <option value="" disabled selected>Seleccionar Jornada</option>
                                                         <option value="Mañana">Mañana</option>
@@ -137,12 +155,12 @@ include('../config/modal.php');
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="programa_formacion">Programa de formacion</label>
+                                                    <label for="programa_formacion"  class="block text-green-700 text-sm font-bold mb-2">Programa de formacion</label>
                                                     <input type="text" class="form-control" id="programa_formacion"
                                                         name="programa_formacion" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="estado">Estado</label>
+                                                    <label for="estado"  class="block text-green-700 text-sm font-bold mb-2">Estado</label>
                                                     <select class="form-control" id="estado" name="estado">
                                                         <option value="" disabled selected>Seleccionar Estado</option>
                                                         <option value="Activo">Activo</option>
@@ -176,6 +194,7 @@ include('../config/modal.php');
                                             <th>Nombre</th>
                                             <th>Apellidos</th>
                                             <th>Celular</th>
+                                            <th>Tipo de documento</th>
                                             <th>Documento</th>
                                             <th>Correo electrónico</th>
                                             <th>Id Grupo</th>
@@ -230,6 +249,7 @@ include('../config/modal.php');
 
                 // Llenamos los campos con los datos del usuario
                 modal.find('#documento').val(button.data('documento'));
+                modal.find('#tipo_documento').val(button.data('tipo_documento'));
                 modal.find('#nombres').val(button.data('nombres'));
                 modal.find('#apellidos').val(button.data('apellidos'));
                 modal.find('#celular').val(button.data('celular'));
@@ -246,11 +266,13 @@ include('../config/modal.php');
 
                 // Limpiamos los campos del formulario
                 modal.find('#documento').val('');
+                modal.find('#tipo_documento').val('');
                 modal.find('#nombres').val('');
                 modal.find('#apellidos').val('');
                 modal.find('#celular').val('');
                 modal.find('#correo_electronico').val('');
                 modal.find('#id_grupo').val('');
+                modal.find('#programa_formacion').val('');
                 modal.find('#jornada').val('');
                 modal.find('#estado').val('');
             }

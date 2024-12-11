@@ -1,5 +1,13 @@
 <?php
 require_once('../config/config.php');
+session_start();
+
+// Verifica si el usuario está autenticado
+if (!isset($_SESSION['id'])) {
+    // Si no está autenticado, redirige a la página de inicio de sesión
+    header('Location: ../login.php');
+    exit();
+}
 
 //session_start();
 
@@ -83,33 +91,33 @@ include('../config/modal.php');
                                     <div class="modal-body bg-green-50 text-black ">
                                         <form method="POST">
                                             <div class="form-group">
-                                                <label for="documento">Documento</label>
+                                                <label for="documento"  class="block text-green-700 text-sm font-bold mb-2">Documento</label>
                                                 <input type="text" class="form-control" id="documento" name="documento"
                                                     required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="nombres">Nombre</label>
+                                                <label for="nombres"  class="block text-green-700 text-sm font-bold mb-2">Nombre</label>
                                                 <input type="text" class="form-control" id="nombres" name="nombres"
                                                     required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="apellidos">Apellidos</label>
+                                                <label for="apellidos"  class="block text-green-700 text-sm font-bold mb-2">Apellidos</label>
                                                 <input type="text" class="form-control" id="apellidos" name="apellidos"
                                                     required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="celular">Celular</label>
+                                                <label for="celular"  class="block text-green-700 text-sm font-bold mb-2">Celular</label>
                                                 <input type="text" class="form-control" id="celular" name="celular"
                                                     required>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="correo_electronico">Correo Electrónico</label>
+                                                <label for="correo_electronico"  class="block text-green-700 text-sm font-bold mb-2">Correo Electrónico</label>
                                                 <input type="email" class="form-control" id="correo_electronico"
                                                     name="correo_electronico" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="estado">Estado</label>
+                                                <label for="estado"  class="block text-green-700 text-sm font-bold mb-2">Estado</label>
                                                 <select class="form-control" id="estado" name="estado">
                                                     <option value="" disabled selected>Seleccionar Estado</option>
                                                     <option value="Activo">Activo</option>

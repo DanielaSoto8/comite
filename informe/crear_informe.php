@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
 
             // Asunto del correo
-            $mail->Subject = 'Nuevo Informe o Queja';
+            $mail->Subject = 'Nuevo Informe';
 
             // Contenido del correo
             $mail->isHTML(true);

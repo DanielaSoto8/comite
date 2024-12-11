@@ -3,34 +3,37 @@
 require_once('../config/config.php');
 
 // Verificar si los datos del formulario fueron enviados
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Recibir los datos del formulario
     $usuario = $_POST['usuario'];
     $contrasenia = $_POST['contrasenia'];
     $nombres = $_POST['nombres'];
     $apellidos = $_POST['apellidos'];
-    $id_perfil = $_POST['perfil'];
-    $estado = $_POST['estado']; // Si el estado es un campo textual, puede ser 'activo' o 'inactivo'
+    $correo_electronico = $_POST['correo_electronico'];
+    $id_perfil = $_POST['id_perfil'];
+    $estado = $_POST['estado'];
 
-    // Encriptar la contraseña para mayor seguridad
-    $contrasenia_encriptada = password_hash($contrasenia, PASSWORD_DEFAULT);
-
-    try {
-        // Preparar la consulta SQL para insertar los datos en la base de datos
-        $consulta = $pdo->prepare("INSERT INTO usuario (usuario, contrasenia, nombres, apellidos, id_perfil, estado) VALUES (?, ?, ?, ?, ?, ?)");
-        // Ejecutar la consulta
-        $consulta->execute([$usuario, $contrasenia_encriptada, $nombres, $apellidos, $id_perfil, $estado]);
-
-        // Redirigir a otra página o mostrar mensaje de éxito
-        echo "Usuario creado exitosamente.";
-        // O redirigir a una página
-        // header('Location: index.php');
-    } catch (PDOException $e) {
-        // Manejo de errores
-        echo "Error al crear el usuario: " . $e->getMessage();
+    // Validaciones si es necesario (por ejemplo, para asegurarte que no estén vacíos)
+    if (empty($usuario) || empty($contrasenia) || empty($nombres) || empty($apellidos) || empty($correo_electronico) || empty($id_perfil) || empty($estado)) {
+        echo "Todos los campos son requeridos.";
+        exit;
     }
-} else {
-    // Si no es una solicitud POST, redirigir o mostrar un mensaje
-    echo "Solicitud no válida.";
+    
+    $contrasenia = password_hash($_POST['contrasenia'], PASSWORD_DEFAULT);
+
+    // Aquí realizarías el SQL para insertar los datos
+    $sql = "INSERT INTO usuario (usuario, contrasenia, nombres, apellidos, correo_electronico, id_perfil, estado) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    // Preparar la consulta
+    $stmt = $pdo->prepare($sql);
+
+    // Ejecutar la consulta
+    if ($stmt->execute([$usuario, $contrasenia, $nombres, $apellidos, $correo_electronico, $id_perfil, $estado])) {
+        $_SESSION['mensaje'] = "Usuario creado correctamente.";
+    
+    } else {
+        $_SESSION['mensaje'] = "Error al crear el usuario.";
+        
+    }
 }
-?>

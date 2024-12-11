@@ -50,6 +50,11 @@ $consulta_perfiles = $pdo->query("SELECT id, perfil FROM perfil");
             <input type="text" name="apellidos" required
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-green-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
         </div>
+        <div class="mb-4">
+            <label for="correo_electronico" class="block text-green-700 text-sm font-bold mb-2">Correo Electronico:</label>
+            <input type="text" name="correo_electronico" required
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-green-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+        </div>
 
         <!-- Campo Perfil -->
         <div class="mb-4">

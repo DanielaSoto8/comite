@@ -32,9 +32,9 @@
                     <div class="card-body">
                         <h3 class="text-center text-dark mb-4">Recuperar Contraseña</h3>
                         <form action="procesar_recuperacion.php" method="POST">
-                            <div class="form-group">
-                                <label for="email" class="text-dark">Correo Electrónico</label>
-                                <input type="email" name="email" id="email" class="form-control" required placeholder="Ingresa tu correo">
+                        <div class="form-group">
+                                <label for="usuario" class="text-dark">Usuario</label>
+                                <input type="usuario" name="usuario" id="usuario" class="form-control" required placeholder="Ingresa tu usuario">
                             </div>
                             <div class="form-group mt-4">
                                 <button type="submit" class="btn btn-success btn-block">Enviar Enlace</button>

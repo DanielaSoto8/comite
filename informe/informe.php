@@ -1,6 +1,13 @@
 <?php
 require_once('../config/config.php');
+session_start();
 
+// Verifica si el usuario está autenticado
+if (!isset($_SESSION['id'])) {
+    // Si no está autenticado, redirige a la página de inicio de sesión
+    header('Location: ../login.php');
+    exit();
+}
 // Mostrar mensajes
 include('../config/modal.php');
 ?>
@@ -78,13 +85,13 @@ include('../config/modal.php');
                                         <div class="form-group">
                                             <label for="nombre_aprendiz">Nombre del Aprendiz</label>
                                             <input type="text" class="form-control" id="nombre_aprendiz"
-                                                name="nombre_aprendiz" required>
+                                                name="nombre_aprendiz" required readonly>
                                         </div>
                                         <!-- Correo del Aprendiz -->
                                         <div class="form-group">
                                             <label for="correo_aprendiz">Correo del Aprendiz</label>
                                             <input type="email" class="form-control" id="correo_aprendiz"
-                                                name="correo_aprendiz" required>
+                                                name="correo_aprendiz" required readonly>
                                         </div>
                                         <!-- Programa de Formación -->
                                         <div class="form-group">
@@ -118,13 +125,13 @@ include('../config/modal.php');
                                         <div class="form-group">
                                             <label for="nombre_instructor">Nombre del Instructor</label>
                                             <input type="text" class="form-control" id="nombre_instructor"
-                                                name="nombre_instructor" required>
+                                                name="nombre_instructor" required readonly>
                                         </div>
                                         <!-- Correo del Instructor -->
                                         <div class="form-group">
                                             <label for="correo_instructor">Correo del Instructor</label>
                                             <input type="email" class="form-control" id="correo_instructor"
-                                                name="correo_instructor" required>
+                                                name="correo_instructor" required readonly>
                                         </div>
                                         <!-- Estado del Comité -->
                                         <input type="hidden" name="estado" id="estado" value="Pendiente">
@@ -144,35 +151,36 @@ include('../config/modal.php');
 
                     <!-- Tabla -->
                     <div class="card mt-4 bg-green-100">
-                        <div class="card-header bg-green-600 text-white">
-                            <h4>Informes Actuales</h4>
-                        </div>
-                        <div class="card-body">
-                            <table id="informe" class="table table-bordered table-hover">
-                                <thead class="bg-green-500 text-white">
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Fecha del Informe</th>
-                                        <th>Documento del Aprendiz</th>
-                                        <th>Nombre del Aprendiz</th>
-                                        <th>Correo del Aprendiz</th>
-                                        <th>Programa de Formación</th>
-                                        <th>ID del Grupo</th>
-                                        <th>Reporte</th>
-                                        <th>Documento del Instructor</th>
-                                        <th>Nombre del Instructor</th>
-                                        <th>Correo del Instructor</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php include 'informe_datos.php'; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+    <div class="card-header bg-green-600 text-white">
+        <h4>Informes Actuales</h4>
+    </div>
+    <div class="card-body">
+        <div class="overflow-x-auto">
+            <table id="informe" class="min-w-full table-auto border-separate border-spacing-0">
+                <thead class="bg-green-500 text-white">
+                    <tr>
+                        <th class="px-4 py-2 border-b">Id</th>
+                        <th class="px-4 py-2 border-b">Fecha del Informe</th>
+                        <th class="px-4 py-2 border-b">Documento del Aprendiz</th>
+                        <th class="px-4 py-2 border-b">Nombre del Aprendiz</th>
+                        <th class="px-4 py-2 border-b">Correo del Aprendiz</th>
+                        <th class="px-4 py-2 border-b">Programa de Formación</th>
+                        <th class="px-4 py-2 border-b">ID del Grupo</th>
+                        <th class="px-4 py-2 border-b">Reporte</th>
+                        <th class="px-4 py-2 border-b">Documento del Instructor</th>
+                        <th class="px-4 py-2 border-b">Nombre del Instructor</th>
+                        <th class="px-4 py-2 border-b">Correo del Instructor</th>
+                        <th class="px-4 py-2 border-b">Estado</th>
+                        <th class="px-4 py-2 border-b">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php include 'informe_datos.php'; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
             </div>
         </div>
     </div>

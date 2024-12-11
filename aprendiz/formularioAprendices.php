@@ -19,7 +19,7 @@
       // Incluimos el archivo de procesamiento
 
     // Definir las variables con valores vacíos
-    $Nombres = $Apellidos = $Documento = $correoElectronico = $idGrupo = $Jornada = "";
+    $Nombres = $Apellidos = $tipo_documento = $Documento = $correoElectronico = $idGrupo = $Jornada = "";
     $errores = [];
 
     // Procesar el formulario
@@ -39,6 +39,12 @@
             $errores['celular'] = "El documento de identidad es obligatorio.";
         } else {
             $Documento = test_input($_POST["celular"]);
+        }
+
+        if (empty($_POST["tipo_documento"])) {
+            $errores['tipo_documento'] = "El documento de identidad es obligatorio.";
+        } else {
+            $tipo_documento = test_input($_POST["tipo_documento"]);
         }
 
         if (empty($_POST["documento"])) {
@@ -113,6 +119,13 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label for="tipo_documento">Jornada</label>
+            <input type="text" class="form-control <?php echo isset($errores['tipo_documento']) ? 'is-invalid' : ''; ?>" id="tipo_documento" name="tipo_documento" value="<?php echo $tipo_documento; ?>" required>
+            <div class="invalid-feedback">
+                <?php echo $errores['tipo_documento'] ?? ''; ?>
+            </div>
+        </div>
         <div class="form-group">
             <label for="documento">Documento de identidad del aprendiz</label>
             <input type="text" class="form-control <?php echo isset($errores['documento']) ? 'is-invalid' : ''; ?>" id="Documento" name="Documento" value="<?php echo $Documento; ?>" required>

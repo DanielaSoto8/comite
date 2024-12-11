@@ -1,6 +1,15 @@
 <?php
 require_once('../config/config.php');
 
+session_start();
+
+// Verifica si el usuario está autenticado
+if (!isset($_SESSION['id'])) {
+    // Si no está autenticado, redirige a la página de inicio de sesión
+    header('Location: ../login.php');
+    exit();
+}
+
 include('../config/modal.php');
 
 // Consulta SQL para obtener solo los aprendices con estado 'Notificado'

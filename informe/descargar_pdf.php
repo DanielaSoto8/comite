@@ -55,7 +55,7 @@ if (isset($_GET['id'])) {
         $pdf->Ln(5); // Salto de línea
 
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(0, 10, utf8_decode('CENTRO DE PROCESOS INDUSTRIALES Y DE LA CONSTRUCCIÓN'), 0, 1, 'C'); 
+        $pdf->Cell(0, 10, utf8_decode('CENTRO DE PROCESOS INDUSTRIALES Y DE LA CONSTRUCCION'), 0, 1, 'C'); 
         $pdf->Ln(10); // Salto de línea
 
         // Título con estilo
@@ -74,8 +74,8 @@ if (isset($_GET['id'])) {
         $pdf->Cell(0, 10, $row['fecha_informe'], 1, 1, 'L'); // Borde
         $pdf->Cell(50, 10, 'Documento Aprendiz:', 1, 0, 'L'); // Borde
         $pdf->Cell(0, 10, $row['documento_aprendiz'], 1, 1, 'L'); // Borde
-        $pdf->Cell(50, 10, 'Nombre Aprendiz:', 1, 0, 'L'); // Borde
-        $pdf->Cell(0, 10, $row['nombre_aprendiz'], 1, 1, 'L'); // Borde
+        $pdf->Cell(50, 10, utf8_decode('Nombre Aprendiz:'), 1, 0, 'L'); // Borde
+        $pdf->Cell(0, 10, utf8_decode($row['nombre_aprendiz']), 1, 1, 'L'); // Borde
         $pdf->Cell(50, 10, 'Correo Aprendiz:', 1, 0, 'L'); // Borde
         $pdf->Cell(0, 10, $row['correo_aprendiz'], 1, 1, 'L'); // Borde
 
@@ -96,8 +96,9 @@ if (isset($_GET['id'])) {
         $pdf->Ln(3);
         $pdf->Cell(50, 10, 'Documento Instructor:', 1, 0, 'L'); // Borde
         $pdf->Cell(0, 10, $row['documento_instructor'], 1, 1, 'L'); // Borde
-        $pdf->Cell(50, 10, 'Nombre Instructor:', 1, 0, 'L'); // Borde
-        $pdf->Cell(0, 10, $row['nombre_instructor'], 1, 1, 'L'); // Borde
+        $pdf->Cell(50, 10, 'Nombre Instructor:',
+         1, 0, 'L'); // Borde
+        $pdf->Cell(0, 10, utf8_decode($row['nombre_instructor']), 1, 1, 'L'); // Borde
         $pdf->Cell(50, 10, 'Correo Instructor:', 1, 0, 'L'); // Borde
         $pdf->Cell(0, 10, $row['correo_instructor'], 1, 1, 'L'); // Borde
         

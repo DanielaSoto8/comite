@@ -32,10 +32,10 @@ if (!isset($_SESSION['nombres']) || !isset($_SESSION['apellidos'])) {
             <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg hidden">
                 <ul class="py-2">
                     <li>
-                        <a href="mi_perfil.php" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Mi Perfil</a>
+                        <a href="mi_perfil.php" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 hidden">Mi Perfil</a>
                     </li>
                     <li>
-                        <a href="op_logout.php" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Cerrar Sesión</a>
+                        <a href="../op_logout.php" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Cerrar Sesión</a>
                     </li>
                 </ul>
             </div>

@@ -5,7 +5,7 @@ require_once('../config/config.php');
 session_start();
 
 // Verificar si el usuario tiene permisos para acceder a esta página
-if (!isset($_SESSION['id_perfil']) || $_SESSION['id_perfil'] != 3) {
+if (!isset($_SESSION['id_perfil']) || $_SESSION['id_perfil'] != 1) {
     header("Location: usuario.php");
     exit;
 }
@@ -70,6 +70,11 @@ if (!$usuario) {
         <div class="mb-4">
             <label for="apellidos" class="block text-green-700 text-sm font-bold mb-2">Apellidos:</label>
             <input type="text" name="apellidos" value="<?php echo htmlspecialchars($usuario['apellidos']); ?>" required 
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-green-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+        </div>
+        <div class="mb-4">
+            <label for="correo_electronico" class="block text-green-700 text-sm font-bold mb-2">Correo Electronico:</label>
+            <input type="text" name="correo_electronico" value="<?php echo htmlspecialchars($usuario['correo_electronico']); ?>" required 
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-green-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
         </div>
 

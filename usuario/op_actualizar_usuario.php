@@ -9,12 +9,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $usuario = $_POST['usuario'];
     $nombres = $_POST['nombres'];
     $apellidos = $_POST['apellidos'];
-    $perfil = $_POST['perfil'];
+    $correo_electronico = $_POST['correo_electronico'];
+    $perfil = $_POST['id_perfil'];
     $estado = $_POST['estado'];
      
 
     // Validación de los datos (esto es opcional, puedes agregar más validaciones si lo deseas)
-    if (empty($id) || empty($usuario) || empty($nombres) || empty($apellidos) || empty($perfil)) {
+    if (empty($usuario) || empty($nombres) || empty($apellidos) ||empty($correo_electronico) || empty($perfil) || empty($estado)) {
         $_SESSION['mensaje'] = "Todos los campos son obligatorios.";
         header("Location: usuario.php");
         exit;
@@ -22,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
         // Preparar la consulta de actualización
-        $consulta = $pdo->prepare("UPDATE usuario SET usuario = ?, nombres = ?, apellidos = ?, id_perfil = ?, estado = ? WHERE id = ?");
+        $consulta = $pdo->prepare("UPDATE usuario SET usuario = ?, nombres = ?, apellidos = ?, correo_electronico = ?, id_perfil = ?, estado = ? WHERE usuario = ?");
         
         // Ejecutar la consulta
-        $consulta->execute([$usuario, $nombres, $apellidos, $perfil, $estado, $id]);
+        $consulta->execute([$usuario, $nombres, $apellidos,$correo_electronico, $perfil, $estado, $usuario]);
 
         // Establecer un mensaje en la sesión que indique que la actualización fue exitosa
         $_SESSION['mensaje'] = 'Usuario actualizado con éxito';
@@ -35,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
 
     } catch (PDOException $e) {
-        echo "Error al actualizar el usuario: " . $e->getMessage();
-        header("Location: index.php");
+        $_SESSION['mensaje'] = "Error al actualizar el usuario: ";
+        header("Location: usuario.php");
     }
 }
 ?>

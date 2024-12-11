@@ -24,6 +24,7 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row['nombres'] . "</td>";
         echo "<td>" . $row['apellidos'] . "</td>";
         echo "<td>" . $row['celular'] . "</td>";
+        echo "<td>" . $row['tipo_documento'] . "</td>";
         echo "<td>" . $row['documento'] . "</td>";
         echo "<td>" . $row['correo_electronico'] . "</td>";
         echo "<td>" . $row['id_grupo'] . "</td>";
@@ -35,6 +36,7 @@ if ($result->num_rows > 0) {
                         data-nombres='{$row['nombres']}' 
                         data-apellidos='{$row['apellidos']}' 
                         data-celular='{$row['celular']}' 
+                        data-tipo_documento='{$row['tipo_documento']}' 
                         data-documento='{$row['documento']}' 
                         data-correo_electronico='{$row['correo_electronico']}' 
                         data-id_grupo='{$row['id_grupo']}' 

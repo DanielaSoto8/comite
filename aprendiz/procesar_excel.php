@@ -39,31 +39,35 @@ if (isset($_FILES['archivo_excel']) && $_FILES['archivo_excel']['error'] == UPLO
         // Procesar cada fila (omitir la cabecera)
         for ($i = 1; $i < count($datos); $i++) {
             $fila = $datos[$i];
-            $documento = $fila[0];
-            $nombres = $fila[1];
-            $apellidos = $fila[2];
-            $celular = $fila[3];
-            $correo_electronico = $fila[4];
-            $estado = $fila[5];
+            $tipo_documento = $fila[3];
+            $documento = $fila[4];
+            $nombres = $fila[0];
+            $apellidos = $fila[1];
+            $celular = $fila[2];
+            $correo_electronico = $fila[5];
+            $id_grupo = $fila[6];
+            $jornada = $fila[7];
+            $programa_formacion = $fila[8];
+            $estado = $fila[9];
 
             // Insertar en la base de datos
-            $stmt = $conn->prepare("INSERT INTO aprendi (documento, nombres, apellidos, celular, correo_electronico, estado) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssss", $documento, $nombres, $apellidos, $celular, $correo_electronico, $estado);
+            $stmt = $conn->prepare("INSERT INTO aprendiz (tipo_documento, documento, nombres, apellidos, celular, correo_electronico, estado, id_grupo, programa_formacion,jornada) VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?)");
+            $stmt->bind_param("ssssssssss", $tipo_documento,$documento, $nombres, $apellidos, $celular, $correo_electronico, $estado,$id_grupo, $programa_formacion,$jornada);
 
             // Ejecutar la consulta
             if (!$stmt->execute()) {
                 $_SESSION["mensaje"] = "Error al insertar el registro: " . $stmt->error;
-                header('Location: instructor.php');
+                header('Location: aprendiz.php');
                 exit();
             }
         }
 
         $_SESSION["mensaje"] = "Datos importados con éxito.";
-        header('Location: instructor.php');
+        header('Location: aprendiz.php');
         exit();
     } catch (Exception $e) {
         $_SESSION["mensaje"] = "Error al procesar el archivo: " . $e->getMessage();
-        header('Location: instructor.php');
+        header('Location: aprendiz.php');
         exit();
     }
 } else {

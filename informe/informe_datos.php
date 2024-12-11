@@ -19,6 +19,7 @@ if ($result) {
         echo "<td>" . $row['nombre_instructor'] . "</td>";
         echo "<td>" . $row['correo_instructor'] . "</td>";
         echo "<td>" . $row['estado'] . "</td>";
+        $disabled = ($row['estado'] === 'Agendado') ? 'disabled' : '';
         echo "<td>
                 <button class='btn btn-warning btn-sm btn-editar' data-toggle='modal' data-target='#modalInforme' 
                         data-id='{$row['id']}' 
@@ -32,8 +33,8 @@ if ($result) {
                         data-documento_instructor='{$row['documento_instructor']}'
                         data-nombre_instructor='{$row['nombre_instructor']}'
                         data-correo_instructor='{$row['correo_instructor']}'
-                        data-estado='{$row['estado']}'>
-                    Editar
+                        data-estado='{$row['estado']}' $disabled>
+                     <i class='fas fa-edit'></i>
                 </button> ";
                 echo "<a href='descargar_pdf.php?id=" . $row['id'] . " title='Descargar PDF'>
         <img src='../img/pdf.png' alt='Descargar PDF' style='width: 24px; height: 24px;'>

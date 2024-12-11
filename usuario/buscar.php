@@ -18,17 +18,15 @@ $buscar = isset($_GET['buscar']) ? $conn->real_escape_string($_GET['buscar']) : 
 
 // Solo ejecutar la consulta si hay un valor de búsqueda
 if (!empty($buscar)) {
+
     // Consulta para buscar registros
-    $sql = "SELECT * FROM aprendiz 
-            WHERE nombres LIKE '%$buscar%' 
-            OR apellidos LIKE '%$buscar%' 
-            OR celular LIKE '%$buscar%' 
-            OR tipo_documento LIKE '%$buscar%'
-            OR documento LIKE '%$buscar%'
-            OR correo_electronico LIKE '%$buscar%' 
-            OR id_grupo  LIKE '%$buscar%' 
-            OR jornada LIKE '%$buscar%'
-            OR programa_formacion LIKE '%$buscar%'
+    $sql = "SELECT * FROM usuario 
+            WHERE usuario LIKE '%$buscar%' 
+            OR contrasenia LIKE '%$buscar%' 
+            OR nombres LIKE '%$buscar%' 
+            OR apellidos LIKE '%$buscar%'
+            OR correo_electronico LIKE '%$buscar%'
+            OR id_perfil LIKE '%$buscar%' 
             OR estado LIKE '%$buscar%'";
 
     $result = $conn->query($sql);
@@ -68,16 +66,15 @@ if (!empty($buscar)) {
     echo "<table>
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Celular</th>
-                    <th>Tipo de Documento</th>
-                    <th>Documento</th>
-                    <th>Correo electrónico</th>
-                    <th>Id Grupo</th>
-                    <th>Jornada</th>
-                    <th>Programa de Formación</th>
+                     <th>ID</th>
+                     <th>Usuario</th>
+                     <th>Contraseña</th>
+                     <th>Nombres</th>
+                     <th>Apellidos</th>
+                     <th>Correo Electronico</th>
+                     <th>Perfil</th>
                     <th>Estado</th>
+                                             
                 </tr>
             </thead>
             <tbody>";
@@ -86,15 +83,12 @@ if (!empty($buscar)) {
         // Mostrar cada registro encontrado
         while ($row = $result->fetch_assoc()) {
             echo "<tr>
+                    <td>{$row['usuario']}</td>
+                    <td>{$row['contrasenia']}</td>
                     <td>{$row['nombres']}</td>
                     <td>{$row['apellidos']}</td>
-                    <td>{$row['celular']}</td>
-                    <td>{$row['tipo_documento']}</td>
-                    <td>{$row['documento']}</td>
                     <td>{$row['correo_electronico']}</td>
-                    <td>{$row['id_grupo']}</td>
-                    <td>{$row['jornada']}</td>
-                    <td>{$row['programa_formacion']}</td>
+                    <td>{$row['id_perfil']}</td>
                     <td>{$row['estado']}</td>
                 </tr>";
         }

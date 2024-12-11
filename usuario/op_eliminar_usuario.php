@@ -3,13 +3,13 @@ require_once('../config/config.php');
 
 session_start();
 
-if ($_SESSION['id_perfil'] === 3 && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_GET['id'];
+if ($_SESSION['id_perfil'] === 1 && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $usuario = $_GET['usuario'];
 
     try {
         // Realizar la eliminación
-        $consulta = $pdo->prepare("DELETE FROM usuario WHERE id=?");
-        $consulta->execute([$id]);
+        $consulta = $pdo->prepare("DELETE FROM usuario WHERE usuario=?");
+        $consulta->execute([$usuario]);
 
         // Establecer mensaje de éxito en la sesión
         $_SESSION['mensaje'] = "Usuario eliminado correctamente.";
@@ -22,7 +22,8 @@ if ($_SESSION['id_perfil'] === 3 && $_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 } else {
-    header("Location: ../index.php");
+    $_SESSION['mensaje'] = "Error al eliminar el usuario: No tiene permisos para esta acción";
+    header("Location: usuario.php");
     exit;
 }
 ?>

@@ -1933,5 +1933,21 @@ body.sidebar-toggled footer.sticky-footer {
 #sugerencias li {
   @apply p-2 cursor-pointer hover:bg-gray-100;
 }
+@media (max-width: 768px) {
+  .overflow-x-auto {
+      overflow-x: auto;
+  }
+}
+
+    /* Establecer el color de texto en negro para los campos del modal */
+    #modalUsuario .form-control {
+        color: black;
+    }
+
+    #modalUsuario label {
+        color: black;
+    }
+
+
 
 

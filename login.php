@@ -1,3 +1,9 @@
+<?php
+session_start();
+$error = isset($_GET['error']) ? $_GET['error'] : null;
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +17,8 @@
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/ruang-admin.min.css" rel="stylesheet">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script> <!-- Script de reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Script de reCAPTCHA -->
 
     <style>
         body {
@@ -100,6 +107,29 @@
             </div>
         </div>
     </div>
+    <?php if ($error): ?>
+    <div id="modalError" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h2 class="text-lg font-semibold mb-4">Error</h2>
+            <p class="text-gray-700">
+                <?php if ($error == 1): ?>
+                    Contraseña incorrecta. Inténtalo nuevamente.
+                <?php elseif ($error == 2): ?>
+                    Usuario no encontrado. Verifica tus credenciales.
+                <?php elseif ($error == 3): ?>
+                    Debes completar el reCAPTCHA para continuar.
+                <?php elseif ($error == 4): ?>
+                    Ocurrió un error en la base de datos. Intenta nuevamente más tarde.
+                <?php endif; ?>
+            </p>
+            <div class="mt-6 text-right">
+                <button onclick="document.getElementById('modalError').style.display='none'" 
+                        class="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Cerrar</button>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
     <!--Login Content-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

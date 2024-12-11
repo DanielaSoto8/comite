@@ -1,11 +1,20 @@
 <?php
 require_once('../config/config.php');
 
+session_start();
+
+// Verifica si el usuario está autenticado
+if (!isset($_SESSION['id'])) {
+    // Si no está autenticado, redirige a la página de inicio de sesión
+    header('Location: ../login.php');
+    exit();
+}
+
 
 include('../config/modal.php');
 
 // Verificar si el usuario tiene permisos para acceder a esta página
-if ($_SESSION['id_perfil'] != 3) {
+if ($_SESSION['id_perfil'] != 1) {
     header("Location: ../index.php");
     exit;
 }
@@ -29,7 +38,7 @@ $consulta_usuarios = $pdo->query("SELECT * FROM usuario");
     <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="../js/ruang-admin.min.js"></script>
     <script type="text/javascript" charset="utf8"
-    src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -96,29 +105,41 @@ $consulta_usuarios = $pdo->query("SELECT * FROM usuario");
                                             <form method="POST">
                                                 <input type="hidden" id="id" name="id">
                                                 <div class="form-group">
-                                                    <label for="usuario">usuario</label>
+                                                    <label for="usuario"
+                                                        class="block text-green-700 text-sm font-bold mb-2">usuario</label>
                                                     <input type="text" class="form-control" id="usuario" name="usuario"
                                                         required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="contrasenia">Contraseña</label>
+                                                    <label for="contrasenia"
+                                                        class="block text-green-700 text-sm font-bold mb-2">Contraseña</label>
                                                     <input type="text" class="form-control" id="contrasenia"
                                                         name="contrasenia" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="nombres">Nombres</label>
+                                                    <label for="nombres"
+                                                        class="block text-green-700 text-sm font-bold mb-2">Nombres</label>
                                                     <input type="text" class="form-control" id="nombres" name="nombres"
                                                         required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="apellidos">Apellidos</label>
+                                                    <label for="apellidos"
+                                                        class="block text-green-700 text-sm font-bold mb-2">Apellidos</label>
                                                     <input type="text" class="form-control" id="apellidos"
                                                         name="apellidos" required>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="correo_electronico"
+                                                        class="block text-green-700 text-sm font-bold mb-2">Correo
+                                                        Electronico</label>
+                                                    <input type="text" class="form-control" id="correo_electronico"
+                                                        name="correo_electronico" required>
+                                                </div>
                                                 <div class="mb-4">
-                                                    <label for="perfil"
+                                                    <label for="id_perfil"
                                                         class="block text-green-700 text-sm font-bold mb-2">Perfil:</label>
-                                                    <select name="perfil" id="perfil" class="form-control" required>
+                                                    <select name="id_perfil" id="id_perfil" class="form-control"
+                                                        required>
                                                         <option value="">Seleccione un perfil</option>
                                                         <?php
                                                         // Consulta para obtener los perfiles
@@ -163,20 +184,21 @@ $consulta_usuarios = $pdo->query("SELECT * FROM usuario");
                             </div>
                             <div class="card-body bg-green-50">
                                 <table id="table-usuario"
-                                    class="table table-bordered table-striped table-hover text-gray-800">
+                                    class="table table-bordered table-striped table-hover text-gray-800 w-full text-sm">
                                     <thead class="bg-green-500 text-white">
                                         <tr>
                                             <th>ID</th>
                                             <th>Usuario</th>
-                                            <th>contraseña</th>
+                                            <th>Contraseña</th>
                                             <th>Nombres</th>
                                             <th>Apellidos</th>
+                                            <th>Correo Electronico</th>
                                             <th>Perfil</th>
                                             <th>Estado</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="bg-white">
                                         <?php
                                         // Incluye el archivo PHP donde se consulta la base de datos y se muestran los registros
                                         include 'usuarios_datos.php';
@@ -248,7 +270,8 @@ $consulta_usuarios = $pdo->query("SELECT * FROM usuario");
                 modal.find('#contrasenia').val(button.data('contrasenia'));
                 modal.find('#nombres').val(button.data('nombres'));
                 modal.find('#apellidos').val(button.data('apellidos'));
-                modal.find('#perfil').val(button.data('perfil'));
+                modal.find('#correo_electronico').val(button.data('correo_electronico'));
+                modal.find('#id_perfil').val(button.data('id_perfil'));
                 modal.find('#estado').val(button.data('estado'));
 
 
@@ -264,23 +287,19 @@ $consulta_usuarios = $pdo->query("SELECT * FROM usuario");
                 modal.find('#contrasenia').val(button.data(''));
                 modal.find('#nombres').val(button.data(''));
                 modal.find('#apellidos').val(button.data(''));
-                modal.find('#perfil').val(button.data(''));
+                modal.find('#id_perfil').val(button.data(''));
                 modal.find('#estado').val(button.data(''));
             }
         });
     </script>
     <script>
-        function abrirModalEliminar(id, nombre) {
-            document.getElementById('deleteUserId').value = id;
+        function abrirModalEliminar(usuario, nombre) {
+            document.getElementById('deleteUserId').value = usuario;
             document.getElementById('userName').innerText = nombre;
             document.getElementById('confirmModal').style.display = 'flex';
         }
 
         function cerrarModal() {
-            document.getElementById('confirmModal').style.display = 'none';
-        }
-
-        function cerrarModalInfo() {
             document.getElementById('modal').style.display = 'none';
             window.location.href = 'usuario.php';
         }

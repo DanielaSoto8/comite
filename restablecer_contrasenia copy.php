@@ -4,7 +4,7 @@ require_once('./config/config.php');
 
 // Validar el token
 $token = $_GET['token'] ?? '';
-$query = $conn->prepare("SELECT usuario FROM password_resets WHERE token = ? AND expires_at > NOW()");
+$query = $conn->prepare("SELECT user_id FROM password_resets WHERE token = ? AND expires_at > NOW()");
 $query->bind_param("s", $token);
 $query->execute();
 $result = $query->get_result();
@@ -15,20 +15,19 @@ if ($result->num_rows == 0) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $newPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $usuario = $result->fetch_assoc()['usuario'];
+    $userId = $result->fetch_assoc()['user_id'];
 
     // Actualizar la contraseña
-    $query = $conn->prepare("UPDATE usuario SET contrasenia = ? WHERE usuario = ?");
-    $query->bind_param("ss", $newPassword, $usuario);
+    $query = $conn->prepare("UPDATE usuario SET contrasenia = ? WHERE id = ?");
+    $query->bind_param("si", $newPassword, $userId);
     $query->execute();
 
     // Eliminar el token usado
     $query = $conn->prepare("DELETE FROM password_resets WHERE user_id = ?");
-    $query->bind_param("i", $usuario);
+    $query->bind_param("i", $userId);
     $query->execute();
 
     echo "Contraseña actualizada con éxito.";
-    header('Location: login.php');
     exit;
 }
 ?>

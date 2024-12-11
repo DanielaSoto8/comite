@@ -23,9 +23,10 @@ if ($result->num_rows > 0) {
         echo "<tr>";
         echo "<td>" . $row['id'] . "</td>";  // Aquí se muestra el 'id'
         echo "<td>" . $row['usuario'] . "</td>";
-        echo "<td>" . $row['contrasenia'] . "</td>"; 
+        echo "<td>" . $row['contrasenia'] . "</td>";
         echo "<td>" . $row['nombres'] . "</td>";
         echo "<td>" . $row['apellidos'] . "</td>";
+        echo "<td>" . $row['correo_electronico'] . "</td>";
         echo "<td>" . $row['id_perfil'] . "</td>";
         echo "<td>" . $row['estado'] . "</td>";
         echo "<td>";
@@ -35,11 +36,12 @@ if ($result->num_rows > 0) {
                         data-contrasenia='{$row['contrasenia']}' 
                         data-nombres='{$row['nombres']}' 
                         data-apellidos='{$row['apellidos']}' 
-                        data-perfil='{$row['id_perfil']}' 
+                        data-correo_electronico='{$row['correo_electronico']}'
+                        data-id_perfil='{$row['id_perfil']}' 
                         data-estado='{$row['estado']}'>
                     <i class='fas fa-edit'></i>  <!-- Ícono de Editar -->
                 </button> ";
-        echo "<button class='btn btn-danger btn-sm' onclick='abrirModalEliminar({$row['id']}, \"{$row['nombres']}\")'>
+        echo "<button class='btn btn-danger btn-sm' onclick='abrirModalEliminar(\"{$row['usuario']}\", \"{$row['nombres']}\")'>
                 <i class='fas fa-trash-alt'></i>  <!-- Ícono de Eliminar -->
             </button>";
         echo "</td>";

@@ -81,10 +81,10 @@ foreach ($informe_aprendices as $aprendiz) {
         $mailContent = "
             <h2>Notificación de Comité</h2>
             <p>Estimado(a) $nombre_aprendiz,</p>
-            <p>Se le informa que tiene un comité programado dado el reporte # <strong>$id_informe</strong> el cual ya había sido notificado.</p>
-            <p><strong>Programación comité:</strong></p>
-            <p><strong>Fecha:</strong> $fecha_inicio a $fecha_fin</p>
-            <p><strong>Lugar:</strong> $lugar</p>
+            Se le informa que tiene un comité programado dado el reporte # <strong>$id_informe</strong> el cual ya había sido notificado.
+            <p><strong>En atención a lo anterior, le informo que usted tiene derecho a presentar sus descargos ante el Comité de Evaluación y Seguimiento del Centro, en forma escrita , así como a controvertir las pruebas allegadas o que se alleguen en su contra y a aportar y/o solicitar la práctica de las pruebas que considere pertinentes.
+            Para la diligencia de presentación de descargos y de recepción de las pruebas, el Comité de Evaluación y seguimiento del Centro ha fijado el dia y hora  $fecha_inicio a $fecha_fin en $lugar 
+            </strong></p>
             <p>Atentamente,</p>
             <p>La coordinación</p>
         ";

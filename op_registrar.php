@@ -8,7 +8,7 @@ if ($_SESSION['permisos'] === '3' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $contrasenia = $_POST['contrasenia'];
     $nombres = $_POST['nombres'];
     $apellidos = $_POST['apellidos'];
-    $id_perfil = 1;
+    $id_perfil = 2;
 
     try {
         // Verificar si el usuario ya existe
