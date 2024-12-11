@@ -221,7 +221,7 @@ $consulta_usuarios = $pdo->query("SELECT * FROM usuario");
                             Cancelar
                         </button>
                         <form id="deleteForm" method="POST" action="op_eliminar_usuario.php">
-                            <input type="hidden" name="id" id="deleteUserId">
+                            <input type="hidden" name="usuario" id="deleteUserId">
                             <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
                                 Eliminar
                             </button>

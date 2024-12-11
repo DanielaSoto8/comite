@@ -1,7 +1,7 @@
 <?php
 // Incluir la configuración de la base de datos
 require_once('../config/config.php');
-
+session_start();
 // Verificar si los datos del formulario fueron enviados
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Recibir los datos del formulario
@@ -36,4 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['mensaje'] = "Error al crear el usuario.";
         
     }
+    header("location: usuario.php");
+    exit;
 }
