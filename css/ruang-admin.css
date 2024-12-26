@@ -1947,6 +1947,9 @@ body.sidebar-toggled footer.sticky-footer {
     #modalUsuario label {
         color: black;
     }
+    .dataTables_filter {
+      text-align: right; /* Alinea el buscador al lado derecho */
+  }
 
 
 
